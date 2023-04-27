@@ -8,6 +8,12 @@
     <div class="container mt-lg-5 pt-5">
         <div class="row align-items-center justify-content-center">
             <div class="col-lg-6 mb-5">
+                {% if request.user.is_authenticated %}
+                <h3 class="text-capitalize text-white mb-4">Welcome {{ request.user.first_name}}!</h3>
+                {% else %}
+                <p class="text-danger">You are not logged in, log in to bookmark scholarships!</p>
+                {% endif %}
+
                 <div class="block text-center text-lg-start pe-0 pe-xl-5">
                     <h1 class="text-capitalize text-white mb-4">Scholarship and Internship finder</h1>
                     <p class="mb-4">verified listing curated for you.

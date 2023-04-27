@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Wallet - Payday Loan Service Template</title>
+    <title>Capply - A capstone project</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     <meta name="description" content="Scholarship">
     <meta name="author" content="Capply">
     
-    <link rel="shortcut icon" href="static/images/favicon.png" type="image/x-icon">
-    <link rel="icon" href="static/images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="static/images/capply_icon.png" type="image/x-icon">
+    <link rel="icon" href="static/images/capply_icon.png" type="image/x-icon">
 
     {% load bootstrap5 %}
 
@@ -101,8 +101,13 @@
                         <li class="nav-item "> <a class="nav-link" href="services.html">Account</a>
                         </li>
                     </ul>
+                    {% if request.user.is_authenticated %}
+                    <!-- profile btn --><a href="#!" class="btn btn-outline-primary">My profile</a>
+                    <!-- logout btn --> <a href="#!" class="btn btn-primary">Log out</a>                    
+                    {% else %}
                     <!-- account btn --> <a href="#!" class="btn btn-outline-primary">Log In</a>
-                    <!-- account btn --> <a href="#!" class="btn btn-primary">Sign Up</a>
+                    <!-- account btn --> <a href="#!" class="btn btn-primary">Sign Up</a>                    
+                    {% endif %}
                 </div>
             </div>
         </nav>
@@ -170,8 +175,14 @@
                         <li class="nav-item "> <a class="nav-link" href="services.html">Account</a>
                         </li>
                     </ul>
-                    <!-- account btn --> <a href="#!" class="btn btn-outline-primary">Log In</a>
-                    <!-- account btn --> <a href="#!" class="btn btn-primary">Sign Up</a>
+                    {% if request.user.is_authenticated %}
+                    <!-- profile btn --><a href={% url 'profile' %} class="btn btn-outline-primary">My profile</a>
+                    <!-- logout btn --> <a href={% url 'logout' %} class="btn btn-primary">Log out</a>                    
+                    {% else %}
+                    <!-- account btn --> <a href={% url 'login' %} class="btn btn-outline-primary">Log In</a>
+                    <!-- account btn --> <a href={% url 'register' %} class="btn btn-primary">Sign Up</a>
+                    {% endif %}
+
                 </div>
             </div>
         </nav>
