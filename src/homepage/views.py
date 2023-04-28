@@ -57,3 +57,11 @@ def logout(request):
 def profile(request):
     return render(request,"user/profile.html")
 
+
+# For Category
+def listing_category(request):
+    return render(request,"category/list_view.html")
+
+def show_category(request):
+    return render(request,"category/category.html")
+
