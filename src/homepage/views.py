@@ -28,7 +28,7 @@ def register(request):
                 return redirect('login')
 
     else:
-        return render(request, "register.html")
+        return render(request, "user/register.html")
 
 
 def login(request):
@@ -47,7 +47,7 @@ def login(request):
             return redirect('login')
     
     else:
-        return render(request, "login.html")
+        return render(request, "user/login.html")
 
 
 def logout(request):
@@ -55,5 +55,5 @@ def logout(request):
     return redirect('home')
 
 def profile(request):
-    return render(request,"profile.html")
+    return render(request,"user/profile.html")
 
