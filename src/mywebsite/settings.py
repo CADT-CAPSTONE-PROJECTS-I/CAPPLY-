@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'homepage',  #pich
     'bootstrap5',
     'fontawesomefree',
+    # 'scholarship',
+    'category',
 ]
 
 MIDDLEWARE = [

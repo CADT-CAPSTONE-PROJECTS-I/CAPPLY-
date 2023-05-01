@@ -33,7 +33,7 @@ ul.pagination li a {
 }
 
 ul.pagination .active a {
-  background-color: #1B3764 !important;
+  background-color: #f3b415 !important;
   color: #fff !important;
   border-color: transparent !important;
 }
@@ -384,7 +384,7 @@ ul.pagination li a {
 }
 
 ul.pagination li a:hover {
-  background-color: var(--bs-blue) !important;
+  background-color: #f3b415 !important;
   color: #fff !important;
   border-color: transparent !important;
 }
