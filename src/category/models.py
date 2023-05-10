@@ -33,7 +33,6 @@ class Country(models.Model):
 class Scholarship(models.Model):
     id = models.BigAutoField(primary_key=True)
     level = models.CharField(max_length=255)
-    study_field = models.CharField(max_length=255)
     school = models.CharField(max_length=255)
     deadline = models.DateField()
     more_info = models.TextField()
