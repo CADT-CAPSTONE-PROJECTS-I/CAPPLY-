@@ -22,7 +22,7 @@ for i in range (1, 41):
             level = lvl[1]
             study_field = 'option'
             deadline = 'more'
-            c.execute('''INSERT INTO category_scholarship VALUES(?,?,?,?,?,?,?,?)''',(None, level, study_field, school, deadline, more_info, web_link, country))
+            c.execute('''INSERT INTO category_scholarship VALUES(?,?,?,?,?,?,?)''',(None, level, school, deadline, more_info, web_link, country))
 
 conn.commit()
 print('complete.')

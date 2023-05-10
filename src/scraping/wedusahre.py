@@ -20,7 +20,7 @@ for i in range(1, 17):
             country = countries.span.text
             level = link.find_all('span', class_ = 'text-muted text-sm')[1].text
             study_field = 'option'
-            c.execute('''INSERT INTO category_scholarship VALUES(?,?,?,?,?,?,?,?)''',(None, level, study_field, school, deadline, more_info, link_web, country))
+            c.execute('''INSERT INTO category_scholarship VALUES(?,?,?,?,?,?,?)''',(None, level, school, deadline, more_info, link_web, country))
             
 conn.commit()
 print('complete.')
