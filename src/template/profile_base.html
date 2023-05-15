@@ -56,7 +56,7 @@
     <header class="navigation fixed-top">
         <nav class="navbar navbar-expand-xl navbar-light text-center py-3">
             <div class="container">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="{% url 'home' %}">
                     <img loading="prelaod" decoding="async" class="img-fluid" width="160" src="static/images/logo.svg"
                         alt="capply">
                 </a>
@@ -112,7 +112,6 @@
                  
                     </ul>
                     {% if request.user.is_authenticated %}
-                    <!-- profile btn --><a href="{% url 'profile' %}" class="btn btn-outline-primary">My profile</a>
                     <!-- logout btn --> <a href="{% url 'logout' %}" class="btn btn-primary">Log out</a>
                     {% else %}
                     <!-- account btn --> <a href="{% url 'login' %}" class="btn btn-outline-primary">Log In</a>
@@ -138,7 +137,7 @@
             <div class=" row justify-content-between mt-5 text-center text-md-start">
                 <div class="col-lg-3 mt-5">
                     <div class="footer-widget">
-                        <a href="{% url 'home' %}">
+                        <a href="index.html">
                             <img loading="prelaod" decoding="async" class="img-fluid" width="160"
                                 src="static/images/logo.svg" alt="Wallet">
                         </a>

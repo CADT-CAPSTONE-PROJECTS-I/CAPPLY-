@@ -15,6 +15,7 @@ def register(request):
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
+
         confirm_password = request.POST['confirm_password']
         if password ==confirm_password:
             if User.objects.filter(username=username).exists():
@@ -40,7 +41,7 @@ def login(request):
         
         if user is not None:
             auth.login(request, user)
-            return redirect('home')
+            return redirect('profile')
     
         else:
             messages.info(request, 'Invalid Credentials.')
