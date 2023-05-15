@@ -8,7 +8,6 @@
     <section class="vh-100" style="background-color: #eee;">
           <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
-            
             <div class="col-md-12 col-xl-4">
       
               <div class="card" style="border-radius: 15px;">
@@ -17,6 +16,12 @@
                     <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
                       class="rounded-circle img-fluid" style="width: 100px;" />
                   </div>
+                  <div class="btn-group btn-group-toggle" >
+                    <a href="{% url 'home' %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'home' %}" class="btn btn-primary">My CV</a>
+                    <a href="{% url 'home' %}" class="btn btn-primary">Browsed</a>
+                  </div>
+                  <br><br>
                   <h4 class="mb-2">{{ request.user.first_name}} {{ request.user.last_name}}</h4>
                   <p class="text-muted mb-4">@{{ request.user.username}} <span class="mx-2"></p>
                   
