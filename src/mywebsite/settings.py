@@ -38,10 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'homepage',  #pich
+    'homepage', 
     'bootstrap5',
     'fontawesomefree',
-    # 'scholarship',
     'category',
 ]
 

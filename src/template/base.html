@@ -27,20 +27,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <!-- # CSS Plugins -->
-    <!-- <link rel="stylesheet" href="plugins/slick/slick.css"> -->
-    <!-- <link rel="stylesheet" href="static/plugins/fontawesome.min.css">
-    <link rel="stylesheet" href="static/plugins/font-awesome/brands.css">
-    <link rel="stylesheet" href="static/plugins/font-awesome/solid.css"> -->
 
     <!-- # Main Style Sheet -->
-
-    
-
-    {% url 'category' as category %}
+    {% url 'scholarship' as scholarship %}
     {% url 'home' as home %}
 
-    {% if request.path == category %}
+    {% if request.path == scholarship %}
     {% include 'category/snippets/css_snippets.html' %}
     {% else %}
     {% include 'homepage/snippets/css_snippets_home.html' %}
@@ -49,8 +41,6 @@
 </head>
 
 <body>
-
-
 
     <!-- navigation -->
     <header class="navigation fixed-top">
@@ -68,33 +58,15 @@
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                         <li class="nav-item"> <a class="nav-link" href="{% url 'home' %}">Home</a>
                         </li>
-                        <li class="nav-item "> <a class="nav-link" href="about.html">About</a>
+                        <li class="nav-item "> <a class="nav-link" href="">About</a>
                         </li>
-                        <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="{% url 'category' %}" id="navbarDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">Scholarship</a>
+                        <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle"
+                                href="{% url 'scholarship' %}" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">Scholarship</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item " href="{% url 'category' %}">Blog</a>
+                                <li><a class="dropdown-item " href="{% url 'scholarship' %}">Blog</a>
                                 </li>
-                                <li><a class="dropdown-item " href="blog-details.html">Blog Details</a>
-                                </li>
-                                <li><a class="dropdown-item " href="service-details.html">Service Details</a>
-                                </li>
-                                <li><a class="dropdown-item " href="faq.html">FAQ&#39;s</a>
-                                </li>
-                                <li><a class="dropdown-item " href="legal.html">Legal</a>
-                                </li>
-                                <li><a class="dropdown-item " href="terms.html">Terms &amp; Condition</a>
-                                </li>
-                                <li><a class="dropdown-item " href="privacy-policy.html">Privacy &amp; Policy</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">Internship</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item " href="blog.html">Blog</a>
-                                </li>
-                                <li><a class="dropdown-item " href="blog-details.html">Blog Details</a>
+                                <li><a class="dropdown-item " href="">Blog Details</a>
                                 </li>
                                 <li><a class="dropdown-item " href="">Service Details</a>
                                 </li>
@@ -109,7 +81,7 @@
                             </ul>
                         </li>
                         <li class="nav-item "> <a class="nav-link" href="">Contact</a>
-                 
+
                     </ul>
                     {% if request.user.is_authenticated %}
                     <!-- profile btn --><a href="{% url 'profile' %}" class="btn btn-outline-primary">My profile</a>
@@ -178,9 +150,9 @@
                             </li>
                             <li class="mb-2"><a href="">About</a>
                             </li>
-                            <li class="mb-2"><a href="{% url 'category' %}">Scholarship</a>
+                            <li class="mb-2"><a href="{% url 'scholarship' %}">Scholarship</a>
                             </li>
-                            <li class="mb-2"><a href="{% url 'category' %}">Internship</a>
+                            <li class="mb-2"><a href="{% url 'scholarship' %}">Internship</a>
                             </li>
                             <li class="mb-2"><a href="">Contact</a>
                             </li>
