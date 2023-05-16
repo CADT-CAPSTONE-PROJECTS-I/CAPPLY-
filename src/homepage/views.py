@@ -38,15 +38,17 @@ def login(request):
         password = request.POST['password']
 
         user = auth.authenticate(username= username, password=password)
+        if request.user.is_staff:
+            # auth.login(request, user)
+            return redirect('admin/')
         
-        if user is not None:
+        elif user is not None:
             auth.login(request, user)
             return redirect('profile')
     
         else:
             messages.info(request, 'Invalid Credentials.')
             return redirect('login')
-    
     else:
         return render(request, "user/login.html")
 

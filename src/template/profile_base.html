@@ -37,10 +37,10 @@
 
     
 
-    {% url 'category' as category %}
+    {% url 'scholarship' as scholarship %}
     {% url 'home' as home %}
 
-    {% if request.path == category %}
+    {% if request.path == scholarship %}
     {% include 'category/snippets/css_snippets.html' %}
     {% else %}
     {% include 'homepage/snippets/css_snippets_home.html' %}
@@ -70,10 +70,10 @@
                         </li>
                         <li class="nav-item "> <a class="nav-link" href="about.html">About</a>
                         </li>
-                        <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="{% url 'category' %}" id="navbarDropdown"
+                        <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="{% url 'scholarship' %}" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">Scholarship</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item " href="{% url 'category' %}">Blog</a>
+                                <li><a class="dropdown-item " href="{% url 'scholarship' %}">Blog</a>
                                 </li>
                                 <li><a class="dropdown-item " href="blog-details.html">Blog Details</a>
                                 </li>
@@ -177,9 +177,9 @@
                             </li>
                             <li class="mb-2"><a href="">About</a>
                             </li>
-                            <li class="mb-2"><a href="{% url 'category' %}">Scholarship</a>
+                            <li class="mb-2"><a href="{% url 'scholarship' %}">Scholarship</a>
                             </li>
-                            <li class="mb-2"><a href="{% url 'category' %}">Internship</a>
+                            <li class="mb-2"><a href="{% url 'scholarship' %}">Internship</a>
                             </li>
                             <li class="mb-2"><a href="">Contact</a>
                             </li>
