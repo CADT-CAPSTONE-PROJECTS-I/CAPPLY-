@@ -38,8 +38,8 @@ def login(request):
         password = request.POST['password']
 
         user = auth.authenticate(username= username, password=password)
-        if request.user.is_staff:
-            # auth.login(request, user)
+        if user.is_staff or user.is_superuser :
+            auth.login(request, user)
             return redirect('admin/')
         
         elif user is not None:
