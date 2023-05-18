@@ -5,7 +5,7 @@ import sqlite3
 conn = sqlite3.connect('src/db.sqlite3')
 c = conn.cursor()
 
-for i in range (1, 4):
+for i in range (1, 3):
     web_link = f'https://www.scholars4dev.com/page/{i}/'
     r = requests.get(web_link)
     soup = BeautifulSoup(r.content, 'lxml')
@@ -18,16 +18,18 @@ for i in range (1, 4):
             school = info.find('h2').text
             country = info.find(string=lambda text: 'study' in text.lower())
             if country:
-                country = country.text
+                country = country.text.strip().split(':')[-1].strip()
+
             level = info.find(string=lambda text: 'degree' in text.lower())
             if level:
-                level = level.text
+                level = level.text.strip()
+                
             deadline = info.find(string=lambda text: '2023' in text.lower())
             if deadline:
                 deadline = deadline.text
 
             c.execute('''INSERT INTO category_scholarship VALUES(?,?,?,?,?,?,?)''',(None, level, school, deadline, more_info, web_link, country))
-            
+              
 conn.commit()
 print('complete.')
 

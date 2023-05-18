@@ -15,15 +15,11 @@ for i in range (1, 41):
             link = info.find('a', class_ = 'prdct_lnk').get('href')
             more_info = 'https://www.idp.com' + link
             schools = info.find('div', class_ = 'ins_cnt')
-            school = schools.a.text
-            coun = schools.p.text.split()
-            country = coun[2]
-            lvl = info.find('div', class_ = 'media_txt').text.split()
-            level = lvl[1]
-            study_field = 'option'
+            school = schools.a.text.strip() 
+            country = schools.p.text.strip().split(',')[-1].strip()
+            level = info.find('div', class_ = 'media_txt').text.strip().split('Qualification')[-1].strip()
             deadline = 'more'
             c.execute('''INSERT INTO category_scholarship VALUES(?,?,?,?,?,?,?)''',(None, level, school, deadline, more_info, web_link, country))
-
 conn.commit()
 print('complete.')
 
