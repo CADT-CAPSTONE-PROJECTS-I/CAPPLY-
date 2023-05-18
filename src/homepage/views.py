@@ -52,10 +52,11 @@ def login(request):
         elif user is not None:
             auth.login(request, user)
             return redirect('profile')
-    
         else:
             messages.info(request, 'Invalid Credentials.')
             return redirect('login')
+    elif request.user.is_authenticated:
+        return redirect('home')
     else:
         return render(request, "user/login.html")
 
