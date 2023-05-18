@@ -112,7 +112,10 @@
                  
                     </ul>
                     {% if request.user.is_authenticated %}
-                    <!-- logout btn --> <a href="{% url 'logout' %}" class="btn btn-primary">Log out</a>
+                        {% if request.user.is_staff or request.user.is_superuser %}
+                        <!-- account btn --> <a href="{% url 'admin:index' %}" class="btn btn-outline-primary">Dashboard</a>
+                        <!-- logout btn --> <a href="{% url 'logout' %}" class="btn btn-primary">Log out</a>
+                        {% endif %}
                     {% else %}
                     <!-- account btn --> <a href="{% url 'login' %}" class="btn btn-outline-primary">Log In</a>
                     <!-- account btn --> <a href="{% url 'register' %}" class="btn btn-primary">Sign Up</a>
