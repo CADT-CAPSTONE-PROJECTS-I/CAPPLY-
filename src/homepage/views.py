@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 # Create your views here.
 
 def homepage(request):
-    if request.user.is_authenticated:
+    # if request.user.is_authenticated:
     #     if request.user.is_staff or request.user.is_superuser:
     #         return redirect('admin/')
     #     else:
