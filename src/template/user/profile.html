@@ -17,9 +17,11 @@
                       class="rounded-circle img-fluid" style="width: 100px;" />
                   </div>
                   <div class="btn-group btn-group-toggle" >
+                    
                     <a href="{% url 'home' %}" class="btn btn-primary">Edit</a>
                     <a href="{% url 'home' %}" class="btn btn-primary">My CV</a>
                     <a href="{% url 'home' %}" class="btn btn-primary">Browsed</a>
+                    
                   </div>
                   <br><br>
                   <h4 class="mb-2">{{ request.user.first_name}} {{ request.user.last_name}}</h4>

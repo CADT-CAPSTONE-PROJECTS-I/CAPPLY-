@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from homepage.views import homepage, register, login, logout, profile, show_category
+from homepage.views import homepage, register, login, logout, profile, show_category, scrap_scholarship
 
 urlpatterns = [
     path('admin/', admin.site.urls),

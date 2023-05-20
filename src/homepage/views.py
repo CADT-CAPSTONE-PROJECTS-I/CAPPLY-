@@ -1,7 +1,9 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.shortcuts import redirect
+import scraping
 
 # Create your views here.
 
@@ -75,4 +77,5 @@ def listing_category(request):
 
 def show_category(request):
     return render(request,"category/category.html")
+
 
