@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import  Country, Scholarship
+from .models import  Country, Scholarship, Profile
 
 class CountryAdmin(admin.ModelAdmin):
     list_display = ('id','name', 'continent')
@@ -12,8 +12,8 @@ class ScholarshipAdmin(admin.ModelAdmin):
     list_display_links = ('id','level', 'school', 'deadline','more_info', 'country')
 
 
-
 # Register your models here.
 # admin.site.register(continent )
 admin.site.register(Country, CountryAdmin)
 admin.site.register(Scholarship, ScholarshipAdmin)
+admin.site.register(Profile)
