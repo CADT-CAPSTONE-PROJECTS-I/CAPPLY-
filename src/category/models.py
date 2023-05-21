@@ -44,4 +44,13 @@ class Scholarship(models.Model):
     # file = models.FileField(upload_to="documents/%Y/%m/%d", validators=[validate_file_extension])
 
 
-    
+class Profile(models.Model):
+    user = models.OneToOneField(User, null  =True, on_delete = models.CASCADE)
+    profile = models.ImageField(User, null = True, blank = True, upload_to = r"C:\Project\CAPPLY-\CAPPLY--1\src\template\user\profile_pictures")
+    bio = models.TextField(max_length=124, null = True, blank = True)
+    school = models.TextField(max_length=30, null = True, blank = True)
+    phone = models.TextField(max_length=10, null = True, blank = True)
+    major = models.TextField(null = True, blank = True)
+
+    def __str__(self):
+        return str(self.user) 
