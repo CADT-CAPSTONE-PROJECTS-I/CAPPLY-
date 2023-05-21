@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
@@ -65,6 +64,7 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('home')
+import scraping
 
 def profile(request):
     return render(request,"user/profile.html")
@@ -76,3 +76,5 @@ def listing_category(request):
 
 def show_category(request):
     return render(request,"category/category.html")
+
+

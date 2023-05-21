@@ -1,7 +1,6 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from homepage.views import homepage, register, login, logout, profile, show_category
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',homepage, name="home"),
