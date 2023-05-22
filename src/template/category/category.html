@@ -7,23 +7,17 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-9 mx-auto">
-					<h1 class="mb-5  pt-5 text-white">Asia</h1>
+					<h1 class="mb-5  pt-5 text-white">Tags</h1>
 					<ul class="widget-list-inline ">
-						<li class="list-inline-item"><a href="" class="text-white">Afghanistan</a></li>
-						<li class="list-inline-item"><a href=" " class="text-white">Loas</a></li>
-						<li class="list-inline-item"><a href=" " class="text-white">Armenia</a></li>
-						<li class="list-inline-item"><a href=" " class="text-white">Lebanon</a></li>
-						<li class="list-inline-item"><a href=" " class="text-white">Azerbaijan</a></li>
-						<li class="list-inline-item"><a href=" " class="text-white">Armenia</a></li>
-						<li class="list-inline-item"><a href=" " class="text-white">Macau</a></li>
-						<li class="list-inline-item"><a href=" " class="text-white">Bahrian</a></li>
-						<li class="list-inline-item"><a href=" " class="text-white">Malaysia</a></li>
-						<li class="list-inline-item"><a href=" " class="text-white">Bangladesh</a></li>
-						<li class="list-inline-item"><a href=" " class="text-white">Madives</a></li>
-						<li class="list-inline-item"><a href=" " class="text-white">Bhutan</a></li>
-						<li class="list-inline-item"><a href=" " class="text-white">Tasty</a></li>
-						<li class="list-inline-item"><a href=" " class="text-white">Vlog</a></li>
-						<li class="list-inline-item"><a href=" " class="text-white">Wow</a></li>
+
+						{% regroup scholarships by country as scholarship_groups %}
+						
+						{% for group in scholarship_groups %}
+						<!-- <h1>{{ group.grouper }}</h1> -->
+						{% for scholarship in group.list %}
+						<li class="list-inline-item"><a href="" class="text-white">{{ scholarship.country }}</a></li>
+						{% endfor %}
+						{% endfor %}
 					</ul>
 				</div>
 			</div>
@@ -38,20 +32,20 @@
 					<div class="widget category-list">
 						<h4 class="widget-header">All Category</h4>
 						<ul class="category-list">
-							<li><a href="category.html">Scholarships <span>93</span></a></li>
-							<li><a href="category.html">Internships <span>233</span></a></li>
+							<li><a href=" ">Scholarships <span>93</span></a></li>
+							<li><a href=" ">Internships <span>233</span></a></li>
 						</ul>
 					</div>
 
 					<div class="widget category-list">
 						<h4 class="widget-header">Most Popular Countries</h4>
 						<ul class="category-list">
-							<li><a href="category.html">New York <span>93</span></a></li>
-							<li><a href="category.html">New Jersy <span>233</span></a></li>
-							<li><a href="category.html">Florida <span>183</span></a></li>
-							<li><a href="category.html">California <span>120</span></a></li>
-							<li><a href="category.html">Texas <span>40</span></a></li>
-							<li><a href="category.html">Alaska <span>81</span></a></li>
+							<li><a href="">New York <span>93</span></a></li>
+							<li><a href=" ">New Jersy <span>233</span></a></li>
+							<li><a href=" ">Florida <span>183</span></a></li>
+							<li><a href=" ">California <span>120</span></a></li>
+							<li><a href=" ">Texas <span>40</span></a></li>
+							<li><a href=" ">Alaska <span>81</span></a></li>
 						</ul>
 					</div>
 
@@ -88,231 +82,51 @@
 				</div>
 				<div class="product-grid-list">
 					<div class="row mt-30">
-						<div class="col-lg-4 col-md-6">
-							<!-- product card -->
-							<div class="product-item bg-light">
-								<div class="card">
-									<div class="thumb-content" >
-										<!-- <div class="price">$200</div> -->
-										<a href="single.html">
-											<img class="card-img-top img-fluid" src="static/images/category/p1.jpeg"
-												alt="Card image cap">
-										</a>
-									</div>
-									<div class="card-body">
-										<h4 class="card-title"><a href="single.html">IU International University of
-												Applied Sciences</a></h4>
-										<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing
-											elit. Explicabo, aliquam!</p>
-									</div>
-								</div>
-							</div>
-
-
-
-						</div>
+						{% for scholarship in scholarships %}
 						<div class="col-lg-4 col-md-6">
 							<!-- product card -->
 							<div class="product-item bg-light">
 								<div class="card">
 									<div class="thumb-content">
-										<!-- <div class="price">$200</div> -->
-										<a href="single.html">
+										<!-- <a href="scholarship/{{scholarship.id}}"> -->
+											<a href="{{ scholarship.get_absolute_url }}">
 											<img class="card-img-top img-fluid" src="static/images/category/p2.jpg"
 												alt="Card image cap">
 										</a>
 									</div>
 									<div class="card-body">
-										<h4 class="card-title"><a href="single.html">IU International University of
-												Applied Sciences</a></h4>
-										<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing
-											elit. Explicabo, aliquam!</p>
+										<h4 class="card-title"><a href="single.html">{{scholarship.school}}</a></h4>
+										<p class="card-text">Open: {{scholarship.level}}<br>
+											Close: {{scholarship.deadline}}<br>
+											Country: {{scholarship.country}}<br></p>
 									</div>
 								</div>
 							</div>
-
-
-
 						</div>
-						<div class="col-lg-4 col-md-6">
-							<!-- product card -->
-							<div class="product-item bg-light">
-								<div class="card">
-									<div class="thumb-content">
-										<!-- <div class="price">$200</div> -->
-										<a href="single.html">
-											<img class="card-img-top img-fluid" src="static/images/category/p3.jpg"
-												alt="Card image cap">
-										</a>
-									</div>
-									<div class="card-body">
-										<h4 class="card-title"><a href="single.html">IU International University of
-												Applied Sciences</a></h4>
-										<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing
-											elit. Explicabo, aliquam!</p>
-									</div>
-								</div>
-							</div>
+						{% endfor %}
 
-						</div>
-						<div class="col-lg-4 col-md-6">
-							<!-- product card -->
-							<div class="product-item bg-light">
-								<div class="card">
-									<div class="thumb-content">
-										<!-- <div class="price">$200</div> -->
-										<a href="single.html">
-											<img class="card-img-top img-fluid" src="static/images/category/p4.jpg"
-												alt="Card image cap">
-										</a>
-									</div>
-									<div class="card-body">
-										<h4 class="card-title"><a href="single.html">IU International University of
-												Applied Sciences</a></h4>
-										<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing
-											elit. Explicabo, aliquam!</p>
-									</div>
-								</div>
-							</div>
-
-
-
-						</div>
-						<div class="col-lg-4 col-md-6">
-							<!-- product card -->
-							<div class="product-item bg-light">
-								<div class="card">
-									<div class="thumb-content">
-										<!-- <div class="price">$200</div> -->
-										<a href="single.html">
-											<img class="card-img-top img-fluid" src="static/images/category/p2.jpg"
-												alt="Card image cap">
-										</a>
-									</div>
-									<div class="card-body">
-										<h4 class="card-title"><a href="single.html">IU International University of
-												Applied Sciences</a></h4>
-										<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing
-											elit. Explicabo, aliquam!</p>
-									</div>
-								</div>
-							</div>
-
-
-
-						</div>
-						<div class="col-lg-4 col-md-6">
-							<!-- product card -->
-							<div class="product-item bg-light">
-								<div class="card">
-									<div class="thumb-content">
-										<!-- <div class="price">$200</div> -->
-										<a href="single.html">
-											<img class="card-img-top img-fluid" src="static/images/category/p2.jpg"
-												alt="Card image cap">
-										</a>
-									</div>
-									<div class="card-body">
-										<h4 class="card-title"><a href="single.html">IU International University of
-												Applied Sciences</a></h4>
-										<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing
-											elit. Explicabo, aliquam!</p>
-									</div>
-								</div>
-							</div>
-
-
-
-						</div>
-						<div class="col-lg-4 col-md-6">
-							<!-- product card -->
-							<div class="product-item bg-light">
-								<div class="card">
-									<div class="thumb-content">
-										<!-- <div class="price">$200</div> -->
-										<a href="single.html">
-											<img class="card-img-top img-fluid" src="static/images/category/p2.jpg"
-												alt="Card image cap">
-										</a>
-									</div>
-									<div class="card-body">
-										<h4 class="card-title"><a href="single.html">IU International University of
-												Applied Sciences</a></h4>
-										<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing
-											elit. Explicabo, aliquam!</p>
-									</div>
-								</div>
-							</div>
-
-
-
-						</div>
-						<div class="col-lg-4 col-md-6">
-							<!-- product card -->
-							<div class="product-item bg-light">
-								<div class="card">
-									<div class="thumb-content">
-										<!-- <div class="price">$200</div> -->
-										<a href="single.html">
-											<img class="card-img-top img-fluid" src="static/images/category/p2.jpg"
-												alt="Card image cap">
-										</a>
-									</div>
-									<div class="card-body">
-										<h4 class="card-title"><a href="single.html">IU International University of
-												Applied Sciences</a></h4>
-										<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing
-											elit. Explicabo, aliquam!</p>
-									</div>
-								</div>
-							</div>
-
-
-
-						</div>
-						<div class="col-lg-4 col-md-6">
-							<!-- product card -->
-							<div class="product-item bg-light">
-								<div class="card">
-									<div class="thumb-content">
-										<!-- <div class="price">$200</div> -->
-										<a href="single.html">
-											<img class="card-img-top img-fluid" src="static/images/category/p2.jpg"
-												alt="Card image cap">
-										</a>
-									</div>
-									<div class="card-body">
-										<h4 class="card-title"><a href="single.html">IU International University of
-												Applied Sciences</a></h4>
-										<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing
-											elit. Explicabo, aliquam!</p>
-									</div>
-								</div>
-							</div>
-
-
-
-						</div>
 					</div>
 				</div>
 				<div class="pagination justify-content-center">
 					<nav aria-label="Page navigation example">
 						<ul class="pagination">
-							<li class="page-item">
-								<a class="page-link" href="category.html" aria-label="Previous">
-									<span aria-hidden="true">&laquo;</span>
-									<span class="sr-only">Previous</span>
-								</a>
-							</li>
-							<li class="page-item"><a class="page-link" href="category.html">1</a></li>
-							<li class="page-item active"><a class="page-link" href="category.html">2</a></li>
-							<li class="page-item"><a class="page-link" href="category.html">3</a></li>
-							<li class="page-item">
-								<a class="page-link" href="category.html" aria-label="Next">
-									<span aria-hidden="true">&raquo;</span>
-									<span class="sr-only">Next</span>
-								</a>
-							</li>
+
+							{% if scholarships.has_previous %}
+							<li class="page-item"><a class="page-link" href="?page=1">&laquo 1</a></li>
+							<li class="page-item"><a class="page-link"
+									href="?page={{scholarships.previous_page_number}}"><strong>
+										< </strong></a></li>
+							{% endif %}
+							<li class="page-item active"><a class="page-link"
+									href="?page={{scholarships.paginator.num_pages}}">{{scholarships.number}} </a></li>
+							{% if scholarships.has_next %}
+
+							<li class="page-item"><a class="page-link"
+									href="?page={{scholarships.next_page_number}}">></a></li>
+							<li class="page-item"><a class="page-link"
+									href="?page={{scholarships.paginator.num_pages}}">{{scholarships.paginator.num_pages}}
+									&raquo</a></li>
+							{% endif %}
 						</ul>
 					</nav>
 				</div>
