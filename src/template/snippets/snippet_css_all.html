@@ -1,0 +1,33 @@
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<meta name="description" content="Scholarship">
+<meta name="author" content="Capply">
+
+<link rel="shortcut icon" href="static/images/capply_icon.png" type="image/x-icon">
+<link rel="icon" href="static/images/capply_icon.png" type="image/x-icon">{% load bootstrap5 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% load static %}
+<link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+<!-- theme meta -->
+<meta name="theme-name" content="capply" />
+
+<!-- # Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+
+
+<!-- # Main Style Sheet -->
+{% url 'scholarship' as scholarship %}
+{% url 'home' as home %}
+
+{% if request.path == scholarship %}
+{% include 'category/snippets/css_snippets.html' %}
+{% else %}
+{% include 'homepage/snippets/css_snippets_home.html' %}
+{% endif %}
+<link rel="stylesheet" type="text/css" href="static/css/base.css">

@@ -4117,6 +4117,8 @@ h6,
     border-radius: 50%;
     transition: 0.3s;
     transform: rotate(25deg);
+    
+    border: 1px solid var(--bs-blue) !important;
 }
 
 .btn.w-100::after,
@@ -4137,7 +4139,7 @@ h6,
 .btn.focus {
     outline: 0;
     box-shadow: none !important;
-    text-decoration: none;
+    /* text-decoration: none; */
 }
 
 .btn:hover::after,
@@ -4166,6 +4168,7 @@ h6,
 .btn-primary.focus {
     background-color: var(--bs-yellow) !important;
     color: var(--bs-blue) !important;
+    border: 1px solid var(--bs-blue) !important;
 }
 
 .btn-primary.w-100:hover,
