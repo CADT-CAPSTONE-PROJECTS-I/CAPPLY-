@@ -79,4 +79,3 @@ def listing_category(request):
 def show_category(request):
     return render(request,"category/category.html")
 
-
