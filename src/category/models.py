@@ -43,14 +43,19 @@ class Scholarship(models.Model):
     
     # file = models.FileField(upload_to="documents/%Y/%m/%d", validators=[validate_file_extension])
 
+MAJOR_LIST = (
+    ('computer science', 'COMPUTER SCIENCE'),
+    ('finance', 'FINANCE'),
+    ('business administration', 'BUSINESS ADMINISTRATION'),
+)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, null  =True, on_delete = models.CASCADE)
-    profile = models.ImageField(User, null = True, blank = True, upload_to = r"C:\Project\CAPPLY-\CAPPLY--1\src\template\user\profile_pictures")
-    bio = models.TextField(max_length=124, null = True, blank = True)
+    profile_pic = models.ImageField(default='static\images\profile_pics\Default.png', upload_to='static\images\profile_pics')
+    bio = models.TextField(default="This user is lazy and has nothing to say.", max_length=124, null = True, blank = True)
     school = models.TextField(max_length=30, null = True, blank = True)
     phone = models.TextField(max_length=10, null = True, blank = True)
-    major = models.TextField(null = True, blank = True)
+    major = models.CharField(max_length=40, choices=MAJOR_LIST, default='N/A', null = True, blank = True)
 
     def __str__(self):
         return str(self.user) 
