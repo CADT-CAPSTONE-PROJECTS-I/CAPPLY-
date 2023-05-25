@@ -94,4 +94,12 @@ def search(request):
     else:
         return render(request, 'homepage/search.html', {}
                   )
+    
+#For aboutpage
+def aboutpage(request):
+    return render(request,"about/about.html")
+
+#For contactus
+def contactus(request):
+    return render(request,"contact/contact.html")
 

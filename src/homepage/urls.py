@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from homepage.views import homepage, register, login, logout, profile, show_category, search
+from homepage.views import homepage, register, login, logout, profile, show_category, search,aboutpage,contactus
 from category import urls
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -12,6 +12,8 @@ urlpatterns = [
     # path("profile_edit", profile_edit, name="profile_edit"),
     # path("scholarship", show_category, name="scholarship"),
     path("search", search, name="search"),
+    path("about",aboutpage,name="about"),
+    path("contact",contactus,name="contact"),
 
     
 
