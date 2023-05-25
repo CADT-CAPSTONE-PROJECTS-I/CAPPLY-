@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.shortcuts import redirect
+from category.models import Scholarship
 
 # Create your views here.
 
@@ -69,8 +70,8 @@ import scraping
 def profile(request):
     return render(request,"user/profile.html")
 
-def profile_edit(request):
-    return render(request,"user/profile_edit.html")
+# def profile_edit(request):
+#     return render(request,"user/profile_edit.html")
 
 # For Category
 def listing_category(request):
@@ -78,4 +79,19 @@ def listing_category(request):
 
 def show_category(request):
     return render(request,"category/category.html")
+
+
+
+# search
+
+def search(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        scholarships = Scholarship.objects.filter(school__contains=searched)
+        return render(request,'homepage/search.html', {'searched':searched, 
+                                                       'scholarships':scholarships}
+                  )
+    else:
+        return render(request, 'homepage/search.html', {}
+                  )
 
