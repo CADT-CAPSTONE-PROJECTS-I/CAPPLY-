@@ -70,8 +70,8 @@ import scraping
 def profile(request):
     return render(request,"user/profile.html")
 
-# def profile_edit(request):
-#     return render(request,"user/profile_edit.html")
+def profile_edit(request):
+    return render(request,"user/profile_edit.html")
 
 # For Category
 def listing_category(request):
@@ -79,8 +79,6 @@ def listing_category(request):
 
 def show_category(request):
     return render(request,"category/category.html")
-
-
 
 # search
 

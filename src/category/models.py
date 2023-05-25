@@ -36,13 +36,16 @@ class Scholarship(models.Model):
     school = models.CharField(max_length=255)
     deadline = models.DateField()
     more_info = models.TextField()
+    description = models.TextField(blank=True, null=True, max_length=275)
     link_web = models.CharField(max_length=255)
     country = models.CharField(max_length=255)
     def __str__(self):
         return self.school 
     
     # file = models.FileField(upload_to="documents/%Y/%m/%d", validators=[validate_file_extension])
-
+    
+    
+#profile model
 MAJOR_LIST = (
     ('computer science', 'COMPUTER SCIENCE'),
     ('finance', 'FINANCE'),
