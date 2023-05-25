@@ -70,50 +70,6 @@ a:hover {
   color: #1B3764;
 }
 
-.form-control {
-  border-radius: 2px;
-  height: 50px;
-  background-color: transparent;
-  color: #666;
-  box-shadow: none;
-  font-size: 15px;
-}
-
-.form-control:focus {
-  color: #666;
-  box-shadow: none;
-  border: 1px solid #1B3764;
-  background-color: transparent;
-}
-
-textarea.form-control {
-  padding: 20px;
-}
-
-.form-control::-webkit-input-placeholder {
-  color: #666;
-}
-
-/* WebKit, Blink, Edge */
-.form-control:-moz-placeholder {
-  color: #666;
-}
-
-/* Mozilla Firefox 4 to 18 */
-.form-control::-moz-placeholder {
-  color: #666;
-}
-
-/* Mozilla Firefox 19+ */
-.form-control:-ms-input-placeholder {
-  color: #666;
-}
-
-/* Internet Explorer 10-11 */
-.form-control::-ms-input-placeholder {
-  color: #666;
-}
-
 /* Microsoft Edge */
 .mt-20 {
   margin-top: 20px;
