@@ -101,3 +101,6 @@ def about(request):
 def contact_us(request):
     return render(request,"contact/contact.html")
 
+def contact_us1(request):
+    return render(request,"contact/contact_us.html")
+
