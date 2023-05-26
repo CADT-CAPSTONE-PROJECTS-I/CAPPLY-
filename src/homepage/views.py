@@ -94,10 +94,10 @@ def search(request):
                   )
     
 #For aboutpage
-def aboutpage(request):
+def about(request):
     return render(request,"about/about.html")
 
 #For contactus
-def contactus(request):
+def contact_us(request):
     return render(request,"contact/contact.html")
 
