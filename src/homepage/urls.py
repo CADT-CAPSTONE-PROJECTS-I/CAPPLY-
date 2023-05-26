@@ -17,6 +17,4 @@ urlpatterns = [
     path("contact",contact , name="contact"),
 
 
-    
-
 ]

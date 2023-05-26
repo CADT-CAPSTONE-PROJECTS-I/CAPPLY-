@@ -1,9 +1,8 @@
 from django.shortcuts import render
-from .models import Scholarship
+from .models import Scholarship, Profile
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect  
-from profile.forms import ProfileForms  
-from profile.models import Profile  
+
 # Create your views here.
 
 def list_scholarship(request):
@@ -16,4 +15,6 @@ def list_scholarship(request):
     return render(request,'category/category.html',{'scholarship_lists': scholarship_lists,
     'scholarships': scholarships})
 
-#profile views
+#profile edit views
+
+
