@@ -68,7 +68,7 @@
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                         <li class="nav-item"> <a class="nav-link" href="{% url 'home' %}">Home</a>
                         </li>
-                        <li class="nav-item "> <a class="nav-link" href="about.html">About</a>
+                        <li class="nav-item "> <a class="nav-link" href="{% url 'about' %}">About</a>
                         </li>
                         <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="{% url 'scholarship' %}" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">Scholarship</a>
@@ -90,7 +90,7 @@
                             </ul>
                         </li>
                         
-                        <li class="nav-item "> <a class="nav-link" href="">Contact</a>
+                        <li class="nav-item "> <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                  
                     </ul>
                     {% if request.user.is_authenticated %}
