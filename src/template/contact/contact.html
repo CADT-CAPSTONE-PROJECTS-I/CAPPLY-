@@ -181,6 +181,14 @@
 			}
 		}
 	</style>
+	  <script src="contact.js"></script>
+	  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+	  </script>
+	  <script type="text/javascript">
+		(function () {
+		  emailjs.init("IJ3BBB9ScOl_d77BA");
+		})();
+	  </script>
 </head>
 
 <body>
@@ -236,13 +244,13 @@
 					<div class="topic-text">Sent us a message</div>
 				</div>
 				<form class="contact_form" action="#" method="post">
-					<div class="input-box"><input class="name" type="text" id="name" placeholder="Full Name" required>
+					<div class="input-box"><input type="text" class="form-control" id="name" placeholder="Full Name" required>
 					</div>
-					<div class="input-box"><input class="email" type="email" id="email" placeholder="Email" required>
+					<div class="input-box"><input type="email" class="form-control id="email" placeholder="Email" required>
 					</div>
-					<div class="input-box message-box"><textarea class="msg" id="msg" placeholder="How can we help you?"
+					<div class="input-box message-box"><textarea class="form-control" id="message" placeholder="How can we help you?"
 							required></textarea></div>
-					<div class="button"><button type="submit" id="btn" style="background-color: #ffca42;">Sent
+					<div class="button"><button class="btn btn-primary" onclick="sendMail()" style="background-color: #ffca42;">Sent
 							Message</button>
 					</div>
 				</form>
@@ -301,28 +309,6 @@
 			</div>
 		</footer>
 	</section>
-
-	<script src="https://smtpjs.com/v3/smtp.js"></script>
-	<script>
-		var btn = document.getElementById('btn');
-		btn.addEventlistener('click', function (e) {
-			e.preventDefault()
-			var name = document.getElementById('name').value;
-			var email = document.getElementById('email').value;
-			var msg = document.getElementById('msg').value;
-			var body = 'name' + name + '<br/> email: ' + email + '<br/> message: ' + msg;
-			Email.send({
-				SecureToken: "90f7d0e5-7461-44c6-b980-ccb6ed5a4b15",
-				To: 'kimoun.uth@student.cadt.edu.kh',
-				From: "outhkimoun@gmail.com",
-				Subject: "Contact Form",
-				Body: body.
-		}).then(
-					message => alert(message)
-				);
-		});
-
-	</script>
 
 </body>
 
