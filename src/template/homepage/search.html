@@ -58,13 +58,13 @@
                                 <div class="card">
                                     <div class="thumb-content">
                                         <!-- <div class="price">$200</div> -->
-                                        <a href="single.html">
+                                        <a href="{{ scholarship.get_absolute_url }}">
                                             <img class="card-img-top img-fluid" src="static/images/category/p2.jpg"
                                                 alt="Card image cap">
                                         </a>
                                     </div>
                                     <div class="card-body">
-                                        <h4 class="card-title"><a href="{% url 'link' scholarship.id}">{{scholarship.school}}</a></h4>
+                                        <h4 class="card-title"><a href="{{ scholarship.get_absolute_url }}">{{scholarship.school}}</a></h4>
                                         <p class="card-text">Level: {{scholarship.level}}<br>
                                             Close: {{scholarship.deadline}}<br>
                                             Country: {{scholarship.country}}<br></p>

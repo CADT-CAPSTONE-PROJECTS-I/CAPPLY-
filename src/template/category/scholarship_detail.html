@@ -15,20 +15,16 @@
           <h1 class="h2">{{ scholarship.school }}</h1>
           <ul class="card-meta my-3 list-inline">
             <li class="list-inline-item">
-              <a href="author-single.html" class="card-meta-author">
-                <!-- <img src="images/john-doe.jpg"> -->
-                <span>Charls Xaviar</span>
-              </a>
+                Charls Xaviar
             </li>
             <li class="list-inline-item">
-              <i class="ti-timer">{{ scholarship.level }}</i>
+              {{ scholarship.level }}
             </li>
-            <li class="list-inline-item">
-              <i class="ti-calendar"></i>{{ scholarship.deadline }}
+            <li class="list-inline-item">{{ scholarship.deadline }}
             </li>
             <li class="list-inline-item">
               <ul class="card-meta-tag list-inline">
-                <li class="list-inline-item"><a href='{{ scholarship.more_info }}'>More info</a></li>
+                <li class="list-inline-item"><a href='{{ scholarship.more_info }}' target="_blank">More info</a></li>
                 <li class="list-inline-item"><a href='{{ scholarship.link_web }}'>Link web</a></li>
                 <li class="list-inline-item"><a href="">{{ scholarship.country }}</a></li>
               </ul>

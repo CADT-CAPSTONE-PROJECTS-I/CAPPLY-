@@ -1,6 +1,13 @@
 import requests
-from bs4 import BeautifulSoup 
-import sqlite3
+from bs4 import BeautifulSoup
+import sqlite3, string, random
+from django.utils.text import slugify
+
+
+def random_slug():
+    allowed_chars = ''.join((string.ascii_letters, string.digits))
+    unique_slug = ''.join(random.choice(allowed_chars) for _ in range(32))
+    return unique_slug
 
 conn = sqlite3.connect('src/db.sqlite3')
 c = conn.cursor()
@@ -20,7 +27,13 @@ for i in range(1, 20):
             country = countries.span.text.strip()
             level = link.find_all('span', class_ = 'text-muted text-sm')[1].text.strip()
             study_field = 'option'
-            c.execute('''INSERT INTO category_scholarship VALUES(?,?,?,?,?,?,?)''',(None, level, school, deadline, more_info, link_web, country))
+
+            
+            slug_combine = school + " " + random_slug()
+            slug = slugify(slug_combine)
+            c.execute('''INSERT INTO category_scholarship VALUES(?,?,?,?,?,?,?,?,?)''',(None, level, school, deadline, more_info, None, link_web, country, slug))
+           
+            # c.execute('''INSERT INTO category_scholarship VALUES(?,?,?,?,?,?,?,?,?)''',(None, level, school, deadline,more_info,None, link_web, country, None))
 
 conn.commit()
 print('complete.')

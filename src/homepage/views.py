@@ -100,5 +100,8 @@ def about(request):
 #For contactus
 def contact(request):
     return render(request,"contact/contact.html")
+#For contactus
+def contact_us(request):
+    return render(request,"contact/contact_us.html")
 
 

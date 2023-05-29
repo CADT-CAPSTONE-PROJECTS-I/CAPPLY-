@@ -23,10 +23,11 @@
                       {% csrf_token %}
                       {{form.as_p }}
                         <div class="form-group">
+                          <!-- <h6 for="exampleInputPassword1">Change Profile </h6> -->
                           <input type="file" class="form-control-file" id="">
                         </div>
                       <br>
-                      <div class="form-group">
+                      <div class="form-group text-primary">
                             <label style="float: left" for="exampleInputPassword1">Add bio</label>
                             <input type="text" class="form-control" id="" name="bio" placeholder="Tell us about yourself..">
                         </div>

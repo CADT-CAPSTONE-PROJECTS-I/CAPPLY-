@@ -1,4 +1,5 @@
 
+
 // Voice recognition 
 const searchForm = document.querySelector("#search-form");
 const searchFormInput = document.querySelector("#search-form input"); 
@@ -84,6 +85,4 @@ else {
   info.textContent = "Your Browser does not support Speech Recognition";
 }
 // end of voice recognition
-
-
 
