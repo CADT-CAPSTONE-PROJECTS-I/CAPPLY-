@@ -22,18 +22,8 @@
                     <form method="POST" enctype="multipart/form-data" action="{% url 'profile_edit' %}" class="mx-1 mx-md-4">
                       {% csrf_token %}
                       {{form.as_p }}
-                        <div class="form-group">
-                          <!-- <h6 for="exampleInputPassword1">Change Profile </h6> -->
-                          <input type="file" class="form-control-file" id="">
-                        </div>
-                      <br>
-                      <div class="form-group text-primary">
-                            <label style="float: left" for="exampleInputPassword1">Add bio</label>
-                            <input type="text" class="form-control" id="" name="bio" placeholder="Tell us about yourself..">
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary">Save</button>
-                      </form>
+                      <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
                     
                   
                   </div>

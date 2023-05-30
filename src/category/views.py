@@ -6,6 +6,12 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, redirect 
 from django.views.generic import ListView, DetailView 
 from django.template import loader
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserChangeForm
+from django.views import generic
+from django.urls import reverse_lazy
+from .forms import EditProfileForm
+
 # Create your views here.
 
 def list_scholarship(request):
@@ -49,8 +55,24 @@ def search_tag(request, country):
     p = Paginator(scholarships_lists, 5)
     page = request.GET.get('page')
     scholarships = p.get_page(page)
+<<<<<<< HEAD
     context = {'scholarships':scholarships, 
                'country':country, 
                'country_lists':country_lists,
                'scholarships_lists':scholarships_lists }
     return render(request,'category/scholarship_tag_result.html', context)
+=======
+    context = {'scholarships':scholarships, 'country':country, 'country_lists':country_lists,'scholarships_lists':scholarships_lists }
+    return render(request,'category/scholarship_tag_result.html', context)
+
+
+#profile change
+
+class UserEditView(generic.UpdateView):
+    form_class = EditProfileForm
+    template_name = 'user/profile_edit.html'
+    success_url = reverse_lazy('profile')
+    
+    def get_object(self):
+        return self.request.user
+>>>>>>> 2a115bb9c32b3c53e527bce013e774231688552a

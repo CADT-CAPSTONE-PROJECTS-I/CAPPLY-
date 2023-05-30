@@ -94,7 +94,7 @@ class Profile(models.Model):
     bio = models.TextField(default="This user is lazy and has nothing to say.", max_length=124, null = True, blank = True)
 
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return str(self.user)
 
 def create_profile(sender, instance, created, **kwargs):
     if created:
