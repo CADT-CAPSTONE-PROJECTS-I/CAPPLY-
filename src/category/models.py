@@ -9,26 +9,6 @@ from django.utils import timezone
 from django.contrib.auth.models import UserManager
 import re
 # Create your models here.
-CONTINENT = [
-    ("ASIA",'Asia'), 
-    ("AFRIC",'Africa'),
-    ("NA",'North America'), 
-    ("SA",'South America'), 
-    ("ANTIC",'Antacitica'), 
-    ("EURO",'Europe'), 
-    ("AUS",'Australia'),
-]
-
-# class continent(models.Model):
-#     # id = models.BigAutoField(primary_key=True)
-#     code = models.CharField(max_length=10, primary_key=True)
-#     code = models.CharField(max_length=10, primary_key=True)
-#     name = models.CharField(max_length=255)
-#     description= models.TextField()
-
-#     def __str__(self):
-#         return self.name 
-
 def randomString():
     um = UserManager()
     return( um.make_random_password( length=25 ) )
@@ -77,9 +57,6 @@ class Scholarship(models.Model):
             if seqs: self.slug = '{0:s}_{1:d}'.format(self.slug, max(seqs)+1)
 
         super(Scholarship, self).save(*args, **kwargs)
-    
-    # def get_absolute_url(self):
-    #     return f'/scholarship/{self.slug}'
 
 #profile model
 MAJOR_LIST = (
