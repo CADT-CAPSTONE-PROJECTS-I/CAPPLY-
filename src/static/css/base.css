@@ -4145,8 +4145,11 @@ a.text-black:hover {
     border-radius: 15px !important;
 }
 
-.about .list-inline .list-inline-item a {
+.directory .list-inline .list-inline-item a {
     color: #fff !important;
+}
+.directory .list-inline .list-inline-item a:hover {
+    color: var(--bs-yellow) !important;
 }
 .content * {
     word-break: break-word;
@@ -4179,8 +4182,7 @@ a.text-black:hover {
     font-weight: 800;
 }
 
-.content a,
-.list-inline-item a {
+.content a, .list-inline-item a {
     border-bottom: 1px dotted var(--bs-yellow) !important;
 }
 

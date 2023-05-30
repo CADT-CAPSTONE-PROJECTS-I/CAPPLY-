@@ -96,7 +96,7 @@ def about(request):
     return render(request,"about/about.html")
 #For contactus
 def contact(request):
-    return render(request,"contact/contact.html")
+    return render(request,"contact/contact_us.html")
 #For contactus
 def contact_us(request):
     return render(request,"contact/contact_us.html")

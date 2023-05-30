@@ -73,12 +73,3 @@ class UserEditView(generic.UpdateView):
     
     def get_object(self):
         return self.request.user
-
-
-# def scholarship_add(request, id):
-#     history = History(request)
-#     scholarship = Scholarship.objects.get(id=id)
-#     # history = History.objects.create(scholarship=scholarship)
-#     history.add(scholarship=scholarship)
-#     # history.save()
-#     return redirect("home")

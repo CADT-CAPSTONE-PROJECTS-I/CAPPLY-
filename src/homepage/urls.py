@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from homepage.views import homepage, register, login, logout, profile,profile_edit,contact_us, show_category, search, about, contact 
-
+from . import views
 # from homepage.views import homepage, register, login, logout, profile,profile_edit, show_category, search
 
 urlpatterns = [
@@ -16,6 +16,6 @@ urlpatterns = [
     path("about",about, name="about"),
     path("contact",contact , name="contact"),
     path("contact-us",contact_us , name="contact_us"),
-
-
 ]
+
+

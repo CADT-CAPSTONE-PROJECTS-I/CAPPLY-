@@ -1,266 +1,166 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Responsive Our Team Section</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet" />
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css" />
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-            font-family: "Poppins", sans-serif;
-        }
-
-        body {
-            background-color: #f5f5f5;
-        }
-
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            padding: 2em 1em;
-            text-align: center;
-        }
-
-        .column {
-            width: 100%;
-            padding: 0.5em 0;
-        }
-
-        h1 {
-            width: 100%;
-            text-align: center;
-            font-size: 3.5em;
-            color: #1f003b;
-        }
-
-        .card {
-            box-shadow: 0 0 2.4em rgba(25, 0, 58, 0.1);
-            padding: 3.5em 1em;
-            border-radius: 0.6em;
-            color: #1f003b;
-            cursor: pointer;
-            transition: 0.3s;
-            background-color: #ffffff;
-        }
-
-        .card .img-container {
-            width: 8em;
-            height: 8em;
-            background-color: #2B3764;
-            padding: 0.5em;
-            border-radius: 50%;
-            margin: 0 auto 2em auto;
-        }
-
-        .card img {
-            width: 100%;
-            border-radius: 50%;
-        }
-
-        .card h3 {
-            font-weight: 500;
-        }
-
-        .card p {
-            font-weight: 300;
-            text-transform: uppercase;
-            margin: 0.5em 0 2em 0;
-            letter-spacing: 2px;
-        }
-
-        .icons {
-            width: 50%;
-            min-width: 180px;
-            margin: auto;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .card a {
-            text-decoration: none;
-            color: inherit;
-            font-size: 1.4em;
-        }
-
-        .card:hover {
-            background: linear-gradient(#6045ea, #8567f7);
-            color: #ffffff;
-        }
-
-        .card:hover .img-container {
-            transform: scale(1.15);
-        }
-
-        @media screen and (min-width: 768px) {
-            section {
-                padding: 1em 7em;
-            }
-        }
-
-        @media screen and (min-width: 992px) {
-            section {
-                padding: 1em;
-            }
-
-            .card {
-                padding: 5em 1em;
-            }
-
-            .column {
-                flex: 0 0 25%;
-                max-width: 25%;
-                padding: 0 1em;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-    <!-- start of about -->
-    <section class="about-section section bg-tertiary position-relative overflow-hidden">
+<!-- start of about -->
+<section class="section bg-primary">
+    <div class="text-center">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-7 text-center text-lg-start">
-                    <img loading="lazy" decoding="async" src="static/images/about-us.png" alt="About Ourselves"
-                        class="img-fluid">
-                </div>
-                <div class="col-lg-5">
-                    <div class="section-title">
-                        <p class="text-primary text-uppercase fw-bold mb-3">About Ourselves</p>
-                        <h1>Capply</h1>
-                        <p class="lead mb-0 mt-4">
-                        <p>CAPPLY is a capstone project made by students of CADT, our main goal is to gather
-                            scholarships and internship offers and list them all on our website.
-                        </p>
-                        <a class="btn btn-outline-primary border-yellow mt-4" href="about.html">Know About Us</a>
-                    </div>
+            <div class="row">
+                <div class="col-lg-12 mx-auto directory text-white">
+                    <h1 class="mb-5 pt-5 text-white">#About Us </h1>
+                    <ul class="list-inline breadcrumbs text-capitalize text-white" style="font-weight:500">
+                        <li class="list-inline-item "><a href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="list-inline-item ">/ &nbsp; <a href="" >About</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- end of about -->
-    <hr>
-    <section>
-        <div class="row">
-            <h1>OUR TEAM</h1>
+    </div>
+</section>
+<section class="about-section section bg-tertiary position-relative overflow-hidden">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7 text-center text-lg-start">
+                <img loading="lazy" decoding="async" src="static/images/about-us.png" alt="About Ourselves"
+                    class="img-fluid">
+            </div>
+            <div class="col-lg-5">
+                <div class="section-title">
+                    <p class="text-primary text-uppercase fw-bold mb-3">What are We?</p>
+                    <h1>Capply</h1>
+                    <p class="lead mb-0 mt-4">
+                    <p>CAPPLY is a capstone project made by students of CADT, our main goal is to gather
+                        scholarships and internship offers and list them all on our website.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end of about -->
+<hr>
+<section class="section text-primary bg-tertiary">
+    <div class="container ">
+        <div class="row ">
+            <div class="section-title text-primary">
+                <p class="text-primary text-uppercase fw-bold mb-2">What are We?</p>
+                <h1 class="text-primary">Here Are Our Team</h1>
+            </div>
         </div>
         <div class="row">
             <!-- Column 1-->
-            <div class="column">
-                <div class="card">
+            <div class="profile col-lg-3 col-md-6">
+                <div class="card p-5">
                     <div class="img-container">
                         {% load static %}
                         <img src="{% static 'images/about/team-1.jpg' %}" />
                     </div>
-                    <h3>Un Sreypich</h3>
-                    <p>Leader</p>
-                    <div class="icons">
-                        <a href="#">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fas fa-envelope"></i>
-                        </a>
+                    <div class="mx-auto text-center">
+                        <h4 class="mt-5 mx-auto">Un Sreypich</h4>
+                        <p>Leader</p>
+                        <div class="icons">
+                            <a href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- Column 2-->
-            <div class="column">
-                <div class="card">
+            <div class="profile col-lg-3 col-md-6">
+                <div class="  card p-5">
                     <div class="img-container">
                         {% load static %}
                         <img src="{% static 'images/about/team-1.jpg' %}" />
                     </div>
-                    <h3>Tann Chanmalyza</h3>
-                    <p>Member</p>
-                    <div class="icons">
-                        <a href="#">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fas fa-envelope"></i>
-                        </a>
+                    <div class="mx-auto text-center">
+                        <h4 class="mt-5 mx-auto">Tann Chanmalyza</h4>
+                        <p>Member</p>
+                        <div class="icons">
+                            <a href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- Column 3-->
-            <div class="column">
-                <div class="card">
+            <div class="profile col-lg-3 col-md-6">
+                <div class=" card p-5">
                     <div class="img-container">
                         {% load static %}
                         <img src="{% static 'images/about/team-1.jpg' %}" />
                     </div>
-                    <h3>Tep Deborah</h3>
-                    <p>Member</p>
-                    <div class="icons">
-                        <a href="#">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fas fa-envelope"></i>
-                        </a>
+                    <div class="mx-auto text-center">
+                        <h4 class="mt-5 mx-auto">Tep Deborah</h4>
+                        <p>Member</p>
+                        <div class="icons">
+                            <a href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- Column 4-->
-            <div class="column">
-                <div class="card">
+            <div class="profile col-lg-3 col-md-6">
+                <div class=" card p-5">
                     <div class="img-container">
                         {% load static %}
                         <img src="{% static 'images/about/team-1.jpg' %}" />
                     </div>
-                    <h3>Uth Kim Oun</h3>
-                    <p>Member</p>
-                    <div class="icons">
-                        <a href="#">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fas fa-envelope"></i>
-                        </a>
+                    <div class="mx-auto text-center">
+                        <h4 class="mt-5 mx-auto">Uth Kim Oun</h4>
+                        <p>Member</p>
+                        <div class="icons">
+                            <a href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <hr>
-</body>
+    </div>
+</section>
+<hr>
 
-</html>
 {% endblock content %}

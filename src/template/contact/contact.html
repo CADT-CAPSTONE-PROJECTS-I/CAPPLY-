@@ -244,8 +244,10 @@
 				<div>
 					<div class="topic-text">Sent us a message</div>
 				</div>
+
 				
-				<form class="contact_form" action="#" method="post">
+
+				<form class="contact_form" method="post">
 					{% csrf_token %}
 					<div class="input-box"><input type="text" class="form-control" id="name" placeholder="Full Name"
 							required>
@@ -255,10 +257,7 @@
 					</div>
 					<div class="input-box message-box"><textarea class="form-control" id="message"
 							placeholder="How can we help you?" required></textarea></div>
-					<div class="button"><button class="btn btn-primary" onclick="sendMail()"
-							style="background-color: #ffca42;">Sent
-							Message</button>
-					</div>
+					<button id="send"class="btn btn-primary" onclick="sendMail()" style="background-color: #ffca42;" value="Send Message"></button>
 				</form>
 			</div>
 		</div>
