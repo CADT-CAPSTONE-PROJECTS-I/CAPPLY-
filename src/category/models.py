@@ -59,7 +59,6 @@ class Scholarship(models.Model):
     
     def get_absolute_url(self):
         return reverse("scholarship_detail", kwargs={"slug": self.slug})
-
     
     def save(self, *args, **kwargs):
         if not self.slug: # slug is blank
@@ -89,12 +88,12 @@ class Scholarship(models.Model):
     #     if not self.pk:
     #         self.slug = ''.join(random.sample(string.ascii_lowercase, 10))
             
-    # def get_absolute_url(self):
-    #     return f'/scholarship/{self.slug}/'
+    def get_absolute_url(self):
+        return f'/scholarship/{self.slug}'
     # def get_absolute_url(self):
     #     return reverse("category/scholarship_detail", kwargs={"slug": self.slug})
-    def get_absolute_url(self):
-        return reverse("scholarship_detail", kwargs={"slug": self.slug})
+    # def get_absolute_url(self):
+    #     return reverse("scholarship_detail", kwargs={"slug": self.slug})
     
     # file = models.FileField(upload_to="documents/%Y/%m/%d", validators=[validate_file_extension])
     

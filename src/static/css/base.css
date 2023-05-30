@@ -4132,13 +4132,13 @@ a.text-black:hover {
     font-weight: 800;
 }
 
-.content a {
-    border-bottom: 1px dotted var(--bs-yellow);
+.content a , .list-inline-item a{
+    border-bottom: 1px dotted var(--bs-yellow) !important;
 }
 
 .content a:hover {
     color: var(--bs-yellow);
-    border-bottom: 1px solid var(--bs-yellow);
+    border-bottom: 1px solid var(--bs-yellow) !important;
 }
 
 .content ol,
@@ -4292,7 +4292,7 @@ a.text-black:hover {
 .content .notices p::after {
     position: absolute;
     top: 2px;
-    color: #fff;
+    color: var(--bs-blue);
     left: 2rem;
 }
 
@@ -4305,7 +4305,7 @@ a.text-black:hover {
 }
 
 .content .notices.info p::after {
-    content: "Info";
+    content: "Disclaimer" !important;
 }
 
 .content .notices.warning p::after {

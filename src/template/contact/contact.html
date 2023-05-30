@@ -181,14 +181,14 @@
 			}
 		}
 	</style>
-	  <script src="contact.js"></script>
-	  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
-	  </script>
-	  <script type="text/javascript">
+	<script src="contact.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+	</script>
+	<script type="text/javascript">
 		(function () {
-		  emailjs.init("IJ3BBB9ScOl_d77BA");
+			emailjs.init("IJ3BBB9ScOl_d77BA");
 		})();
-	  </script>
+	</script>
 </head>
 
 <body>
@@ -244,13 +244,16 @@
 					<div class="topic-text">Sent us a message</div>
 				</div>
 				<form class="contact_form" action="#" method="post">
-					<div class="input-box"><input type="text" class="form-control" id="name" placeholder="Full Name" required>
+					<div class="input-box"><input type="text" class="form-control" id="name" placeholder="Full Name"
+							required>
 					</div>
-					<div class="input-box"><input type="email" class="form-control id="email" placeholder="Email" required>
+					<div class="input-box"><input type="email" class="form-control id=" email" placeholder="Email"
+							required>
 					</div>
-					<div class="input-box message-box"><textarea class="form-control" id="message" placeholder="How can we help you?"
-							required></textarea></div>
-					<div class="button"><button class="btn btn-primary" onclick="sendMail()" style="background-color: #ffca42;">Sent
+					<div class="input-box message-box"><textarea class="form-control" id="message"
+							placeholder="How can we help you?" required></textarea></div>
+					<div class="button"><button class="btn btn-primary" onclick="sendMail()"
+							style="background-color: #ffca42;">Sent
 							Message</button>
 					</div>
 				</form>
@@ -313,27 +316,28 @@
 </body>
 <script>
 	function sendMail() {
-var params = {
-  name: document.getElementById("name").value,
-  email: document.getElementById("email").value,
-  message: document.getElementById("message").value,
-};
+		var params = {
+			name: document.getElementById("name").value,
+			email: document.getElementById("email").value,
+			message: document.getElementById("message").value,
+		};
 
-const serviceID = "service_eriihun";
-const templateID = "template_683w4oi";
+		const serviceID = "service_eriihun";
+		const templateID = "template_683w4oi";
 
-  emailjs.send(serviceID, templateID, params)
-  .then(res=>{
-	  document.getElementById("name").value = "";
-	  document.getElementById("email").value = "";
-	  document.getElementById("message").value = "";
-	  console.log(res);
-	  alert("Your message sent successfully!!")
+		emailjs.send(serviceID, templateID, params)
+			.then(res => {
+				document.getElementById("name").value = "";
+				document.getElementById("email").value = "";
+				document.getElementById("message").value = "";
+				console.log(res);
+				alert("Your message sent successfully!!")
 
-  })
-  .catch(err=>console.log(err));
+			})
+			.catch(err => console.log(err));
 
-}
+	}
 </script>
+
 </html>
 {% endblock content %}

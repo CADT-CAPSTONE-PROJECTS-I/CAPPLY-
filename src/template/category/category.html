@@ -1,31 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% include 'category/snippets/tag_snippets.html' %}
 
-<section class="section bg-primary">
-	<div class="text-center">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-9 mx-auto">
-					<h1 class="mb-5  pt-5 text-white">Tags</h1>
-					<ul class="widget-list-inline ">
-
-						{% regroup scholarships by country as scholarship_groups %}
-						
-						{% for group in scholarship_groups %}
-						<!-- <h1>{{ group.grouper }}</h1> -->
-						{% for scholarship in group.list %}
-						<li class="list-inline-item"><a href="" class="text-white">{{ scholarship.country }}</a></li>
-						{% endfor %}
-						{% endfor %}
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
 <section class="section-sm">
-	<div class="container">
+	<div class="container col-lg-9">
 		<div class="row">
 			<div class="col-lg-3 col-md-4">
 				<div class="category-sidebar">
@@ -53,21 +32,8 @@
 				</div>
 			</div>
 			<div class="col-lg-9 col-md-8">
-				<!-- <div class="category-search-filter">
-					<div class="row">
-						<div class="col-md-6 text-center text-md-left">
-							<strong>Short</strong>
-							<select>
-								<option>Most Recent</option>
-								<option value="1">Most Popular</option>
-								<option value="2">Lowest Price</option>
-								<option value="4">Highest Price</option>
-							</select>
-						</div>
-					</div>
-				</div> -->
 				<div class="product-grid-list">
-					<div class="row mt-30">
+					<div class="row">
 						{% for scholarship in scholarships %}
 						<div class="ad-listing-list mt-20">
 							<!-- product card -->
@@ -75,51 +41,34 @@
 								<div class="card">
 									<div class="thumb-content">
 										<!-- <a href="scholarship/{{scholarship.id}}"> -->
-											<a href="{{ scholarship.get_absolute_url }}">
-											
+										<a href="{{ scholarship.get_absolute_url }}">
+
 										</a>
 									</div>
 									<div class="card-body">
-										<h4 class="card-title"><a href="{{ scholarship.get_absolute_url }}">{{scholarship.school}}</a></h4>
-										<p class="card-text"><strong>Description:</strong> {{scholarship.description}}<br>
+										<h4 class="card-title"><a
+												href="{{ scholarship.get_absolute_url }}">{{scholarship.school}}</a>
+										</h4>
+										<p class="card-text"><strong>Description:</strong>
+											{{scholarship.description}}<br>
 										<p class="card-text"><strong>Level:</strong> {{scholarship.level}}<br>
 											<strong>Close:</strong> {{scholarship.deadline}}<br>
-											<strong>Country: </strong> {{scholarship.country}}<br></p>
-											<a href="" class="btn btn-primary">Read more</a>
-											<a href="{{scholarship.more_info}}" class="btn btn-secondary">Apply now</a>
+											<strong>Country: </strong> {{scholarship.country}}<br>
+										</p>
+										<a href="{{ scholarship.get_absolute_url }}" class="btn btn-primary">Read
+											more</a>
+										<a href="{{scholarship.more_info}}" class="btn btn-secondary">Apply now</a>
 
 									</div>
 								</div>
 							</div>
-							
+
 						</div>
 						{% endfor %}
 
 					</div>
 				</div>
-				<div class="pagination justify-content-center">
-					<nav aria-label="Page navigation example">
-						<ul class="pagination">
-
-							{% if scholarships.has_previous %}
-							<li class="page-item"><a class="page-link" href="?page=1">&laquo 1</a></li>
-							<li class="page-item"><a class="page-link"
-									href="?page={{scholarships.previous_page_number}}"><strong>
-										 </strong></a></li>
-							{% endif %}
-							<li class="page-item active"><a class="page-link"
-									href="?page={{scholarships.paginator.num_pages}}">{{scholarships.number}} </a></li>
-							{% if scholarships.has_next %}
-
-							<li class="page-item"><a class="page-link"
-									href="?page={{scholarships.next_page_number}}">></a></li>
-							<li class="page-item"><a class="page-link"
-									href="?page={{scholarships.paginator.num_pages}}">{{scholarships.paginator.num_pages}}
-									&raquo</a></li>
-							{% endif %}
-						</ul>
-					</nav>
-				</div>
+				{% include 'category/snippets/pagination_snippets.html' %}
 			</div>
 		</div>
 	</div>

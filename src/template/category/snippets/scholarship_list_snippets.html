@@ -1,0 +1,27 @@
+{% for scholarship in scholarships_lists %}
+<div class="ad-listing-list mt-20">
+    <!-- product card -->
+    <div class="product-item bg-light">
+        <div class="card">
+            <div class="thumb-content">
+                <!-- <a href="scholarship/{{scholarship.id}}"> -->
+                <a href="{{ scholarship.get_absolute_url }}">
+
+                </a>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title"><a href="{{ scholarship.get_absolute_url }}">{{scholarship.school}}</a></h4>
+                <p class="card-text"><strong>Description:</strong> {{scholarship.description}}<br>
+                <p class="card-text"><strong>Level:</strong> {{scholarship.level}}<br>
+                    <strong>Close:</strong> {{scholarship.deadline}}<br>
+                    <strong>Country: </strong> {{scholarship.country}}<br>
+                </p>
+                <a href="{{ scholarship.get_absolute_url }}" class="btn btn-primary">Read more</a>
+                <a href="{{scholarship.more_info}}" class="btn btn-secondary">Apply now</a>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endfor %}

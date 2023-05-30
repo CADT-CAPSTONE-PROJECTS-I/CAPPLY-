@@ -3,17 +3,12 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.shortcuts import redirect
 from category.models import Scholarship
+from django.core.paginator import Paginator
 
 # Create your views here.
 
 def homepage(request):
-    # if request.user.is_authenticated:
-    #     if request.user.is_staff or request.user.is_superuser:
-    #         return redirect('admin/')
-    #     else:
-    #         return render(request,"homepage/home.html")
-    # else:
-        return render(request,"homepage/home.html")
+    return render(request,"homepage/home.html")
 
 
 def register(request):    
@@ -65,7 +60,6 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('home')
-import scraping
 
 def profile(request):
     return render(request,"user/profile.html")
@@ -74,29 +68,25 @@ def profile_edit(request):
     return render(request,"user/profile_edit.html")
 
 # For Category
-def listing_category(request):
-    return render(request,"category/list_view.html")
-
 def show_category(request):
     return render(request,"category/category.html")
 
 # search
-
 def search(request):
     if request.method == "POST":
         searched = request.POST['searched']
-        scholarships = Scholarship.objects.filter(school__contains=searched)
-        return render(request,'homepage/search.html', {'searched':searched, 
-                                                       'scholarships':scholarships}
-                  )
+        scholarships = Scholarship.objects.filter(school__contains=searched).all()
+        
+        context = {'searched':searched, 
+                   'scholarships':scholarships }
+        return render(request,'homepage/search.html', context)
+                  
     else:
-        return render(request, 'homepage/search.html', {}
-                  )
-    
+        return render(request, 'homepage/search.html', {})
+
 #For aboutpage
 def about(request):
     return render(request,"about/about.html")
-
 #For contactus
 def contact(request):
     return render(request,"contact/contact.html")
