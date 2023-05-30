@@ -4010,7 +4010,9 @@ body {
     align-items: center;
     justify-content: center;
 }
-
+a.text-white {
+    color: #fff !important;
+}
 img {
     vertical-align: middle;
     border: 0;
@@ -4037,7 +4039,7 @@ select:focus {
     outline: 0;
 }
 
-a {
+a, a.btn.btn-secondary:hover {
     color: var(--bs-blue) !important;
 }
 
@@ -4045,6 +4047,10 @@ a:hover {
     color: var(--bs-yellow);
     text-decoration: underline;
 }
+a.btn.btn-secondary {
+    color: #fff !important;
+}
+
 
 .slick-slide {
     outline: 0;
@@ -4138,7 +4144,9 @@ a.text-black:hover {
 .rounded-lg {
     border-radius: 15px !important;
 }
-
+.about .list-inline .list-inline-item a {
+    color: #fff !important;
+}
 .content * {
     word-break: break-word;
     overflow-wrap: break-word;

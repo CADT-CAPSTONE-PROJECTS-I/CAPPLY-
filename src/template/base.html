@@ -32,9 +32,12 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/category.css' %}">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% if request.path == about %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    {% endif %}
     {% load static %}
-    <script src="{% static 'static/js/script.js' %}" defer></script>
-    <script src="{% static 'static/js/scrollbar.js' %}" defer></script>
+    <script src="{% static 'js/script.js' %}" defer></script>
+    <script src="{% static 'js/scrollbar.js' %}" defer></script>
 </head>
 
 <body id="top-header" class="bg-light" >
@@ -176,7 +179,7 @@
     </a>
 
     {% load static %}
-    <script src="{% static 'static/js/script.js' %}" defer></script>
+    <script src="{% static 'js/script.js' %}" defer></script>
 
 </body>
 
