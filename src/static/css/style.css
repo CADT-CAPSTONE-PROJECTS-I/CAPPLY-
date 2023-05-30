@@ -5720,7 +5720,9 @@ small, .small {
 
 mark, .mark {
   padding: 0.2em;
-  background-color: #fcf8e3;
+  background-color: transparent !important;
+  color: var(--bs-yellow) !important;
+  border-bottom: 1px dashed var(--bs-yellow) !important;
 }
 
 sub,
@@ -8121,14 +8123,14 @@ progress {
 }
 
 .btn-secondary {
-  color: #fff;
-  background-color: var(--bs-blue);
-  border-color: var(--bs-blue);
+  color: #fff !important;
+  background-color: var(--bs-blue) !important;
+  border-color: var(--bs-blue ) !important;
 }
 .btn-secondary:hover {
-  color: #fff;
-  background-color: #5378b4;
-  border-color: #5378b4;
+  color: #fff !important;
+  background-color: #5378b4 !important;
+  border-color: #5378b4 !important ;
 }
 .btn-check:focus + .btn-secondary, .btn-secondary:focus {
   color: #fff;
@@ -8557,6 +8559,7 @@ progress {
 .fade {
   transition: opacity 0.15s linear;
 }
+
 @media (prefers-reduced-motion: reduce) {
   .fade {
     transition: none;

@@ -1,42 +1,49 @@
-
 {% extends 'base.html' %}
 
 {% block content %}
 
-<section class="section bg-primary">
+<section class="section bg-primary mb-0 pb-7">
     <div class="text-center">
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 mx-auto">
-                    {% if searched %}
-                    <h1 class="pt-5 text-white">Search Result for {{searched}}</h1>
+                    {% if not scholarships_lists.all and searched %}
+                    <h1 class="pt-5 pb-4 text-white">No Result for <mark>{{searched}}</mark></h1>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10 text-center">
+                            {% load static %}
+                            <img class="mb-3" src="{% static 'images/no-search-found.svg' %}" alt="not-found">
+                            <h3 class="text-white">Try Searching Again !</h3>
+                        </div>
+                    </div>
+                    {% elif not searched %}
+                    <h1 class="pt-5 text-white">Search Now!</h1>
                     {% else %}
-                    <h1 class=" pt-5 text-white">No Result </h1>
+                    <h1 class="pt-5 text-white">Search Result for <mark>{{searched}}</mark></h1>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </section>
+{% if searched and scholarships_lists.all %}
 <section class="section-sm">
     <div class="container">
         <div class="row mt-0">
             <div class="col-lg-3 col-md-4">
                 <!-- category sidebar -->
-				{% include 'category/snippets/category_sidebar_snippets.html' %}
-				<!-- end category sidebar -->
+                {% include 'category/snippets/category_sidebar_snippets.html' %}
+                <!-- end category sidebar -->
             </div>
             <div class="col-lg-9 col-md-8">
                 <div class="product-grid-list">
                     <div class="row">
-                        {% if searched %}
                         {% include 'category/snippets/scholarship_list_snippets.html' %}
-                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
+{% endif %}
 {% endblock content %}

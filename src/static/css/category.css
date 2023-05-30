@@ -629,7 +629,12 @@ p.list-inline-item,
   background: var(--bs-yellow) !important;
   color: #fff !important;
 }
-
+.widget-list-inline.widget-homepage .list-inline-item a {
+  color: var(--bs-blue) !important;
+}
+.widget-list-inline.widget-homepage .list-inline-item a:hover {
+  color: #fff !important;
+}
 .category-block {
   box-shadow: 0px 7px 16px 0px rgba(0, 0, 0, 0.09);
   padding: 20px 25px;

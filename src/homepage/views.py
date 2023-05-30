@@ -5,10 +5,16 @@ from django.shortcuts import redirect
 from category.models import Scholarship, Country
 from django.core.paginator import Paginator
 
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from cart.cart import Cart
+
+
 # Create your views here.
 
 def homepage(request):
-    return render(request,"homepage/home.html")
+    country_lists = Country.objects.all()
+    return render(request,"homepage/home.html", {'country_lists':country_lists})
 
 
 def register(request):    
@@ -94,5 +100,8 @@ def contact(request):
 #For contactus
 def contact_us(request):
     return render(request,"contact/contact_us.html")
+
+
+
 
 

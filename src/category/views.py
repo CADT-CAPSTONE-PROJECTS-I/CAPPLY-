@@ -15,15 +15,14 @@ from .forms import EditProfileForm
 # Create your views here.
 
 def list_scholarship(request):
-    # scholarship_lists = Scholarship.objects.all().order_by('?')
-    scholarships = Scholarship.objects.all()
+    scholarships_lists = Scholarship.objects.all().order_by('?')
     country_lists = Country.objects.all()
     # set up pagination
-    p = Paginator(Scholarship.objects.all(), 5)
+    p = Paginator(scholarships_lists.all(), 5)
     page = request.GET.get('page')
-    scholarships_lists = p.get_page(page)
+    scholarships = p.get_page(page)
     return render(request,'category/category.html',{'scholarships_lists': scholarships_lists,
-    'scholarships': scholarships, 'country_lists':country_lists})
+    'scholarships': scholarships, 'country_lists': country_lists})
 
 #scholarship detail views
 def scholarship_detail_view(request, slug):
@@ -46,6 +45,7 @@ def scholarship_detail_view(request, slug):
 
 class ScholarshipDetailView(DetailView):
     model = Scholarship
+    
     template_name = "category/scholarship_detail.html"
     
 
@@ -73,3 +73,12 @@ class UserEditView(generic.UpdateView):
     
     def get_object(self):
         return self.request.user
+
+
+# def scholarship_add(request, id):
+#     history = History(request)
+#     scholarship = Scholarship.objects.get(id=id)
+#     # history = History.objects.create(scholarship=scholarship)
+#     history.add(scholarship=scholarship)
+#     # history.save()
+#     return redirect("home")

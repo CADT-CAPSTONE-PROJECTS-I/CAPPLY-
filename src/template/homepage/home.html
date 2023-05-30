@@ -18,7 +18,7 @@
                     <h1 class="text-capitalize text-white mb-4">Scholarship Finder</h1>
                     <p class="mb-4">Verified listing curated for you.
                     </p>
-                    <a type="button" class="btn btn-primary" href="{% url 'scholarship' %}">Filter<span
+                    <a type="button" class="btn btn-primary" href="#filter">Filter<span
                             style="font-size: 14px;" class="ms-2 fas fa-arrow-right"></span></a>
                 </div>
             </div>
@@ -32,7 +32,10 @@
     </div>
 </section>
 <!-- end of Hero -->
+<!-- start of features -->
+{% include 'homepage/snippets/features_snippets.html' %}
 
+<!-- end of features -->
 <!-- start of offer -->
 <section class="section bg-tertiary">
     <div class="container">
@@ -45,7 +48,7 @@
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 align-content-center service-item shadow">
-                <a class="text-primary" href="service-details.html">
+                <a class="text-primary" href="{% url 'scholarship' %}">
                     <div class="d-inline-flex align-content-center ">
                         <img src="static/images/scholarship-icon.png" class="align-content-center p-5" width="50%">
                         <div class="block ">
@@ -84,9 +87,9 @@
                     <h1>Capply</h1>
                     <p class="lead mb-0 mt-4">
                     <p>CAPPLY is a capstone project made by students of CADT, our main goal is to gather
-                        scholarships and internship offers and list them all on our website.
+                        scholarships offers and list them all on our website.
                     </p>
-                    <a class="btn btn-outline-primary border-yellow mt-4" href="about.html">Know About Us</a>
+                    <a class="btn btn-outline-primary border-yellow mt-4" href="{% url 'about' %}">Know About Us</a>
                 </div>
             </div>
 
@@ -99,8 +102,8 @@
 
 <!-- start of newsletter -->
 <section class="section position-relative overflow-hidden">
-    <div class="container col-lg-10 shadow p-5">
-        <div class="row align-items-center">
+    <div class="container bg-light col-lg-10 p-5">
+        <div class="row align-items-center ">
             <div class="section-title">
                 <p class="text-center text-primary text-uppercase fw-bold mb-3">Newsletter Sign UP</p>
                 <h1 class="text-center">Capply</h1>
