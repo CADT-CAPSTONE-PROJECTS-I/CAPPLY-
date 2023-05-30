@@ -2,63 +2,19 @@
 <html lang="en-us">
 
 <head>
-    <meta charset="utf-8">
-    <title>Capply - A capstone project</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
-    <meta name="description" content="Scholarship">
-    <meta name="author" content="Capply">
-
-    <link rel="shortcut icon" href="static/images/capply_icon.png" type="image/x-icon">
-    <link rel="icon" href="static/images/capply_icon.png" type="image/x-icon">
-
-    {% load bootstrap5 %}
-
-    {% bootstrap_css %}
-    {% bootstrap_javascript %}
-
-    {% load static %}
-    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
-    <!-- theme meta -->
-    <meta name="theme-name" content="capply" />
-
-    <!-- # Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
-
-    <!-- # CSS Plugins -->
-    <!-- <link rel="stylesheet" href="plugins/slick/slick.css"> -->
-    <!-- <link rel="stylesheet" href="static/plugins/fontawesome.min.css">
-    <link rel="stylesheet" href="static/plugins/font-awesome/brands.css">
-    <link rel="stylesheet" href="static/plugins/font-awesome/solid.css"> -->
-
-    <!-- # Main Style Sheet -->
-
-    
-
-    {% url 'scholarship' as scholarship %}
-    {% url 'home' as home %}
-
-    {% if request.path == scholarship %}
-    {% include 'category/snippets/css_snippets.html' %}
-    {% else %}
-    {% include 'homepage/snippets/css_snippets_home.html' %}
-    {% endif %}
-    <link rel="stylesheet" type="text/css" href="static/css/base.css">
+    {% include 'snippets/snippet_css_all.html' %}
 </head>
 
 <body>
-
-
 
     <!-- navigation -->
     <header class="navigation fixed-top">
         <nav class="navbar navbar-expand-xl navbar-light text-center py-3">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'home' %}">
-                    <img loading="prelaod" decoding="async" class="img-fluid" width="160" src="static/images/logo.svg"
-                        alt="capply">
+                    {% load static %}
+                    <img loading="prelaod" decoding="async" class="img-fluid" width="160"
+                        src="{% static 'images/logo.svg' %}" alt="capply">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -70,8 +26,9 @@
                         </li>
                         <li class="nav-item "> <a class="nav-link" href="{% url 'about' %}">About</a>
                         </li>
-                        <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="{% url 'scholarship' %}" id="navbarDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">Scholarship</a>
+                        <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle"
+                                href="{% url 'scholarship' %}" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">Scholarship</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item " href="{% url 'scholarship' %}">Blog</a>
                                 </li>
@@ -89,15 +46,15 @@
                                 </li>
                             </ul>
                         </li>
-                        
+
                         <li class="nav-item "> <a class="nav-link" href="{% url 'contact' %}">Contact</a>
-                 
+
                     </ul>
                     {% if request.user.is_authenticated %}
-                        {% if request.user.is_staff or request.user.is_superuser %}
-                        <!-- account btn --> <a href="{% url 'admin:index' %}" class="btn btn-outline-primary">Dashboard</a>
-                        <!-- logout btn --> <a href="{% url 'logout' %}" class="btn btn-primary">Log out</a>
-                        {% endif %}
+                    {% if request.user.is_staff or request.user.is_superuser %}
+                    <!-- account btn --> <a href="{% url 'admin:index' %}" class="btn btn-outline-primary">Dashboard</a>
+                    <!-- logout btn --> <a href="{% url 'logout' %}" class="btn btn-primary">Log out</a>
+                    {% endif %}
                     {% else %}
                     <!-- account btn --> <a href="{% url 'login' %}" class="btn btn-outline-primary">Log In</a>
                     <!-- account btn --> <a href="{% url 'register' %}" class="btn btn-primary">Sign Up</a>
@@ -112,110 +69,7 @@
     {% block content %}
     {% endblock content %}
 
-
-
-
-
-    <!-- start of footer -->
-    <footer class=" bg-primary pb-5">
-        <div class="container bg-primary">
-            <div class=" row justify-content-between mt-5 text-center text-md-start">
-                <div class="col-lg-3 mt-5">
-                    <div class="footer-widget">
-                        <a href="index.html">
-                            <img loading="prelaod" decoding="async" class="img-fluid" width="160"
-                                src="static/images/logo.svg" alt="Wallet">
-                        </a>
-                        <ul class="list-unstyled list-inline mt-5 social-icons">
-                            <li class="list-inline-item me-3"><a title="Explorer Facebook Profile" class="text-black"
-                                    href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a>
-                            </li>
-                            <li class="list-inline-item me-3"><a title="Explorer Twitter Profile" class="text-black"
-                                    href="https://twitter.com/"><i class="fab fa-twitter"></i></a>
-                            </li>
-                            <li class="list-inline-item me-3"><a title="Explorer Instagram Profile" class="text-black"
-                                    href="https://instagram.com/"><i class="fab fa-instagram"></i></a>
-                            </li>
-                        </ul>
-                        <div class="row text-right pt-3">
-                            <div class="col-lg-12">
-                                <div class="overflow-hidden">
-                                    <!-- Copyright -->
-                                    <p class="footer-copy">
-                                        Copyright &copy;
-                                        <script>var CurrentYear = new Date().getFullYear()
-                                            document.write(CurrentYear)
-                                        </script>. Designed &amp; Developed by <a class="current-year"
-                                            href="">Themefisher</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div> <!-- / .row -->
-
-                    </div>
-                </div>
-                <div class="col-lg-3 mt-5">
-                    <div class="footer-widget">
-                        <h5 class="mb-4 text-white font-secondary">Explore</h5>
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><a href="{% url 'home' %}">Home</a>
-                            </li>
-                            <li class="mb-2"><a href="">About</a>
-                            </li>
-                            <li class="mb-2"><a href="{% url 'scholarship' %}">Scholarship</a>
-                            </li>
-                            <li class="mb-2"><a href="{% url 'scholarship' %}">Internship</a>
-                            </li>
-                            <li class="mb-2"><a href="">Contact</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 mt-5">
-                    <div class="footer-widget">
-                        <h5 class="mb-4 text-white font-secondary">About</h5>
-                        <ul class="list-unstyled ">
-                            <li class="mb-2 "><a href="#!">Benefits</a>
-                            </li>
-                            <li class="mb-2"><a href="#!">Careers</a>
-                            </li>
-                            <li class="mb-2"><a href="#!">Our Story</a>
-                            </li>
-                            <li class="mb-2"><a href="#!">Team</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 mt-5">
-                    <div class="footer-widget">
-                        <h5 class="mb-4 text-white font-secondary">About</h5>
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><a href="#!">Benefits</a>
-                            </li>
-                            <li class="mb-2"><a href="#!">Careers</a>
-                            </li>
-                            <li class="mb-2"><a href="#!">Our Story</a>
-                            </li>
-                            <li class="mb-2"><a href="#!">Team</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </footer>
-    <!-- end of footer -->
-
-
-    <!-- # JS Plugins -->
-    <!-- <script src="plugins/jquery/jquery.min.js"></script> -->
-    <!-- <script src="static/plugins/bootstrap/bootstrap.min.js"></script> -->
-    <!-- <script src="plugins/slick/slick.min.js"></script> -->
-    <!-- <script src="plugins/scrollmenu/scrollmenu.min.js"></script> -->
-
-    <!-- Main Script -->
-    <script src="static/js/script.js"></script>
+    {% include 'snippets/snippet_footer.html' %}
 
 </body>
 

@@ -55,15 +55,13 @@ def search_tag(request, country):
     p = Paginator(scholarships_lists, 5)
     page = request.GET.get('page')
     scholarships = p.get_page(page)
-<<<<<<< HEAD
     context = {'scholarships':scholarships, 
                'country':country, 
                'country_lists':country_lists,
                'scholarships_lists':scholarships_lists }
     return render(request,'category/scholarship_tag_result.html', context)
-=======
-    context = {'scholarships':scholarships, 'country':country, 'country_lists':country_lists,'scholarships_lists':scholarships_lists }
-    return render(request,'category/scholarship_tag_result.html', context)
+    # context = {'scholarships':scholarships, 'country':country, 'country_lists':country_lists,'scholarships_lists':scholarships_lists }
+    # return render(request,'category/scholarship_tag_result.html', context)
 
 
 #profile change
@@ -75,4 +73,3 @@ class UserEditView(generic.UpdateView):
     
     def get_object(self):
         return self.request.user
->>>>>>> 2a115bb9c32b3c53e527bce013e774231688552a
