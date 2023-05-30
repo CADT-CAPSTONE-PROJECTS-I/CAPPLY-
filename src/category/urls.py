@@ -1,6 +1,6 @@
 
 from django.urls import path, re_path
-from .views import  list_scholarship,search_tag, ScholarshipDetailView
+from .views import  list_scholarship,search_tag, ScholarshipDetailView, UserEditView
 urlpatterns = [
      # path('scholarship', ScholarshipListView.as_view(), name = 'scholarship'),
      path('scholarship', list_scholarship, name = 'scholarship'),
