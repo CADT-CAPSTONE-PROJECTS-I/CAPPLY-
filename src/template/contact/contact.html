@@ -181,7 +181,8 @@
 			}
 		}
 	</style>
-	<script src="contact.js"></script>
+	{% load static %}
+	<script src="{% static 'contact/contact.js' %}"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
 	</script>
 	<script type="text/javascript">
@@ -243,11 +244,13 @@
 				<div>
 					<div class="topic-text">Sent us a message</div>
 				</div>
+				
 				<form class="contact_form" action="#" method="post">
+					{% csrf_token %}
 					<div class="input-box"><input type="text" class="form-control" id="name" placeholder="Full Name"
 							required>
 					</div>
-					<div class="input-box"><input type="email" class="form-control id=" email" placeholder="Email"
+					<div class="input-box"><input type="email" class="form-control" id="email" placeholder="Email"
 							required>
 					</div>
 					<div class="input-box message-box"><textarea class="form-control" id="message"

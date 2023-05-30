@@ -1,41 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 {% include 'category/snippets/tag_snippets.html' %}
-
 <section class="section-sm">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3 col-md-4">
-				<div class="category-sidebar">
-					<div class="widget category-list">
-						<h4 class="widget-header">Most Popular Countries</h4>
-						<ul class="category-list">
-							{% for country_tag in country_lists %}
-							{% if country_tag == country %}
-							<li><a href=" /scholarship/tag/{{country}}">#{{
-									country }}</a></li>
-							{% else %}
-							<li><a href=" /scholarship/tag/{{country_tag}}">{{ country_tag }}</a></li>
-							{% endif %}
-							{% endfor %}
-							<li><a href="">New York <span>93</span></a></li>
-							<li><a href=" ">New Jersy <span>233</span></a></li>
-							<li><a href=" ">Florida <span>183</span></a></li>
-							<li><a href=" ">California <span>120</span></a></li>
-							<li><a href=" ">Texas <span>40</span></a></li>
-							<li><a href=" ">Alaska <span>81</span></a></li>
-						</ul>
-
-					</div>
-
-
-				</div>
+				<!-- category sidebar -->
+				{% include 'category/snippets/category_sidebar_snippets.html' %}
+				<!-- end category sidebar -->
 			</div>
 			<div class="col-lg-9 col-md-8">
 				<div class="product-grid-list">
-					<div class="row mt-30">
+					<div class="row">
 						{% include 'category/snippets/scholarship_list_snippets.html' %}
 					</div>
 				</div>

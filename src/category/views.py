@@ -10,13 +10,13 @@ from django.template import loader
 
 def list_scholarship(request):
     # scholarship_lists = Scholarship.objects.all().order_by('?')
-    scholarship_lists = Scholarship.objects.all()
+    scholarships = Scholarship.objects.all()
     country_lists = Country.objects.all()
     # set up pagination
     p = Paginator(Scholarship.objects.all(), 5)
     page = request.GET.get('page')
-    scholarships = p.get_page(page)
-    return render(request,'category/category.html',{'scholarship_lists': scholarship_lists,
+    scholarships_lists = p.get_page(page)
+    return render(request,'category/category.html',{'scholarships_lists': scholarships_lists,
     'scholarships': scholarships, 'country_lists':country_lists})
 
 #scholarship detail views
@@ -43,12 +43,14 @@ class ScholarshipDetailView(DetailView):
     template_name = "category/scholarship_detail.html"
     
 
-
 def search_tag(request, country):
     scholarships_lists = Scholarship.objects.filter(country=country)
     country_lists = Country.objects.all()
-    p = Paginator(Scholarship.objects.all(), 5)
+    p = Paginator(scholarships_lists, 5)
     page = request.GET.get('page')
     scholarships = p.get_page(page)
-    context = {'scholarships':scholarships, 'country':country, 'country_lists':country_lists,'scholarships_lists':scholarships_lists }
+    context = {'scholarships':scholarships, 
+               'country':country, 
+               'country_lists':country_lists,
+               'scholarships_lists':scholarships_lists }
     return render(request,'category/scholarship_tag_result.html', context)

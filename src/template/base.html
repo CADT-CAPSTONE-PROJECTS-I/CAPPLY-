@@ -27,17 +27,19 @@
     <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <!-- Main Script -->
-    <script src="{% static 'static/js/script.js' %}" defer></script>
+
     <!-- # Main Style Sheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/category.css' %}">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% load static %}
+    <script src="{% static 'static/js/script.js' %}" defer></script>
+    <script src="{% static 'static/js/scrollbar.js' %}" defer></script>
 </head>
 
-<body>
-
+<body id="top-header" class="bg-light" >
     <!-- navigation -->
-    <header class="navigation fixed-top">
+    <header class="navigation fixed-top" >
         <nav class="navbar navbar-expand-xl navbar-light text-center py-3">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'home' %}">
@@ -146,10 +148,10 @@
 
                     </div>
                 </div>
-                <div class="col-lg-3 mt-5">
+                <div class="col-lg-9 mt-5">
                     <div class="footer-widget">
                         <h5 class="mb-4 text-white font-secondary">Explore</h5>
-                        <ul class="list-unstyled">
+                        <ul class="">
                             <li class="mb-2"><a href="{% url 'home' %}">Home</a>
                             </li>
                             <li class="mb-2"><a href="{% url 'about' %}">About</a>
@@ -163,43 +165,18 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-3 mt-5">
-                    <div class="footer-widget">
-                        <h5 class="mb-4 text-white font-secondary">About</h5>
-                        <ul class="list-unstyled ">
-                            <li class="mb-2 "><a href="#!">Benefits</a>
-                            </li>
-                            <li class="mb-2"><a href="#!">Careers</a>
-                            </li>
-                            <li class="mb-2"><a href="#!">Our Story</a>
-                            </li>
-                            <li class="mb-2"><a href="#!">Team</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 mt-5">
-                    <div class="footer-widget">
-                        <h5 class="mb-4 text-white font-secondary">About</h5>
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><a href="#!">Benefits</a>
-                            </li>
-                            <li class="mb-2"><a href="#!">Careers</a>
-                            </li>
-                            <li class="mb-2"><a href="#!">Our Story</a>
-                            </li>
-                            <li class="mb-2"><a href="#!">Team</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
 
             </div>
         </div>
     </footer>
     <!-- end of footer -->
+    <!--  Page Scroll to Top  -->
+    <a id="scroll-to-top" class="scroll-to-top js-scroll-trigger" href="#top-header">
+        <i class="fa fa-angle-up"></i>
+    </a>
 
-
+    {% load static %}
+    <script src="{% static 'static/js/script.js' %}" defer></script>
 
 </body>
 

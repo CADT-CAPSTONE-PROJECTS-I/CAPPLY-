@@ -77,26 +77,9 @@ class Scholarship(models.Model):
             if seqs: self.slug = '{0:s}_{1:d}'.format(self.slug, max(seqs)+1)
 
         super(Scholarship, self).save(*args, **kwargs)
-
-
-    # def save(self, *args, **kwargs):
-    #     if not self.slug:
-    #         self.slug = slugify(self.school+self.id)
-    #     super(Scholarship, self).save(*args, **kwargs)
-
-    # def save(self, *args, **kwargs):
-    #     if not self.pk:
-    #         self.slug = ''.join(random.sample(string.ascii_lowercase, 10))
-            
-    def get_absolute_url(self):
-        return f'/scholarship/{self.slug}'
-    # def get_absolute_url(self):
-    #     return reverse("category/scholarship_detail", kwargs={"slug": self.slug})
-    # def get_absolute_url(self):
-    #     return reverse("scholarship_detail", kwargs={"slug": self.slug})
     
-    # file = models.FileField(upload_to="documents/%Y/%m/%d", validators=[validate_file_extension])
-    
+    # def get_absolute_url(self):
+    #     return f'/scholarship/{self.slug}'
 
 #profile model
 MAJOR_LIST = (

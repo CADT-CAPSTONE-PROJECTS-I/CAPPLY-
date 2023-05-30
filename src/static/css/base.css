@@ -5,6 +5,44 @@
     --bs-yellow: #FFCA42;
 }
 
+/*-----------------------------
+ SCROLL TO TOP
+--------------------------------*/
+.scroll-to-top {
+    position: fixed !important;
+    content: ""!important;
+    right: 30px !important;
+    bottom: 50px !important;
+    z-index: 999 !important;
+    background: #21c87a !important;
+    color: #fff !important;
+    border-radius: 100% !important;
+    opacity: 0 !important;
+}
+
+.scroll-to-top i {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    text-align: center;
+    font-size: 22px;
+    line-height: 50px;
+    display: block;
+    box-shadow: 0 7px 22px rgba(0, 0, 0, 0.08);
+}
+
+.scroll-to-top:hover,
+.scroll-to-top:focus {
+    text-decoration: none !important;
+}
+
+.reveal {
+    transition: all 0.3s;
+    cursor: pointer;
+    opacity: 1;
+}
+
+
 .navigation {
     transition: 0.2s ease;
     padding: 10px 0;
@@ -4132,7 +4170,8 @@ a.text-black:hover {
     font-weight: 800;
 }
 
-.content a , .list-inline-item a{
+.content a,
+.list-inline-item a {
     border-bottom: 1px dotted var(--bs-yellow) !important;
 }
 
@@ -5342,8 +5381,8 @@ CONTACT PAGE
 .lead {
     font-size: 1.0625rem;
     font-weight: 300;
-  }
-  
+}
+
 /* --------------
       MAP
   -----------------*/
@@ -5351,6 +5390,7 @@ CONTACT PAGE
     /* height: 400px !important; */
     width: 100% !important;
 }
+
 /* ------------------- */
 
 

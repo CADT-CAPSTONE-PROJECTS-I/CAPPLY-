@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.shortcuts import redirect
-from category.models import Scholarship
+from category.models import Scholarship, Country
 from django.core.paginator import Paginator
 
 # Create your views here.
@@ -75,10 +75,11 @@ def show_category(request):
 def search(request):
     if request.method == "POST":
         searched = request.POST['searched']
-        scholarships = Scholarship.objects.filter(school__contains=searched).all()
-        
+        scholarships_lists = Scholarship.objects.filter(school__contains=searched).all()
+        country_lists = Country.objects.all()
         context = {'searched':searched, 
-                   'scholarships':scholarships }
+                   'scholarships_lists':scholarships_lists,
+                   'country_lists': country_lists}
         return render(request,'homepage/search.html', context)
                   
     else:
