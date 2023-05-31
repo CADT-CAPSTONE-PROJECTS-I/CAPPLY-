@@ -5449,11 +5449,11 @@ CONTACT PAGE
     display: inline-block;
     height: 45px;
     width: 45px;
-    border: 1px solid #ddd;
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
+    /* border-radius: 8px; */
 }
 
 #TableOfContents ul {

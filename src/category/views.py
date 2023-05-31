@@ -42,11 +42,13 @@ def scholarship_detail_view(request, slug):
         'scholarship' : scholarship_obj,
     }
     return HttpResponse(template.render(context, request))
-
 class ScholarshipDetailView(DetailView):
     model = Scholarship
-    
     template_name = "category/scholarship_detail.html"
+    def detail_filter_similar(self, **kwargs):
+        context = super(ScholarshipDetailView,self).get_context_data(**kwargs)
+        context['country'] = Scholarship.objects.filter(country=self.country)
+        return context
     
 
 def search_tag(request, country):

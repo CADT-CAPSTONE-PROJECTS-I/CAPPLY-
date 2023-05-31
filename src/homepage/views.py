@@ -45,22 +45,27 @@ def login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-
-        user = auth.authenticate(username= username, password=password)
-        if user.is_staff or user.is_superuser :
-            auth.login(request, user)
-            return redirect('admin/')
-        
-        elif user is not None:
-            auth.login(request, user)
-            return redirect('profile')
-        else:
-            messages.info(request, 'Invalid Credentials.')
+        try:
+            user = auth.authenticate(username= username, password=password)
+            if user.is_staff or user.is_superuser :
+                auth.login(request, user)
+                messages.info(request, 'Login Successfully.')
+                return redirect('admin/')
+            
+            elif user is not None:
+                auth.login(request, user)
+                messages.info(request, 'Login Successfully.')
+                return redirect('profile')
+            else:
+                messages.info(request, 'Invalid Credentials.')
+                return redirect('login')
+        except:
+            messages.info(request, 'Check and login again')
             return redirect('login')
     elif request.user.is_authenticated:
         return redirect('home')
     else:
-        return render(request, "user/login.html")
+        return render(request, "user/login.html", {'messages.info':messages.info})
 
 
 def logout(request):
@@ -105,3 +110,43 @@ def contact_us(request):
 
 
 
+import io
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.units import inch
+
+def some_view(request):
+    # Create a file-like buffer to receive PDF data.
+    buffer = io.BytesIO()
+
+    # Create the PDF object, using the buffer as its "file."
+    p = canvas.Canvas(buffer,pagesize=letter, bottomup=0)
+
+    # Draw things on the PDF. Here's where the PDF generation happens.
+    # See the ReportLab documentation for the full list of functionality.
+    textob = p.beginText()
+    textob.setTextOrigin(inch,inch)
+    textob.setFont("Helvetica", 14)
+    scholarships = Scholarship.objects.all()
+    lines=[]
+    
+    for scholarship in scholarships:
+        lines.append(scholarship.school)
+        lines.append(scholarship.level)
+        lines.append(scholarship.slug)
+        # lines.apppend("/n")
+    
+    for line in lines:
+        textob.textLine(line)
+        
+    p.drawText(textob)
+
+    # Close the PDF object cleanly, and we're done.
+    p.showPage()
+    p.save()
+
+    # FileResponse sets the Content-Disposition header so that browsers
+    # present the option to save the file.
+    buffer.seek(0)
+    return FileResponse(buffer, as_attachment=True, filename="hello.pdf")

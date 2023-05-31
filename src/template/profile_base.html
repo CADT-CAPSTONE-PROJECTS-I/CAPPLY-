@@ -26,25 +26,7 @@
                         </li>
                         <li class="nav-item "> <a class="nav-link" href="{% url 'about' %}">About</a>
                         </li>
-                        <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle"
-                                href="{% url 'scholarship' %}" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">Scholarship</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item " href="{% url 'scholarship' %}">Blog</a>
-                                </li>
-                                <li><a class="dropdown-item " href="blog-details.html">Blog Details</a>
-                                </li>
-                                <li><a class="dropdown-item " href="service-details.html">Service Details</a>
-                                </li>
-                                <li><a class="dropdown-item " href="faq.html">FAQ&#39;s</a>
-                                </li>
-                                <li><a class="dropdown-item " href="legal.html">Legal</a>
-                                </li>
-                                <li><a class="dropdown-item " href="terms.html">Terms &amp; Condition</a>
-                                </li>
-                                <li><a class="dropdown-item " href="privacy-policy.html">Privacy &amp; Policy</a>
-                                </li>
-                            </ul>
+                        <li class="nav-item "> <a class="nav-link" href="{% url 'scholarship' %}">Scholarship</a>
                         </li>
 
                         <li class="nav-item "> <a class="nav-link" href="{% url 'contact' %}">Contact</a>
@@ -53,6 +35,8 @@
                     {% if request.user.is_authenticated %}
                     {% if request.user.is_staff or request.user.is_superuser %}
                     <!-- account btn --> <a href="{% url 'admin:index' %}" class="btn btn-outline-primary">Dashboard</a>
+                    <!-- logout btn --> <a href="{% url 'logout' %}" class="btn btn-primary">Log out</a>
+                    {% else %}
                     <!-- logout btn --> <a href="{% url 'logout' %}" class="btn btn-primary">Log out</a>
                     {% endif %}
                     {% else %}
