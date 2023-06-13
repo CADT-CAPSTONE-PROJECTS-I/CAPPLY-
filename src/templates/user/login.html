@@ -32,6 +32,13 @@
                     </div>
                   </div>
                   {% endif %}
+                  <div class="form_group">
+                    {% for message in messages %}
+                    <div class="alert alert-danger" role="alert">
+                      {{message}}
+                    </div>
+                    {% endfor %}
+                  </div>
                   <!-- end message -->
                   {% if request.user.is_authenticated %}
                   <p class="text-sucess">You are logged in!</p>
