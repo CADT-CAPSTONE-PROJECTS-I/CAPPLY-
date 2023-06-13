@@ -28,35 +28,21 @@ class Country(models.Model):
 
 class Scholarship(models.Model):
     id = models.BigAutoField(primary_key=True)
-    level = models.CharField(max_length=255)
-    school = models.CharField(max_length=255)
+    level = models.CharField(max_length=120)
+    school = models.CharField(max_length=200)
     deadline = models.DateField()
     more_info = models.TextField()
     description = models.TextField(blank=True, null=True, max_length=275)
-    link_web = models.CharField(max_length=255)
-    country = models.CharField(max_length=255)
-    slug = models.SlugField(null=False, unique=True, default=slugify(school,id))
+    link_web = models.CharField(max_length=200)
+    country = models.CharField(max_length=120)
+    # slug_combine = school + " " + random_slug()
+    # slug = slugify(slug_combine)
+    slug = models.SlugField(null=False, unique=True, default=slugify(random_slug))
     
     def get_absolute_url(self):
         return reverse("scholarship_detail", kwargs={"slug": self.slug})
     
-    def save(self, *args, **kwargs):
-        if not self.slug: # slug is blank
-            self.slug = slugify(self.school,self.level)
-        else: # slug is not blank
-            self.slug = slugify(self.slug)
-
-        qsSimilarName = Scholarship.objects.filter(slug__startswith='self.slug')
-
-        if qsSimilarName.count() > 0:
-            seqs = []
-            for qs in qsSimilarName:
-                seq = re.findall(r'{0:s}_(\d+)'.format(self.slug), qs.slug)
-                if seq: seqs.append(int(seq[0]))
-
-            if seqs: self.slug = '{0:s}_{1:d}'.format(self.slug, max(seqs)+1)
-
-        super(Scholarship, self).save(*args, **kwargs)
+   
 
 #profile model
 MAJOR_LIST = (
