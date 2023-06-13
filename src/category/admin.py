@@ -11,8 +11,6 @@ class ScholarshipAdmin(admin.ModelAdmin):
     list_display_links = ('id','level', 'school', 'deadline','more_info', 'country')
     prepopulated_fields = {"slug": ("school","level")}
 
-# Register your models here.
-# admin.site.register(continent )
 admin.site.register(Country, CountryAdmin)
 admin.site.register(Scholarship, ScholarshipAdmin)
 admin.site.register(Profile)

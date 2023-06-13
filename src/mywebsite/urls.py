@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from homepage.views import homepage
+from django.contrib.admin import AdminSite
+
 # from category.views import 
 from django.contrib.auth import views as auth_views #new
 
@@ -27,3 +29,8 @@ urlpatterns = [
     path('', include('homepage.urls')),
     path('', include('category.urls')),
 ]
+class CustomAdminSite(AdminSite):
+    site_header = 'CAPPLY Administration'
+    site_title = 'CAPPLY Admin'
+
+admin.site.__class__ = CustomAdminSite

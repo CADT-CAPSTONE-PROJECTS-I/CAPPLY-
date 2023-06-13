@@ -30,19 +30,17 @@ class Scholarship(models.Model):
     id = models.BigAutoField(primary_key=True)
     level = models.CharField(max_length=120)
     school = models.CharField(max_length=200)
-    deadline = models.DateField()
+    deadline = models.DateField(null=True)
     more_info = models.TextField()
     description = models.TextField(blank=True, null=True, max_length=275)
     link_web = models.CharField(max_length=200)
     country = models.CharField(max_length=120)
-    # slug_combine = school + " " + random_slug()
-    # slug = slugify(slug_combine)
     slug = models.SlugField(null=False, unique=True, default=slugify(random_slug))
     
     def get_absolute_url(self):
         return reverse("scholarship_detail", kwargs={"slug": self.slug})
     
-   
+
 
 #profile model
 MAJOR_LIST = (
