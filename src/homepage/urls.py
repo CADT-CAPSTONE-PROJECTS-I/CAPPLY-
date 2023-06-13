@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from homepage.views import homepage, register, login, logout, profile,profile_edit,contact_us, some_view, search, about, contact 
+from homepage.views import homepage, register, login, logout, profile,profile_edit,contact_us, search, about, contact 
 from . import views
 # from homepage.views import homepage, register, login, logout, profile,profile_edit, show_category, search
 
