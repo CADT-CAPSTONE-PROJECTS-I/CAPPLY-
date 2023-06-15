@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from category.models import Scholarship, Country
 from django.core.paginator import Paginator
-
+from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
@@ -27,14 +27,18 @@ def register(request):
         confirm_password = request.POST['confirm_password']
         if password ==confirm_password:
             if User.objects.filter(username=username).exists():
-                messages.info(request, 'Username is not availble')
+                messages.info(request, 'Username is already exists!')
                 return redirect(register)
             else:
                 user = User.objects.create_user(first_name=first_name,last_name=last_name,username=username, password=password, email=email)
-                user.set_password(password)
-                user.save()
+                reuser = authenticate(username=username, password=password)
+                auth.login(request,reuser)
                 print("Account created successfully!")
-                return redirect('login')
+                messages.success(request, 'Account created successfully!')
+                return redirect('profile')
+        else:
+            messages.error(request, 'Passwords do not match!')
+            return redirect('register')
 
     else:
         return render(request, "user/register.html")
@@ -53,29 +57,51 @@ def login(request):
             
             elif user is not None:
                 auth.login(request, user)
-                messages.info(request, 'Login Successfully.')
+                messages.success(request, 'Login Successfully.')
                 return redirect('profile')
             else:
-                messages.info(request, 'Invalid Credentials.')
+                messages.error(request, 'Invalid Credentials.')
                 return redirect('login')
         except:
-            messages.info(request, 'Check and login again')
+            messages.error(request, 'Check and login again')
             return redirect('login')
     elif request.user.is_authenticated:
         return redirect('home')
     else:
-        return render(request, "user/login.html", {'messages.info':messages.info})
+        return render(request, "user/login.html", {'messages':messages})
 
 
 def logout(request):
     auth.logout(request)
     return redirect('home')
 
+@login_required
 def profile(request):
     return render(request,"user/profile.html")
 
 def profile_edit(request):
     return render(request,"user/profile_edit.html")
+
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import View
+
+class UserDeleteConfirmView(LoginRequiredMixin, View):
+    template_name = 'user/delete_confirmation.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        password = request.POST.get('confirm_password', '')
+        user = request.user
+        if user.check_password(password):
+            user.delete()
+            messages.success(request, 'Your account has been deleted.')
+            return redirect('login') 
+        else:
+            messages.error(request, 'Invalid password.')
+            return redirect('user_delete_confirm')
 
 # For Category
 def show_category(request):

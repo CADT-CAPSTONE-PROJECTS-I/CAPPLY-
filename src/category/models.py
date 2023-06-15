@@ -51,7 +51,7 @@ MAJOR_LIST = (
 
 class Profile(models.Model):
     user = models.OneToOneField(User, null  =True, on_delete = models.CASCADE)
-    profile_pic = models.ImageField(default='static\images\profile_pics\Default.png', upload_to='static\images\profile_pics')
+    profile_pic = models.ImageField(default='images\profile_pics\Default.png', upload_to='images\profile_pics')
     bio = models.TextField(default="This user is lazy and has nothing to say.", max_length=124, null = True, blank = True)
 
     def __str__(self):

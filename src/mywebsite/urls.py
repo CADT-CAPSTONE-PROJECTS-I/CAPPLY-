@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from homepage.views import homepage
 from django.contrib.admin import AdminSite
-
+from django.conf import settings
+from django.conf.urls.static import static
 # from category.views import 
 from django.contrib.auth import views as auth_views #new
 
@@ -28,7 +29,9 @@ urlpatterns = [
     path('', homepage, name="home"),
     path('', include('homepage.urls')),
     path('', include('category.urls')),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
 class CustomAdminSite(AdminSite):
     site_header = 'CAPPLY Administration'
     site_title = 'CAPPLY Admin'
