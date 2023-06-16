@@ -2,8 +2,8 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
 from django.contrib.auth.forms import UserChangeForm
-
-class EditProfileForm(UserChangeForm):
+from django.contrib.auth import get_user_model
+class EditUserForm(forms.ModelForm):
     first_name = forms.CharField(max_length=125, widget= forms.TextInput(attrs={'class': 'form-control'}))
     last_name = forms.CharField(max_length=125, widget= forms.TextInput(attrs={'class': 'form-control'}))
     username = forms.CharField(max_length=125, widget= forms.TextInput(attrs={'class': 'form-control'}))
@@ -11,13 +11,15 @@ class EditProfileForm(UserChangeForm):
     class Meta:
         model = User
         fields = ['username', 'last_name', 'first_name']
-class EditProfilePictureForm(forms.ModelForm):
-    image = forms.ImageField( )
+class EditProfileForm(forms.ModelForm):
+    profile_pic = forms.ImageField()
+    bio = forms.Textarea()
     class Meta:
         model = Profile
-        fields = ['image']
+        fields = ['profile_pic', 'bio']
         widget= {
-            'image' : forms.TextInput(attrs={'class': 'form-control'})
+            'profile_pic' : forms.TextInput(attrs={'class': 'form-control'}),
+            'bio' : forms.TextInput(attrs={'class': 'form-control'})
         }
 
 

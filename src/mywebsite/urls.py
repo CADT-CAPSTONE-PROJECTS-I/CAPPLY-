@@ -20,7 +20,6 @@ from homepage.views import homepage
 from django.contrib.admin import AdminSite
 from django.conf import settings
 from django.conf.urls.static import static
-# from category.views import 
 from django.contrib.auth import views as auth_views #new
 
 urlpatterns = [

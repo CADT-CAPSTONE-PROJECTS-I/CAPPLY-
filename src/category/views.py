@@ -12,11 +12,6 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, redirect 
 from django.views.generic import ListView, DetailView 
 from django.template import loader
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserChangeForm
-from django.views import generic
-from django.urls import reverse_lazy
-from .forms import EditProfileForm, EditProfilePictureForm
 
 def scrape_data(request):
     add_to_model = True  
@@ -134,21 +129,24 @@ def cv(request):
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import render, redirect
-from .forms import EditProfileForm
 from django.contrib.auth.forms import SetPasswordForm
-from .forms import EditProfileForm, EditProfilePictureForm
-
+from .forms import EditUserForm, EditProfileForm
+from .models import Profile
 def edit_profile(request):
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=request.user)       
-        if form.is_valid() :
+        form = EditUserForm(request.POST, instance=request.user) 
+        profile_form = EditProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid() and profile_form.is_valid():
             user = form.save()
+            profile_form.save()
             update_session_auth_hash(request, user)
             return redirect('profile')
     else:
-        form = EditProfileForm(instance=request.user)
+        form = EditUserForm(instance=request.user)
+        profile_form =EditProfileForm(instance=request.user.profile)
     context = {
         'form': form,
+        'profile_form':profile_form
     }
     return render(request, 'user/profile_edit.html', context)
 def change_password(request):
