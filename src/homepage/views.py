@@ -86,7 +86,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 
-class UserDeleteConfirmView(LoginRequiredMixin, View):
+class UserDeleteView(LoginRequiredMixin, View):
     template_name = 'user/delete_confirmation.html'
 
     def get(self, request, *args, **kwargs):

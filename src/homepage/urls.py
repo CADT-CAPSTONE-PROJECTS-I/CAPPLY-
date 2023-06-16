@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from homepage.views import homepage, register, login, logout, profile,profile_edit,contact_us, search, about, contact ,UserDeleteConfirmView
-from . import views
+from homepage.views import homepage, register, login, logout, profile,profile_edit,contact_us, search, about, contact ,UserDeleteView
 # from homepage.views import homepage, register, login, logout, profile,profile_edit, show_category, search
 
 urlpatterns = [
@@ -17,7 +16,7 @@ urlpatterns = [
     path("contact",contact , name="contact"),
     path("contact-us",contact_us , name="contact_us"),
     # path("scholarship_pdf",some_view , name="view_pdf"),
-    path('user/delete/', UserDeleteConfirmView.as_view(), name='user_delete_confirm'),
+    path('user/delete/', UserDeleteView.as_view(), name='user_delete_confirm'),
 ]
 
 

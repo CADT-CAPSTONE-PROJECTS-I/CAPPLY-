@@ -1,3 +1,4 @@
+from io import BytesIO
 import random
 import string
 from bs4 import BeautifulSoup
@@ -5,7 +6,6 @@ from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 import requests
-
 from django.utils.text import slugify
 from .models import Scholarship, Country
 from django.core.paginator import Paginator
@@ -16,7 +16,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm
 from django.views import generic
 from django.urls import reverse_lazy
-from .forms import EditProfileForm
+from .forms import EditProfileForm, EditProfilePictureForm
 
 def scrape_data(request):
     add_to_model = True  
@@ -128,40 +128,186 @@ def search_tag(request, country):
     # return render(request,'category/scholarship_tag_result.html', context)
 
 
-#profile change
-
-# class UserEditView(generic.UpdateView):
-#     form_class = EditProfileForm
-#     template_name = 'user/profile_edit.html'
-#     success_url = reverse_lazy('profile')
-    
-#     def get_object(self):
-#         return self.request.user
-
+def cv(request):
+    return render(request,'cv.html',{})
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import render, redirect
 from .forms import EditProfileForm
 from django.contrib.auth.forms import SetPasswordForm
+from .forms import EditProfileForm, EditProfilePictureForm
 
 def edit_profile(request):
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=request.user)
-        password_form = SetPasswordForm(user=request.user, data=request.POST)
-        
-        if form.is_valid() and password_form.is_valid():
+        form = EditProfileForm(request.POST, instance=request.user)       
+        if form.is_valid() :
             user = form.save()
-            password_form.save()
             update_session_auth_hash(request, user)
             return redirect('profile')
     else:
         form = EditProfileForm(instance=request.user)
+    context = {
+        'form': form,
+    }
+    return render(request, 'user/profile_edit.html', context)
+def change_password(request):
+    if request.method == 'POST':
+        password_form = SetPasswordForm(user=request.user, data=request.POST)
+        
+        if password_form.is_valid():
+            password_form.save()
+            update_session_auth_hash(request, request.user)
+            return redirect('profile')
+    else:
         password_form = SetPasswordForm(user=request.user)
     
     context = {
-        'form': form,
         'password_form': password_form,
     }
-    return render(request, 'user/profile_edit.html', context)
+    return render(request, 'user/change_password.html', context)
+
+
+from django.http import HttpResponse
+from django.template.loader import get_template
+from django.views.decorators.csrf import csrf_exempt
+from reportlab.pdfgen import canvas
+from .forms import MyForm, CVForm
+from django.template.loader import render_to_string
+from weasyprint import HTML
+import requests
+from django.conf import settings
+import os
+from django.core.files.storage import FileSystemStorage
+
+def form_view(request):
+    if request.method == 'POST':
+        form = MyForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Get form data
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+            image = form.cleaned_data['image']
+            
+            # Save the uploaded image file
+            fss = FileSystemStorage()
+            file = fss.save(image.name, image)
+            image_url = fss.url(file)
+            
+            # Download the image locally
+            image_url_with_scheme = f"{request.scheme}://{request.get_host()}{image_url}"
+            
+            # Create a dictionary with the form data
+            context = {'name': name, 'email': email, 'message': message, 'image_url': image_url_with_scheme}
+            
+            # Generate PDF
+            response = HttpResponse(content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename="form_submission.pdf"'
+            
+            # Render the template with the form data
+            html_string = render_to_string('response.html', context)
+            
+            # Create the PDF from the HTML string and write it to the response
+            HTML(string=html_string).write_pdf(response)
+
+            return response
+    else:
+        form = MyForm()
+
+    return render(request, 'form.html', {'form': form})
+
+from .forms import CVForm 
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from django.core.files.storage import FileSystemStorage
+from xhtml2pdf import pisa
+
+def generate_cv_pdf(request):
+    if request.method == 'POST':
+        form = CVForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Retrieve form data
+            full_name = form.cleaned_data['full_name']
+            email = form.cleaned_data['email']
+            phone_number = form.cleaned_data['phone_number']
+            address = form.cleaned_data['address']
+            summary = form.cleaned_data['summary']
+            institution_name = form.cleaned_data['institution_name']
+            degree_earned = form.cleaned_data['degree_earned']
+            field_of_study = form.cleaned_data['field_of_study']
+            dates_of_attendance = form.cleaned_data['dates_of_attendance']
+            company_name = form.cleaned_data['company_name']
+            job_title = form.cleaned_data['job_title']
+            employment_dates = form.cleaned_data['employment_dates']
+            responsibilities = form.cleaned_data['responsibilities']
+            achievements = form.cleaned_data['achievements']
+            skills = form.cleaned_data['skills']
+            certifications = form.cleaned_data['certifications']
+            project_name = form.cleaned_data['project_name']
+            purpose = form.cleaned_data['purpose']
+            role = form.cleaned_data['role']
+            technologies_used = form.cleaned_data['technologies_used']
+            outcomes = form.cleaned_data['outcomes']
+            awards = form.cleaned_data['awards']
+            languages = form.cleaned_data['languages']
+            interests = form.cleaned_data['interests']
+            references = form.cleaned_data['references']
+            image_file = form.cleaned_data['image_file']
+
+            # Save the uploaded image file
+            fss = FileSystemStorage()
+            file = fss.save(image_file.name, image_file)
+            image_url = fss.url(file)
+
+            # Download the image locally
+            image_url_with_scheme = f"{request.scheme}://{request.get_host()}{image_url}"
+
+            context = {
+                'full_name': full_name,
+                'email': email,
+                'phone_number': phone_number,
+                'address': address,
+                'summary': summary,
+                'institution_name': institution_name,
+                'degree_earned': degree_earned,
+                'field_of_study': field_of_study,
+                'dates_of_attendance': dates_of_attendance,
+                'company_name': company_name,
+                'job_title': job_title,
+                'employment_dates': employment_dates,
+                'responsibilities': responsibilities,
+                'achievements': achievements,
+                'skills': skills,
+                'certifications': certifications,
+                'project_name': project_name,
+                'purpose': purpose,
+                'role': role,
+                'technologies_used': technologies_used,
+                'outcomes': outcomes,
+                'awards': awards,
+                'languages': languages,
+                'interests': interests,
+                'references': references,
+                'image_url': image_url_with_scheme
+            }
+
+            # Render the template with the form data
+            html_string = render_to_string('cv_template.html', context)
+
+            # Create the PDF
+            response = HttpResponse(content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename="form_submission.pdf"'
+
+            # Convert HTML to PDF and write it to the response
+            pisa.CreatePDF(html_string, dest=response)
+
+            return response
+        else:
+            form = CVForm()
+    else:
+        form = CVForm()
+
+    return render(request, 'cv_form.html', {'form': form})
+
+
