@@ -35,11 +35,14 @@ class Scholarship(models.Model):
     description = models.TextField(blank=True, null=True, max_length=275)
     link_web = models.CharField(max_length=200)
     country = models.CharField(max_length=120)
-    slug = models.SlugField(null=False, unique=True, default=slugify(random_slug))
+    slug = models.SlugField(null=False, unique=True, default=slugify(random_slug()))
     
     def get_absolute_url(self):
         return reverse("scholarship_detail", kwargs={"slug": self.slug})
-    
+    def save(self, *args, **kwargs):  # new
+        if not self.slug:
+            self.slug = slugify(random_slug())
+        return super().save(*args, **kwargs)
 
 
 #profile model
@@ -78,3 +81,15 @@ def create_profile(sender, instance, created, **kwargs):
         user_profile.save()
         
 post_save.connect(create_profile, sender=User)
+
+
+class Comment(models.Model):
+    scholarship = models.ForeignKey(Scholarship, on_delete=models.CASCADE, null = False, related_name ='comments')
+    user = models.ForeignKey(User, null = False, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False)
+    class Meta:
+        ordering = ['created_on']
+    def __str__(self):
+        return 'Comment {} by {}'.format(self.content, self.user)

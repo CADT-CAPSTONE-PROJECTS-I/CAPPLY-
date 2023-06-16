@@ -96,3 +96,13 @@ class CVForm(forms.Form):
     references = forms.CharField(label='References', widget=forms.Textarea, required=False)
     
     image_file = forms.ImageField(label='Image')
+
+
+from .models import Comment
+from django import forms
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('user', 'scholarship', 'content')

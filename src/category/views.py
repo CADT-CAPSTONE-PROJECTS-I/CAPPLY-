@@ -43,6 +43,7 @@ def scrape_data(request):
                 slug_combine = school + " " + ''.join(random.choice(allowed_chars) for _ in range(32))
                 slug = slugify(slug_combine)
                 
+                
                 # Create an object or dictionary to store the scraped data
                 obj = {
                     'more_info': more_info,
@@ -53,10 +54,13 @@ def scrape_data(request):
                     'slug': slug
                 }
                 
-                results.append(obj)  # Append the object to the results list
+                results.append(obj)
     
                 if add_to_model:
-                    # Create a new instance of YourModel and populate it with the scraped data
+                    country_instance, created = Country.objects.get_or_create(name = country)
+                    if created:
+                        country_instance.name = country
+                        country_instance.save()
                     model_instance = Scholarship(
                         more_info=more_info,
                         school=school,
@@ -65,7 +69,9 @@ def scrape_data(request):
                         deadline=deadline,
                         slug=slug
                     )
+                    
                     model_instance.save()
+                    
     if add_to_model:
         return JsonResponse({'message': 'Scrapping complete'})
     else:
@@ -106,6 +112,7 @@ class ScholarshipDetailView(DetailView):
         context = super(ScholarshipDetailView,self).get_context_data(**kwargs)
         context['country'] = Scholarship.objects.filter(country=self.country)
         return context
+    
     
 
 def search_tag(request, country):

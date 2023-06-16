@@ -44,7 +44,7 @@ for i in range (1, 3):
             slug = slugify(slug_combine)
             print(deadline)
             c.execute('''INSERT INTO category_scholarship VALUES(?,?,?,?,?,?,?,?,?)''',(None, level, school, deadline, more_info,None, web_link, country, slug))
-
+                
             # c.execute('''INSERT INTO category_scholarship VALUES(?,?,?,?,?,?,?,?,?)''',(None, level, school, deadline, more_info, None , web_link, country, slug))
               
 conn.commit()
