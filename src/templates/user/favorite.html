@@ -1,0 +1,46 @@
+{% extends 'profile_base.html' %}
+
+
+{% block content %}
+
+
+
+
+<body>
+
+
+    <section class="vh-100" style="background-color: #eee;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-12 col-xl-5">
+                    <div class="product-grid-list">
+                        <div class="row">
+                            {% for favorite in scholarship_favorite %}
+                            <div class="ad-listing-list">
+                                <!-- product card -->
+                                <div class="product-item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title"><a
+                                                    href="scholarship/{{favorite.scholarship_link}}">{{favorite.scholarship_school}}</a>
+                                            </h4>
+
+
+                                            <a href="favorite-delete/{{favorite.scholarship_link}}"
+                                                class="btn btn-danger">Remove</a>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock content %}

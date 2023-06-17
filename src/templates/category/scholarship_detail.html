@@ -5,46 +5,61 @@
     <div class="row justify-content-center">
       <div class="col-lg-9 shadow pb-5 px-5 bg-white">
         <div class="mt-5 mb-5 tag-detail">
-          <span class="text-primary"> {{object.deadline}} <span class="mx-2">/</span> </span>
+          <span class="text-primary"> {{scholarship.deadline}} <span class="mx-2">/</span> </span>
           <p class="list-inline-item ">
             <span class="text-primary "><strong>Category </strong>:</span>
             <a href="{% url 'scholarship' %}" class="ml-1">Scholarship</a>
           </p>
           <p class="list-inline-item">
             <span class="text-primary "><strong>Tag </strong>:</span>
-            <a href="{{ object.more_info }}" class="ml-1"> More Info</a> ,
-            <a href="{{ object.link_web }}" class="ml-1 tag underline-doted"> Visit </a>,
-            <a href="{% url 'scholarship' %}/tag/{{object.country}}" class="ml-1">{{object.country}}</a>
+            <a href="{{ scholarship.more_info }}" class="ml-1"> More Info</a> ,
+            <a href="{{ scholarship.link_web }}" class="ml-1 tag underline-doted"> Visit </a>,
+            <a href="{% url 'scholarship' %}/tag/{{scholarship.country}}" class="ml-1">{{scholarship.country}}</a>
+             {% if favorited.activation == 0 %}
+            <a href="/add-to-favorite/{{scholarship.slug}}" class="ml-1">Favorited</a>
+            {% else %}
+            <a href="/add-to-favorite/{{scholarship.slug}}" class="ml-1">Add Favorite</a>
+            {% endif %}
+
+
+           
           </p>
 
-          <h2 class="mb-4" style="line-height:1.5">{{object.school}}</h2>
+
+          <h2 class="mb-4" style="line-height:1.5">{{scholarship.school}}</h2>
         </div>
+
 
         <div class="content">
           <h5 id="level">Level</h5>
           <ul>
-            <li class="text-primary">{{object.level}}</li>
+            <li class="text-primary">{{scholarship.level}}</li>
           </ul>
+
 
           <h5 id="country">Country</h5>
           <ul>
-            <li class="text-primary">{{object.country}}</li>
+            <li class="text-primary">{{scholarship.country}}</li>
           </ul>
 
 
-          {% if object.deadline == None and object.description == null %}
+
+
+          {% if scholarship.deadline == None and scholarship.description == null %}
           <h5 id="deadline">Deadline & Description</h5>
           <ul>
             <li class="text-primary">Visit official website for details</li>
           </ul>
 
-          {% elif object.deadline != None and object.description == null %}
+
+          {% elif scholarship.deadline != None and scholarship.description == null %}
           <h5 id="paragraph">Deadline</h5>
           <ul>
-            <li class="text-primary">{{object.deadline}}</li>
+            <li class="text-primary">{{scholarship.deadline}}</li>
           </ul>
           <h5 id="paragraph">Description</h5>
           <p>Visit official website for details</p>
+
 
           {% else %}
           <h5 id="deadline">Deadline</h5>
@@ -52,11 +67,13 @@
             <li class="text-primary">Visit official website for details</li>
           </ul>
           <h5 id="paragraph">Description</h5>
-          <p>{{object.description}}</p>
+          <p>{{scholarship.description}}</p>
           {% endif %}
 
+
           <h5 id="link">Official Scholarship Website</h5>
-          <p><a href="{{object.link_web}}">{{object.link_web}}</a>
+          <p><a href="{{scholarship.link_web}}">{{scholarship.link_web}}</a>
+
 
           <div class="notices info">
             <p class="text-primary">This is NOT the official scholarship page. This is only a one-page summarized
@@ -66,15 +83,20 @@
               strictly at your own risk. Please read our Terms of Use for more information.</p>
           </div>
 
+
           <hr>
 
+
         </div>
+
+
 
 
         <!-- COMMENT -->
         <!-- <div class="col-md-12">
           <div class="mb-5 mt-4 pt-5">
             <h3 class="mb-4">Comments</h3>
+
 
             <div class="media d-block d-sm-flex mb-4 pb-4">
               <a class="d-inline-block mr-2 mb-3 mb-md-0" href="#">
@@ -83,10 +105,12 @@
               <div class="media-body">
                 <a href="#!" class="h4 d-inline-block mb-3">Alexender Grahambel</a>
 
+
                 <p class="text-black">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
                   sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum
                   nunc
                   ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+
 
                 <span class="text-black mr-3 font-weight-600">April 18, 2020 at 6.25 pm</span>
                 <a class="text-primary font-weight-600" href="#!">Reply</a>
@@ -100,16 +124,19 @@
               <div class="media-body">
                 <a href="#!" class="h4 d-inline-block mb-3">Nadia Sultana Tisa</a>
 
+
                 <p class="text-black">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
                   sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum
                   nunc
                   ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+
 
                 <span class="text-black mr-3 font-weight-600">April 18, 2020 at 6.25 pm</span>
                 <a class="text-primary font-weight-600" href="#!">Reply</a>
               </div>
             </div>
           </div>
+
 
           <div>
             <h3 class="mb-4">Leave a Reply</h3>
@@ -138,5 +165,6 @@
     </div>
   </div>
 </div>
+
 
 {% endblock content %}

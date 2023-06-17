@@ -93,3 +93,17 @@ class Comment(models.Model):
         ordering = ['created_on']
     def __str__(self):
         return 'Comment {} by {}'.format(self.content, self.user)
+    
+    # favorite model
+class FavoriteScholarship(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    scholarship_school = models.CharField(max_length=100)
+    scholarship_link = models.CharField(max_length=120, null=True)
+   
+    def __str__(self):
+        return self.scholarship_school
+   
+class Favorited(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    scholarship = models.ForeignKey(Scholarship, on_delete=models.CASCADE, default=1)
+    activation = models.BooleanField()

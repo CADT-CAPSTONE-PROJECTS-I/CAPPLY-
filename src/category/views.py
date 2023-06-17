@@ -108,10 +108,54 @@ def scholarship_detail_view(request, slug):
 class ScholarshipDetailView(DetailView):
     model = Scholarship
     template_name = "category/scholarship_detail.html"
-    def detail_filter_similar(self, **kwargs):
-        context = super(ScholarshipDetailView,self).get_context_data(**kwargs)
-        context['country'] = Scholarship.objects.filter(country=self.country)
+    context_object_name = "scholarship"
+   
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        favorited = Favorited.objects.filter(scholarship=self.object, user=self.request.user).first()
+        context['favorited'] = favorited
         return context
+# favorite view
+from django.shortcuts import redirect, get_object_or_404
+from .models import Scholarship, FavoriteScholarship, Favorited
+from django.contrib.auth.decorators import login_required
+
+
+@login_required(login_url='login')
+def add_to_favorite(request, slug):
+    scholarship_get = get_object_or_404(Scholarship, slug=slug)
+    try:
+        created= FavoriteScholarship.objects.get_or_create(user=request.user, scholarship_school=scholarship_get.school, scholarship_link = scholarship_get.slug)
+        if created:
+            favorited = Favorited(scholarship=scholarship_get,user=request.user,activation=True)
+            favorited.save()
+            return redirect('profile')
+        else:
+            return redirect('profile_edit')
+    except IntegrityError:
+        return redirect('home')
+   
+
+
+
+
+def favorite_list(request):
+    scholarship_favorite = FavoriteScholarship.objects.all()
+    return render(request,'user/favorite.html',{'scholarship_favorite':scholarship_favorite})
+
+
+from django.contrib import messages
+def favorite_delete(request, slug):
+    try:
+        favorite = FavoriteScholarship.objects.filter(scholarship_link=slug)
+        favorite.delete()
+    except:
+        messages.info(request, 'Failed')
+    return redirect('favorite')
+
+
+# end of favorite view
+
     
     
 
