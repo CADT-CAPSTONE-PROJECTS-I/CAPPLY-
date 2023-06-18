@@ -33,6 +33,11 @@ class ReplyAdmin(admin.ModelAdmin):
     def approve_reply(self, request, queryset):
         queryset.update(active=True)
         
+# favorite 
+from .models import FavoriteScholarship
+admin.site.register(FavoriteScholarship)
+# end of favorite
+
 admin.site.register(Country, CountryAdmin)
 admin.site.register(Scholarship, ScholarshipAdmin)
 admin.site.register(Profile)

@@ -93,7 +93,6 @@ class Comment(models.Model):
     def __str__(self):
         return 'Comment {} by {}'.format(self.content, self.user)
     
-<<<<<<< HEAD
 class Reply(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
@@ -103,7 +102,6 @@ class Reply(models.Model):
     def __str__(self):
         return 'Reply {} by {}'.format(self.content, self.user)
     
-=======
     # favorite model
 class FavoriteScholarship(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -117,4 +115,3 @@ class Favorited(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     scholarship = models.ForeignKey(Scholarship, on_delete=models.CASCADE, default=1)
     activation = models.BooleanField()
->>>>>>> 31fe35e09f90e64e6d04f8ae040c719456d71093

@@ -16,7 +16,16 @@
             <a href="{{ object.more_info }}" class="ml-1"> More Info</a> ,
             <a href="{{ object.link_web }}" class="ml-1 tag underline-doted"> Visit </a>,
             <a href="{% url 'scholarship' %}/tag/{{object.country}}" class="ml-1">{{object.country}}</a>
+            {% if favorited.activation == 0 %}
+            <a href="/add-to-favorite/{{object.slug}}" class="ml-1">Favorited</a>
+            {% else %}
+            <a href="/add-to-favorite/{{object.slug}}" class="ml-1">Add Favorite</a>
+            {% endif %}
+
+
+
           </p>
+
 
           <h2 class="mb-4" style="line-height:1.5">{{object.school}}</h2>
         </div>
@@ -27,10 +36,13 @@
             <li class="text-primary">{{object.level}}</li>
           </ul>
 
+
           <h5 id="country">Country</h5>
           <ul>
             <li class="text-primary">{{object.country}}</li>
           </ul>
+
+
 
 
           {% if object.deadline == None and object.description == null %}
@@ -39,6 +51,7 @@
             <li class="text-primary">Visit official website for details</li>
           </ul>
 
+
           {% elif object.deadline != None and object.description == null %}
           <h5 id="paragraph">Deadline</h5>
           <ul>
@@ -46,6 +59,7 @@
           </ul>
           <h5 id="paragraph">Description</h5>
           <p>Visit official website for details</p>
+
 
           {% else %}
           <h5 id="deadline">Deadline</h5>
@@ -56,8 +70,10 @@
           <p>{{object.description}}</p>
           {% endif %}
 
+
           <h5 id="link">Official Scholarship Website</h5>
           <p><a href="{{object.link_web}}">{{object.link_web}}</a>
+
 
             <!-- DISCLAIMER -->
           <div class="notices info">
@@ -68,9 +84,14 @@
               strictly at your own risk. Please read our Terms of Use for more information.</p>
           </div>
 
+
           <hr>
+
+
         </div>
         <!-- END OF SCHOLARSHIP DETAIL -->
+
+
 
         <!-- COMMENT -->
         <div class="col-md-12">
@@ -103,33 +124,34 @@
                   </form>
                   {% endif %}
                 </div>
+                {% endfor %}
               </div>
+              {% if request.user.is_authenticated %}
+              <form method="post" action="{% url 'create_comment' slug=object.slug %}">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit">Submit Comment</button>
+              </form>
+              {% else %}
+              <a href="{% url 'login' %}">Please login to comment & reply</a>
+              {% endif %}
             </div>
-            {% endfor %}
           </div>
-          {% if request.user.is_authenticated %}
-          <form method="post" action="{% url 'create_comment' slug=object.slug %}">
-            {% csrf_token %}
-            {{ comment_form.as_p }}
-            <button type="submit">Submit Comment</button>
-          </form>
-          {% else %}
-          <a href="{% url 'login' %}">Please login to comment & reply</a>
-          {% endif %}
         </div>
       </div>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </div>
   </div>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <!-- JavaScript code -->
-  <script>
-    $(document).ready(function () {
-      // Button click event
-      $('.show-replies-btn').click(function () {
-        // Toggle the display of hidden content
-        $('#hidden-content').toggle();
-      });
+</div>
+<!-- JavaScript code -->
+<script>
+  $(document).ready(function () {
+    // Button click event
+    $('.show-replies-btn').click(function () {
+      // Toggle the display of hidden content
+      $('#hidden-content').toggle();
     });
-  </script>
-  {% endblock content %}
+  });
+</script>
+
+{% endblock content %}

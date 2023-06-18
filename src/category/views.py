@@ -87,114 +87,14 @@ def list_scholarship(request):
     return render(request,'category/category.html',{'scholarships_lists': scholarships_lists,
     'scholarships': scholarships, 'country_lists': country_lists})
 
-#scholarship detail views
-def scholarship_detail_view(request, slug):
-    scholarship_obj = None
-    if slug is not None:
-        try:
-            scholarship_obj = Scholarship.objects.get(slug=slug)
-            template = loader.get_template('category/scholarship_detail.html')
-        except Scholarship.DoesNotExist:
-            raise Http404
-        except Scholarship.MultipleObjectsReturned:
-            scholarship_obj = Scholarship.objects.filter(slug=slug).first()
-            template = loader.get_template('category/scholarship_detail.html')
-        except:
-            raise Http404
-    context = {
-        'scholarship' : scholarship_obj,
-    }
-    return HttpResponse(template.render(context, request))
-
 
 from .models import Comment, Reply
 from .forms import CommentForm, ReplyForm
-def scholarship_details(request, slug):
-    scholarship = get_object_or_404(Scholarship, slug= slug)
-    template_name = "category/scholarship_detail2.html"
-    comments = Comment.objects.filter(
-        scholarship = scholarship,
-        active=True)
-    
-    
-    # COMMENT
-    
-    # new_comment = None
-    # if request.method == 'POST':
-    #     form = CommentForm(request.POST)
-    #     if form.is_valid():
-    #         new_comment = form.save(commit=False)
-    #         new_comment.user = request.user
-    #         new_comment.scholarship = scholarship
-    #         new_comment.active = True
-    #         new_comment.save()
-    #         return redirect('scholarship_detail',slug)
-    # else:
-    #     form = CommentForm()
-    
-    # context = {'comment_form': form, 
-    #            'new_comment': new_comment,
-    #            'comments':comments,
-    #            'object':scholarship}
-    context = {'object':scholarship,'comments':comments}
-    return render(request, template_name, context)
 
 @login_required(login_url='login')
 def create_comment(request, slug):
     scholarship = get_object_or_404(Scholarship, slug = slug)
     template_name = "category/scholarship_detail.html"
-<<<<<<< HEAD
-=======
-    context_object_name = "scholarship"
-   
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        favorited = Favorited.objects.filter(scholarship=self.object, user=self.request.user).first()
-        context['favorited'] = favorited
-        return context
-# favorite view
-from django.shortcuts import redirect, get_object_or_404
-from .models import Scholarship, FavoriteScholarship, Favorited
-from django.contrib.auth.decorators import login_required
-
-
-@login_required(login_url='login')
-def add_to_favorite(request, slug):
-    scholarship_get = get_object_or_404(Scholarship, slug=slug)
-    try:
-        created= FavoriteScholarship.objects.get_or_create(user=request.user, scholarship_school=scholarship_get.school, scholarship_link = scholarship_get.slug)
-        if created:
-            favorited = Favorited(scholarship=scholarship_get,user=request.user,activation=True)
-            favorited.save()
-            return redirect('profile')
-        else:
-            return redirect('profile_edit')
-    except IntegrityError:
-        return redirect('home')
-   
-
-
-
-
-def favorite_list(request):
-    scholarship_favorite = FavoriteScholarship.objects.all()
-    return render(request,'user/favorite.html',{'scholarship_favorite':scholarship_favorite})
-
-
-from django.contrib import messages
-def favorite_delete(request, slug):
-    try:
-        favorite = FavoriteScholarship.objects.filter(scholarship_link=slug)
-        favorite.delete()
-    except:
-        messages.info(request, 'Failed')
-    return redirect('favorite')
-
-
-# end of favorite view
-
->>>>>>> 31fe35e09f90e64e6d04f8ae040c719456d71093
-    
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -246,7 +146,47 @@ def scholarship_detail(request,slug):
                'object':scholarship}
     return render(request,template_name, context)
 
+# favorite view
+from django.shortcuts import redirect, get_object_or_404
+from .models import Scholarship, FavoriteScholarship, Favorited
+from django.contrib.auth.decorators import login_required
 
+def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    favorited = Favorited.objects.filter(scholarship=self.object, user=self.request.user).first()
+    context['favorited'] = favorited
+    return context
+
+@login_required(login_url='login')
+def add_to_favorite(request, slug):
+    scholarship_get = get_object_or_404(Scholarship, slug=slug)
+    try:
+        created= FavoriteScholarship.objects.get_or_create(user=request.user, scholarship_school=scholarship_get.school, scholarship_link = scholarship_get.slug)
+        if created:
+            favorited = Favorited(scholarship=scholarship_get,user=request.user,activation=True)
+            favorited.save()
+            return redirect('profile')
+        else:
+            return redirect('profile_edit')
+    except IntegrityError:
+        return redirect('home')
+   
+def favorite_list(request):
+    scholarship_favorite = FavoriteScholarship.objects.all()
+    return render(request,'user/favorite.html',{'scholarship_favorite':scholarship_favorite})
+
+
+from django.contrib import messages
+def favorite_delete(request, slug):
+    try:
+        favorite = FavoriteScholarship.objects.filter(scholarship_link=slug)
+        favorite.delete()
+    except:
+        messages.info(request, 'Failed')
+    return redirect('favorite')
+
+
+# end of favorite view
 def search_tag(request, country):
     scholarships_lists = Scholarship.objects.filter(country=country)
     country_lists = Country.objects.all()
