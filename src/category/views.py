@@ -3,7 +3,7 @@ import random
 import string
 from bs4 import BeautifulSoup
 from django.http import Http404, HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 import requests
 from django.utils.text import slugify
@@ -12,7 +12,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, redirect 
 from django.views.generic import ListView, DetailView 
 from django.template import loader
-
+from django.contrib.auth.decorators import login_required
 def scrape_data(request):
     add_to_model = True  
     results = []  # List to store the scraped objects
@@ -105,15 +105,96 @@ def scholarship_detail_view(request, slug):
         'scholarship' : scholarship_obj,
     }
     return HttpResponse(template.render(context, request))
-class ScholarshipDetailView(DetailView):
-    model = Scholarship
+
+
+from .models import Comment, Reply
+from .forms import CommentForm, ReplyForm
+def scholarship_details(request, slug):
+    scholarship = get_object_or_404(Scholarship, slug= slug)
+    template_name = "category/scholarship_detail2.html"
+    comments = Comment.objects.filter(
+        scholarship = scholarship,
+        active=True)
+    
+    
+    # COMMENT
+    
+    # new_comment = None
+    # if request.method == 'POST':
+    #     form = CommentForm(request.POST)
+    #     if form.is_valid():
+    #         new_comment = form.save(commit=False)
+    #         new_comment.user = request.user
+    #         new_comment.scholarship = scholarship
+    #         new_comment.active = True
+    #         new_comment.save()
+    #         return redirect('scholarship_detail',slug)
+    # else:
+    #     form = CommentForm()
+    
+    # context = {'comment_form': form, 
+    #            'new_comment': new_comment,
+    #            'comments':comments,
+    #            'object':scholarship}
+    context = {'object':scholarship,'comments':comments}
+    return render(request, template_name, context)
+
+@login_required(login_url='login')
+def create_comment(request, slug):
+    scholarship = get_object_or_404(Scholarship, slug = slug)
     template_name = "category/scholarship_detail.html"
-    def detail_filter_similar(self, **kwargs):
-        context = super(ScholarshipDetailView,self).get_context_data(**kwargs)
-        context['country'] = Scholarship.objects.filter(country=self.country)
-        return context
     
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.user = request.user
+            new_comment.scholarship = scholarship
+            new_comment.active = True
+            new_comment.save()
+            return redirect('scholarship_detail', slug=slug)
+    else:
+        form = CommentForm()
     
+    context = {'comment_form': form}
+    return render(request, template_name, context)
+
+@login_required(login_url='login')
+def create_reply(request, comment_id):
+    comment = Comment.objects.get(id=comment_id)
+    
+    if request.method == 'POST':
+        form = ReplyForm(request.POST)
+        if form.is_valid():
+            reply = form.save(commit=False)
+            reply.user = request.user
+            reply.comment = comment
+            reply.active = True
+            reply.save()
+            return redirect('scholarship_detail', slug=comment.scholarship.slug)
+    else:
+        form = ReplyForm()
+    context = {'reply_form':form}
+    return render(request, 'category/scholarship_detail.html', context)
+
+
+def scholarship_detail(request,slug):
+    scholarship = get_object_or_404(Scholarship, slug= slug)
+    template_name = "category/scholarship_detail.html"
+    comments = Comment.objects.filter(
+        scholarship = scholarship,
+        active=True)
+    for comment in comments:
+        replies = comment.reply_set.all()
+        comment.replies = replies
+    comment_form = CommentForm()
+    reply_form = ReplyForm()
+    context = {'reply_form':reply_form, 
+               'comment_form':comment_form, 
+               'comments':comments,
+               'object':scholarship}
+    return render(request,template_name, context)
+
 
 def search_tag(request, country):
     scholarships_lists = Scholarship.objects.filter(country=country)
@@ -133,7 +214,7 @@ def search_tag(request, country):
 def cv(request):
     return render(request,'cv.html',{})
 
-from django.contrib.auth.decorators import login_required
+
 from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import SetPasswordForm
@@ -232,7 +313,6 @@ def generate_cv_pdf(request):
     if request.method == 'POST':
         form = CVForm(request.POST, request.FILES)
         if form.is_valid():
-            # Retrieve form data
             full_name = form.cleaned_data['full_name']
             email = form.cleaned_data['email']
             phone_number = form.cleaned_data['phone_number']
@@ -260,12 +340,10 @@ def generate_cv_pdf(request):
             references = form.cleaned_data['references']
             image_file = form.cleaned_data['image_file']
 
-            # Save the uploaded image file
             fss = FileSystemStorage()
             file = fss.save(image_file.name, image_file)
             image_url = fss.url(file)
 
-            # Download the image locally
             image_url_with_scheme = f"{request.scheme}://{request.get_host()}{image_url}"
 
             context = {
@@ -297,14 +375,11 @@ def generate_cv_pdf(request):
                 'image_url': image_url_with_scheme
             }
 
-            # Render the template with the form data
             html_string = render_to_string('cv_template.html', context)
 
-            # Create the PDF
             response = HttpResponse(content_type='application/pdf')
             response['Content-Disposition'] = 'attachment; filename="form_submission.pdf"'
 
-            # Convert HTML to PDF and write it to the response
             pisa.CreatePDF(html_string, dest=response)
 
             return response

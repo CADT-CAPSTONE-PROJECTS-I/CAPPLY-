@@ -4,6 +4,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-9 shadow pb-5 px-5 bg-white">
+        <!-- SCHOLARSHIP DETAIL -->
         <div class="mt-5 mb-5 tag-detail">
           <span class="text-primary"> {{object.deadline}} <span class="mx-2">/</span> </span>
           <p class="list-inline-item ">
@@ -58,6 +59,7 @@
           <h5 id="link">Official Scholarship Website</h5>
           <p><a href="{{object.link_web}}">{{object.link_web}}</a>
 
+            <!-- DISCLAIMER -->
           <div class="notices info">
             <p class="text-primary">This is NOT the official scholarship page. This is only a one-page summarized
               listing of the scholarship. While we endeavor to keep the information up to date and correct, information
@@ -67,76 +69,67 @@
           </div>
 
           <hr>
-
         </div>
-
+        <!-- END OF SCHOLARSHIP DETAIL -->
 
         <!-- COMMENT -->
-        <!-- <div class="col-md-12">
-          <div class="mb-5 mt-4 pt-5">
+        <div class="col-md-12">
+          <div class=" mb-5 mt-4 pt-5">
             <h3 class="mb-4">Comments</h3>
-
-            <div class="media d-block d-sm-flex mb-4 pb-4">
-              <a class="d-inline-block mr-2 mb-3 mb-md-0" href="#">
-                <img src="images/post/user-01.jpg" class="mr-3 rounded-circle" alt="">
-              </a>
-              <div class="media-body">
-                <a href="#!" class="h4 d-inline-block mb-3">Alexender Grahambel</a>
-
-                <p class="text-black">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                  sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum
-                  nunc
-                  ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-
-                <span class="text-black mr-3 font-weight-600">April 18, 2020 at 6.25 pm</span>
-                <a class="text-primary font-weight-600" href="#!">Reply</a>
+            {% for comment in comments %}
+            <div class="comment">
+              <div class="border  ">
+                <a href="#!" class="h5 bold mb-3">@{{ comment.user.username }}</a>
+                <p class="ms-5 text-primary">{{ comment.content }}</p>
+                <small class="text-secondary ms-5 font-weight-200">{{ comment.created_on }}</small>
+              </div>
+              <!-- REPLY -->
+              <div class="m-5 ">
+                <p class="text-primary h4 mb-3">Reply</p>
+                {% for reply in comment.replies %}
+                <div class="border  ">
+                  <a href="#!" class="h5 bold mb-3">@{{ reply.user.username }}</a>
+                  <p class="ms-5 text-primary">{{ reply.content }}</p>
+                  <small class="text-secondary ms-5 font-weight-200">{{ reply.created_on }}</small>
+                </div>
+                {% endfor %}
+                <div>
+                  {% if comment and request.user.is_authenticated %}
+                  <form method="post" action="{% url 'create_reply' comment.id %}">
+                    {% csrf_token %}
+                    {{ reply_form }}
+                    <!-- <input type="hidden" name="reply-form" value="{{ comment.id }}"> -->
+                    <button type="submit">Submit Reply</button>
+                  </form>
+                  {% endif %}
+                </div>
               </div>
             </div>
-            <div class="media d-block d-sm-flex">
-              <div class="d-inline-block mr-2 mb-3 mb-md-0" href="#">
-                <img class="mr-3" src="images/post/arrow.png" alt="">
-                <a href="#!"><img src="images/post/user-02.jpg" class="mr-3 rounded-circle" alt=""></a>
-              </div>
-              <div class="media-body">
-                <a href="#!" class="h4 d-inline-block mb-3">Nadia Sultana Tisa</a>
-
-                <p class="text-black">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                  sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum
-                  nunc
-                  ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-
-                <span class="text-black mr-3 font-weight-600">April 18, 2020 at 6.25 pm</span>
-                <a class="text-primary font-weight-600" href="#!">Reply</a>
-              </div>
-            </div>
+            {% endfor %}
           </div>
-
-          <div>
-            <h3 class="mb-4">Leave a Reply</h3>
-            <form method="POST">
-              <div class="row">
-                <div class="form-group col-md-12">
-                  <textarea class="form-control shadow-none" name="comment" rows="7" required></textarea>
-                </div>
-                <div class="form-group col-md-4">
-                  <input class="form-control shadow-none" type="text" placeholder="Name" required>
-                </div>
-                <div class="form-group col-md-4">
-                  <input class="form-control shadow-none" type="email" placeholder="Email" required>
-                </div>
-                <div class="form-group col-md-4">
-                  <input class="form-control shadow-none" type="url" placeholder="Website">
-                  <p class="font-weight-bold valid-feedback">OK! You can skip this field.</p>
-                </div>
-              </div>
-              <button class="btn btn-primary" type="submit">Comment Now</button>
-            </form>
-          </div>
-        </div> -->
-        <!-- COMMENT -->
+          {% if request.user.is_authenticated %}
+          <form method="post" action="{% url 'create_comment' slug=object.slug %}">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit">Submit Comment</button>
+          </form>
+          {% else %}
+          <a href="{% url 'login' %}">Please login to comment & reply</a>
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>
-</div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-{% endblock content %}
+  <!-- JavaScript code -->
+  <script>
+    $(document).ready(function () {
+      // Button click event
+      $('.show-replies-btn').click(function () {
+        // Toggle the display of hidden content
+        $('#hidden-content').toggle();
+      });
+    });
+  </script>
+  {% endblock content %}

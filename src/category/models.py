@@ -82,7 +82,6 @@ def create_profile(sender, instance, created, **kwargs):
         
 post_save.connect(create_profile, sender=User)
 
-
 class Comment(models.Model):
     scholarship = models.ForeignKey(Scholarship, on_delete=models.CASCADE, null = False, related_name ='comments')
     user = models.ForeignKey(User, null = False, on_delete=models.CASCADE)
@@ -93,3 +92,13 @@ class Comment(models.Model):
         ordering = ['created_on']
     def __str__(self):
         return 'Comment {} by {}'.format(self.content, self.user)
+    
+class Reply(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False)
+    def __str__(self):
+        return 'Reply {} by {}'.format(self.content, self.user)
+    

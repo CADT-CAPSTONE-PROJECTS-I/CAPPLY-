@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import  Country, Scholarship, Profile, Comment
+from .models import  Country, Scholarship, Profile, Comment, Reply
 class CountryAdmin(admin.ModelAdmin):
     list_display = ('id','name')
     search_fields =['id','name'] 
@@ -20,6 +20,17 @@ class CommentAdmin(admin.ModelAdmin):
     actions = ['approve_comments']
 
     def approve_comments(self, request, queryset):
+        queryset.update(active=True)
+
+@admin.register(Reply)
+class ReplyAdmin(admin.ModelAdmin):
+    list_display = ('user', 'content', 'created_on', 'active')
+    list_filter = ('active', 'created_on')
+    search_fields = ('user', 'content')
+    list_display_links = ('user', 'content')
+    actions = ['approve_reply']
+
+    def approve_reply(self, request, queryset):
         queryset.update(active=True)
         
 admin.site.register(Country, CountryAdmin)

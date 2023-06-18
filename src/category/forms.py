@@ -98,11 +98,18 @@ class CVForm(forms.Form):
     image_file = forms.ImageField(label='Image')
 
 
-from .models import Comment
+from .models import Comment, Reply
 from django import forms
 
 
 class CommentForm(forms.ModelForm):
+    content = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
     class Meta:
         model = Comment
-        fields = ('user', 'scholarship', 'content')
+        fields = ['content']
+        
+class ReplyForm(forms.ModelForm):
+    content = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
+    class Meta:
+        model = Reply
+        fields = ['content']
