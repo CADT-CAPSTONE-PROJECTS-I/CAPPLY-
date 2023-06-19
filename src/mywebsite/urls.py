@@ -28,6 +28,7 @@ urlpatterns = [
     path('', homepage, name="home"),
     path('', include('homepage.urls')),
     path('', include('category.urls')),
+    path('', include('user.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

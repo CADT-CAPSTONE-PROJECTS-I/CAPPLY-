@@ -67,7 +67,7 @@
             <li class="text-primary">Visit official website for details</li>
           </ul>
           <h5 id="paragraph">Description</h5>
-          <p>{{object.description}}</p>
+          <p class="text-primary">{{object.description}}</p>
           {% endif %}
 
 
@@ -103,6 +103,7 @@
                 <a href="#!" class="h5 bold mb-3">@{{ comment.user.username }}</a>
                 <p class="ms-5 text-primary">{{ comment.content }}</p>
                 <small class="text-secondary ms-5 font-weight-200">{{ comment.created_on }}</small>
+                <a href="{% url 'delete_comment' object.slug %}" >Delete</a>
               </div>
               <!-- REPLY -->
               <div class="m-5 ">
@@ -112,6 +113,7 @@
                   <a href="#!" class="h5 bold mb-3">@{{ reply.user.username }}</a>
                   <p class="ms-5 text-primary">{{ reply.content }}</p>
                   <small class="text-secondary ms-5 font-weight-200">{{ reply.created_on }}</small>
+                  <a href="{% url 'delete_reply' reply.comment.id %}" >Delete</a>
                 </div>
                 {% endfor %}
                 <div>
@@ -119,7 +121,6 @@
                   <form method="post" action="{% url 'create_reply' comment.id %}">
                     {% csrf_token %}
                     {{ reply_form }}
-                    <!-- <input type="hidden" name="reply-form" value="{{ comment.id }}"> -->
                     <button type="submit">Submit Reply</button>
                   </form>
                   {% endif %}

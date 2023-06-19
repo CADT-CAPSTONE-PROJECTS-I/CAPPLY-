@@ -70,7 +70,6 @@ def login(request):
     else:
         return render(request, "user/login.html", {'messages':messages})
 
-
 def logout(request):
     auth.logout(request)
     return redirect('home')
@@ -78,9 +77,6 @@ def logout(request):
 @login_required
 def profile(request):
     return render(request,"user/profile.html")
-
-def profile_edit(request):
-    return render(request,"user/profile_edit.html")
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
