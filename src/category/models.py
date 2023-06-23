@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -47,3 +48,39 @@ class Scholarship(models.Model):
         if not self.slug:
             self.slug = slugify(random_slug())
         return super().save(*args, **kwargs)
+
+# COMMENT 
+class Comment(models.Model):
+    scholarship = models.ForeignKey(Scholarship, on_delete=models.CASCADE, null = False, related_name ='comments')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null = False, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False)
+    class Meta:
+        ordering = ['created_on']
+    def __str__(self):
+        return 'Comment {} by {}'.format(self.content, self.user)
+    
+# REPLY
+class Reply(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False)
+    def __str__(self):
+        return 'Reply {} by {}'.format(self.content, self.user)
+    
+# FAVORITE
+class FavoriteScholarship(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    scholarship_school = models.CharField(max_length=100)
+    scholarship_link = models.CharField(max_length=120, null=True)
+   
+    def __str__(self):
+        return self.scholarship_school
+   
+class Favorited(models.Model):
+    favorited = models.OneToOneField(FavoriteScholarship, on_delete=models.CASCADE, default=None)
+    activation = models.BooleanField(default=False)
+

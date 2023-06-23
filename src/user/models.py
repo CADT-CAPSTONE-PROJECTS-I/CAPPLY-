@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from category.models import Scholarship
 from django.contrib.auth.models import User
@@ -16,7 +17,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, null  =False, on_delete = models.CASCADE)
     profile_pic = models.ImageField(default='images\profile_pics\Default.png', upload_to='images\profile_pics')
     bio = models.TextField(default="This user is lazy and has nothing to say.", max_length=124, null = True, blank = True)
-
+    is_email_verified = models.BooleanField(default=False)
     def __str__(self):
         return str(self.user)
     def save(self, *args, **kwargs):
@@ -34,43 +35,7 @@ def create_profile(sender, instance, created, **kwargs):
         
 post_save.connect(create_profile, sender=User)
 
-# COMMENT 
-class Comment(models.Model):
-    scholarship = models.ForeignKey(Scholarship, on_delete=models.CASCADE, null = False, related_name ='comments')
-    user = models.ForeignKey(User, null = False, on_delete=models.CASCADE)
-    content = models.TextField()
-    created_on = models.DateTimeField(auto_now_add=True)
-    active = models.BooleanField(default=False)
-    class Meta:
-        ordering = ['created_on']
-    def __str__(self):
-        return 'Comment {} by {}'.format(self.content, self.user)
-    
-# REPLY
-class Reply(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
-    content = models.TextField()
-    created_on = models.DateTimeField(auto_now_add=True)
-    active = models.BooleanField(default=False)
-    def __str__(self):
-        return 'Reply {} by {}'.format(self.content, self.user)
-    
-# FAVORITE
-class FavoriteScholarship(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    scholarship_school = models.CharField(max_length=100)
-    scholarship_link = models.CharField(max_length=120, null=True)
-   
-    def __str__(self):
-        return self.scholarship_school
-   
-class Favorited(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    scholarship = models.ForeignKey(Scholarship, on_delete=models.CASCADE, default=1)
-    activation = models.BooleanField()
-
-
+from django.contrib.auth.models import Group, Permission
 STATUS_CHOICES = [
         ('pending', 'Pending'),
         ('approved', 'Approved'),
@@ -79,7 +44,28 @@ STATUS_CHOICES = [
 
 # MDOERATOR
 class ModeratorRequest(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     message = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+
+    # def set_permissions_for_moderator_request(self, user, status):
+    #     # Remove existing permissions
+    #     user.user_permissions.clear()
+
+    #     if status == 'pending':
+    #         # Assign permissions for pending status
+    #         # Example: Can view own request
+    #         permission_view_own_request = Permission.objects.get(codename='view_own_request')
+    #         user.user_permissions.add(permission_view_own_request)
+    #     elif status == 'approved':
+    #         # Assign permissions for approved status
+    #         # Example: Can view all requests
+    #         permission_view_all_requests = Permission.objects.get(codename='view_all_requests')
+    #         user.user_permissions.add(permission_view_all_requests)
+    #     elif status == 'rejected':
+    #         # Assign permissions for rejected status
+    #         # Example: Can view own request and rejected requests
+    #         permission_view_own_request = Permission.objects.get(codename='view_own_request')
+    #         permission_view_rejected_requests = Permission.objects.get(codename='view_rejected_requests')
+    #         user.user_permissions.add(permission_view_own_request, permission_view_rejected_requests)

@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 
@@ -72,7 +72,7 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect('home')
+    return HttpResponseRedirect(request.META['HTTP_REFERER']) 
 
 @login_required
 def profile(request):

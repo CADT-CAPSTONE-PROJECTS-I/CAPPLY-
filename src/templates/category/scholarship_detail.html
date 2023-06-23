@@ -16,15 +16,16 @@
             <a href="{{ object.more_info }}" class="ml-1"> More Info</a> ,
             <a href="{{ object.link_web }}" class="ml-1 tag underline-doted"> Visit </a>,
             <a href="{% url 'scholarship' %}/tag/{{object.country}}" class="ml-1">{{object.country}}</a>
-            {% if favorited.activation == 0 %}
-            <a href="/add-to-favorite/{{object.slug}}" class="ml-1">Favorited</a>
+
+            {% if favorited %}
+            <a href="{% url 'favorite_delete' object.slug %}" class="ml-4 text-end"><i
+                class="fa fa-heart"></i>Favorited</a>
             {% else %}
-            <a href="/add-to-favorite/{{object.slug}}" class="ml-1">Add Favorite</a>
+            <a href="/add-to-favorite/{{object.slug}}" class="ml-1 text-end "><i class="fa fa-heart"></i>Add
+              Favorite</a>
             {% endif %}
 
 
-
-          </p>
 
 
           <h2 class="mb-4" style="line-height:1.5">{{object.school}}</h2>
@@ -95,64 +96,139 @@
 
         <!-- COMMENT -->
         <div class="col-md-12">
-          <div class=" mb-5 mt-4 pt-5">
-            <h3 class="mb-4">Comments</h3>
+          <div class="mb-3 mt-3 pt-5">
+            <h3 class="mb-4">Comments ({{comments | length}})</h3>
+            {% if request.user.is_authenticated %}
+            <form method="post" action="{% url 'create_comment' slug=object.slug %}">
+              {% csrf_token %}
+              <div class="d-flex align-items-end align-self-end">
+                <textarea name="content" autocomplete="off" placeholder="Post a comment..." class="form-control "
+                  id="id_content" style="min-height: 30px; height: 53.6px;"></textarea>
+                <button type="submit" class="btn btn-primary mb-0">Post</button>
+              </div>
+            </form>
+            {% else %}
+            <a href="{% url 'login' %}">Please login to comment & reply</a>
+            {% endif %}
             {% for comment in comments %}
             <div class="comment">
-              <div class="border  ">
-                <a href="#!" class="h5 bold mb-3">@{{ comment.user.username }}</a>
-                <p class="ms-5 text-primary">{{ comment.content }}</p>
-                <small class="text-secondary ms-5 font-weight-200">{{ comment.created_on }}</small>
-                <a href="{% url 'delete_comment' object.slug %}" >Delete</a>
+              <div class="d-flex">
+                <div>
+                  <img src="{{comment.user.profile.profile_pic.url}}" class="rounded-circle img-fluid user-avatar"
+                    width="50px">
+                </div>
+                <div class="mx-3">
+                  <a href="" class="h5 bold ">@{{ comment.user.username }}</a>
+                  <small class="text-secondary ms-2 font-weight-200">{{ comment.created_on |timesince}} ago</small>
+                  <p class="text-primary ms-3">{{ comment.content }}</p>
+                  {% if request.user.is_authenticated %}
+                  <a href="#" class="toggle-link"><i class="fa fa-reply" aria-hidden="true"></i> &nbsp;Reply</a>
+                  {% endif %}
+                  {% if request.user == comment.user %}
+                  <a href="{% url 'delete_comment' object.slug %}"><i class="ms-3 fa fa-trash"
+                      aria-hidden="true"></i>&nbsp;Delete</a>
+                  {% endif %}
+                </div>
               </div>
               <!-- REPLY -->
               <div class="m-5 ">
-                <p class="text-primary h4 mb-3">Reply</p>
+
                 {% for reply in comment.replies %}
-                <div class="border  ">
-                  <a href="#!" class="h5 bold mb-3">@{{ reply.user.username }}</a>
-                  <p class="ms-5 text-primary">{{ reply.content }}</p>
-                  <small class="text-secondary ms-5 font-weight-200">{{ reply.created_on }}</small>
-                  <a href="{% url 'delete_reply' reply.comment.id %}" >Delete</a>
+                <p class="text-primary h4 mb-3">Reply</p>
+                <div class="d-flex">
+                  <div>
+                    <img src="{{reply.comment.user.profile.profile_pic.url}}"
+                      class="rounded-circle img-fluid user-avatar" width="50px">
+                  </div>
+                  <div class="mx-3">
+                    <a href="" class="h5 bold ">@{{ reply.user.username }}</a> <small
+                      class="text-secondary ms-2 font-weight-200">{{ reply.created_on|timesince }} ago</small>
+                    <p class="text-primary ms-3">{{ reply.content }}</p>
+                    {% if request.user == reply.user %}
+                    <a href="" data-delete-url="{% url 'delete_reply' reply.comment.id %}" class="delete-link"><i
+                        class="fa fa-trash ms-3" aria-hidden="true"></i>&nbsp;Delete</a>
+
+                    <div class="modal" id="confirmModal" tabindex="-1">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Confirmation</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <p class="text-primary">Are you sure you want to delete?</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {% endif %}
+                  </div>
                 </div>
+                <hr class="text-secondary">
                 {% endfor %}
-                <div>
+                <div id="hidden-content" style="display: none;">
                   {% if comment and request.user.is_authenticated %}
                   <form method="post" action="{% url 'create_reply' comment.id %}">
                     {% csrf_token %}
-                    {{ reply_form }}
-                    <button type="submit">Submit Reply</button>
+                    <div class="d-flex align-items-end align-self-end">
+                      <textarea name="content" autocomplete="off" placeholder="Post a reply..." class="form-control "
+                        id="id_content" style="min-height: 30px; height: 53.6px;"></textarea>
+                      <button type="submit" class="btn btn-primary mb-0">Post</button>
+                    </div>
                   </form>
                   {% endif %}
                 </div>
-                {% endfor %}
+
               </div>
-              {% if request.user.is_authenticated %}
-              <form method="post" action="{% url 'create_comment' slug=object.slug %}">
-                {% csrf_token %}
-                {{ comment_form.as_p }}
-                <button type="submit">Submit Comment</button>
-              </form>
-              {% else %}
-              <a href="{% url 'login' %}">Please login to comment & reply</a>
-              {% endif %}
             </div>
+            {% endfor %}
+
           </div>
         </div>
       </div>
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </div>
+</div>
 </div>
 <!-- JavaScript code -->
 <script>
-  $(document).ready(function () {
-    // Button click event
-    $('.show-replies-btn').click(function () {
-      // Toggle the display of hidden content
-      $('#hidden-content').toggle();
+  document.addEventListener("DOMContentLoaded", function () {
+    var toggleLink = document.querySelector(".toggle-link");
+    var hiddenDiv = document.querySelector("#hidden-content");
+
+    toggleLink.addEventListener("click", function (e) {
+      e.preventDefault();
+      if (hiddenDiv.style.display === "none") {
+        hiddenDiv.style.display = "block";
+      } else {
+        hiddenDiv.style.display = "none";
+      }
+    });
+    var deleteLinks = document.querySelectorAll(".delete-link");
+    var confirmModal = new bootstrap.Modal(document.getElementById("confirmModal"));
+    var confirmDeleteButton = document.getElementById("confirmDelete");
+
+    deleteLinks.forEach(function (link) {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        var deleteUrl = this.getAttribute("data-delete-url");
+        confirmDeleteButton.setAttribute("data-delete-url", deleteUrl);
+        confirmModal.show();
+      });
+    });
+
+    confirmDeleteButton.addEventListener("click", function () {
+      var deleteUrl = this.getAttribute("data-delete-url");
+      window.location.href = deleteUrl;
     });
   });
+
+
 </script>
 
 {% endblock content %}

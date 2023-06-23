@@ -1,8 +1,6 @@
-from django.contrib import admin
 from django.urls import path
 from homepage.views import homepage, register, login, logout, profile,contact_us, search, about, contact ,UserDeleteView
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('',homepage, name="home"),
     path('register', register, name="register"),
     path("login", login, name="login"),

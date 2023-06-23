@@ -11,9 +11,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, get_object_or_404
 from .models import Scholarship
-from user.models import FavoriteScholarship, Favorited, Comment, Reply
+from .models import FavoriteScholarship, Favorited, Comment, Reply
 from django.contrib.auth.decorators import login_required
-from user.forms import CommentForm, ReplyForm
+from .forms import CommentForm, ReplyForm
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from .forms import ScholarshipForm
@@ -145,10 +145,18 @@ def scholarship_detail(request,slug):
         comment.replies = replies
     comment_form = CommentForm()
     reply_form = ReplyForm()
+    favorited = False
+    try:
+        if request.user.is_authenticated:
+            favorite = FavoriteScholarship.objects.get(scholarship_link=slug, user=request.user)
+            favorited = True
+    except FavoriteScholarship.DoesNotExist:
+        pass
     context = {'reply_form':reply_form, 
                'comment_form':comment_form, 
                'comments':comments,
-               'object':scholarship}
+               'object':scholarship,
+               'favorited':favorited}
     return render(request,template_name, context)
 
 # SCHOLARSHIP CREATE 
@@ -238,11 +246,9 @@ def add_to_favorite(request, slug):
     try:
         created= FavoriteScholarship.objects.get_or_create(user=request.user, scholarship_school=scholarship_get.school, scholarship_link = scholarship_get.slug)
         if created:
-            favorited = Favorited(scholarship=scholarship_get,user=request.user,activation=True)
-            favorited.save()
-            return redirect('profile')
+            return HttpResponseRedirect(request.META['HTTP_REFERER']) 
         else:
-            return redirect('profile_edit')
+            return HttpResponseRedirect(request.META['HTTP_REFERER']) 
     except IntegrityError:
         return redirect('home')
 
@@ -254,11 +260,11 @@ def favorite_list(request):
 # DELETE FAVORITE
 def favorite_delete(request, slug):
     try:
-        favorite = FavoriteScholarship.objects.filter(scholarship_link=slug)
+        favorite = get_object_or_404(FavoriteScholarship, scholarship_link=slug)
         favorite.delete()
     except:
         messages.info(request, 'Failed')
-    return redirect('favorite')
+    return HttpResponseRedirect(request.META['HTTP_REFERER']) 
 # ---------end of favorite view
 
 

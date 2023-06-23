@@ -121,7 +121,6 @@ def generate_cv_pdf(request):
             response['Content-Disposition'] = 'attachment; filename="form_submission.pdf"'
 
             pisa.CreatePDF(html_string, dest=response)
-
             return response
         else:
             form = CVForm()

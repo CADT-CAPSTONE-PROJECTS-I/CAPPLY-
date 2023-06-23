@@ -49,6 +49,12 @@ class MyForm(forms.Form):
     image = forms.ImageField(label='image')
     
 class CVForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super(CVForm, self).__init__(*args, **kwargs)
+
+        # Apply 'form-control' class to all fields
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
     # Personal Information
     full_name = forms.CharField(label='Full Name', max_length=100)
     email = forms.EmailField(label='Email')
@@ -99,21 +105,6 @@ class CVForm(forms.Form):
     image_file = forms.ImageField(label='Image')
 
 
-from .models import Comment, Reply
-from django import forms
-
-class CommentForm(forms.ModelForm):
-    content = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
-    class Meta:
-        model = Comment
-        fields = ['content']
-        
-class ReplyForm(forms.ModelForm):
-    content = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
-    class Meta:
-        model = Reply
-        fields = ['content']
-        
         
 class ModeratorRequestForm(forms.ModelForm):
     message = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))

@@ -63,7 +63,6 @@
     font-weight: 600 !important;
 }
 
-
 @media (min-width: 1199px) {
     .navigation .dropdown-menu {
         display: block;
@@ -5095,7 +5094,15 @@ blockquote::before {
 }
 
 textarea.form-control {
-    height: 140px;
+    max-height: calc(1.5em + (0.75rem + 2px));
+}
+input[type="text"],
+textarea[name="content"] {
+  width: 100%;
+  height:30px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .form-control:focus {
@@ -5129,7 +5136,9 @@ textarea.form-control {
 }
 
 .form-control[type=file] {
-    overflow: hidden;
+    color: var(--bs-yellow);
+    
+    
 }
 
 .form-control[type=file]:not(:disabled):not([readonly]) {
@@ -5222,7 +5231,6 @@ textarea.form-control {
     -webkit-margin-end: 0.75rem;
     margin-inline-end: 0.75rem;
     color: #fff;
-    background-color: #e9ecef;
     pointer-events: none;
     border-color: inherit;
     border-style: solid;
@@ -5318,16 +5326,21 @@ textarea.form-control {
     margin-inline-end: 1rem;
 }
 
-textarea.form-control {
-    min-height: calc(1.5em + (0.75rem + 2px));
-}
 
-textarea.form-control-sm {
+.form-control.required::after {
+    content: "*" !important;
+    color: red !important;
+  } 
+textarea.form-control {
     min-height: calc(1.5em + (0.5rem + 2px));
 }
 
+textarea.form-control-sm {
+    min-height: calc(1.5em + (0.3rem + 2px));
+}
+
 textarea.form-control-lg {
-    min-height: calc(1.5em + (1rem + 2px));
+    min-height: calc(1.5em + (0.5rem + 2px));
 }
 
 .form-control-color {
