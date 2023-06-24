@@ -1,5 +1,5 @@
 from django.urls import path, re_path
-from homepage.views import homepage, register, login, logout, profile,contact_us, search, about, contact ,UserDeleteView, verify_email, activate
+from homepage.views import homepage, register, login, logout, profile,contact_us, search, about, contact ,UserDeleteView, activate
 urlpatterns = [
     path('',homepage, name="home"),
     path('register', register, name="register"),
@@ -11,7 +11,6 @@ urlpatterns = [
     path("contact",contact , name="contact"),
     path("contact-us",contact_us , name="contact_us"),
     path('user/delete/', UserDeleteView.as_view(), name='user_delete_confirm'),
-    path('verify-email/<str:verification_token>/', verify_email, name='verify_email'),
     path('activate/<str:uidb64>/<str:token>/', activate, name='activate'),
 ]
 

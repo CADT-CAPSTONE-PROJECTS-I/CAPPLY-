@@ -133,11 +133,19 @@ class UserDeleteView(LoginRequiredMixin, View):
 def show_category(request):
     return render(request,"category/category.html")
 
+from django.db.models import Q
 # search
 def search(request):
     if request.method == "POST":
         searched = request.POST['searched']
-        scholarships_lists = Scholarship.objects.filter(school__contains=searched).all()
+        
+        scholarships_lists = Scholarship.objects.filter(
+            Q(level__icontains=searched) |
+            Q(school__icontains=searched) |
+            Q(description__icontains=searched) |
+            Q(link_web__icontains=searched) |
+            Q(country__icontains=searched)
+        ).all()
         country_lists = Country.objects.all()
         context = {'searched':searched, 
                    'scholarships_lists':scholarships_lists,
