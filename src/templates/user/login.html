@@ -23,15 +23,15 @@
                 <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                   <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Log In</p>
                   <!-- form message -->
-                  {% comment %} {% if messages.info %}
+                  {% if message != '' %}
                   <div class="row">
                     <div class="col-12">
-                      <div class="alert alert-success contact__msg"  role="alert">
+                      <div class="alert alert-danger contact__msg"  role="alert">
                         {{ message }}
                       </div>
                     </div>
                   </div>
-                  {% endif %} {% endcomment %}
+                  {% endif %}
                   <!-- end message -->
                   {% if request.user.is_authenticated %}
                   <p class="text-sucess">You are logged in!</p>

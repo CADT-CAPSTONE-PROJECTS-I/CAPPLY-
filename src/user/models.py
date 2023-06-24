@@ -10,16 +10,13 @@ from PIL import Image
 
 # PROFILE MODEL
 # FAVORITED SCHOLARSHIP MODEL
-# COMMENT MODEL
-# REPLY MODEL
 
 # PROFILE
 class Profile(models.Model):
     user = models.OneToOneField(User, null  =False, on_delete = models.CASCADE)
     profile_pic = models.ImageField(default='images\profile_pics\Default.png', upload_to='images\profile_pics')
     bio = models.TextField(default="This user is lazy and has nothing to say.", max_length=124, null = True, blank = True)
-    is_email_verified = models.BooleanField(default=False)
-    verification_token = models.UUIDField(default=uuid.uuid4, editable=False)
+    
 
     def __str__(self):
         return str(self.user)
@@ -53,23 +50,4 @@ class ModeratorRequest(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
 
-    # def set_permissions_for_moderator_request(self, user, status):
-    #     # Remove existing permissions
-    #     user.user_permissions.clear()
-
-    #     if status == 'pending':
-    #         # Assign permissions for pending status
-    #         # Example: Can view own request
-    #         permission_view_own_request = Permission.objects.get(codename='view_own_request')
-    #         user.user_permissions.add(permission_view_own_request)
-    #     elif status == 'approved':
-    #         # Assign permissions for approved status
-    #         # Example: Can view all requests
-    #         permission_view_all_requests = Permission.objects.get(codename='view_all_requests')
-    #         user.user_permissions.add(permission_view_all_requests)
-    #     elif status == 'rejected':
-    #         # Assign permissions for rejected status
-    #         # Example: Can view own request and rejected requests
-    #         permission_view_own_request = Permission.objects.get(codename='view_own_request')
-    #         permission_view_rejected_requests = Permission.objects.get(codename='view_rejected_requests')
-    #         user.user_permissions.add(permission_view_own_request, permission_view_rejected_requests)
+    

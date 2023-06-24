@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Profile, ModeratorRequest
-
+from django.contrib.auth.forms import UserCreationForm  
 
 class EditUserForm(forms.ModelForm):
     first_name = forms.CharField(max_length=125, widget= forms.TextInput(attrs={'class': 'form-control'}))
@@ -15,14 +15,32 @@ class EditUserForm(forms.ModelForm):
 class EditProfileForm(forms.ModelForm):
     profile_pic = forms.ImageField()
     bio = forms.Textarea()
+    
     class Meta:
         model = Profile
         fields = ['profile_pic', 'bio']
         widget= {
-            'profile_pic' : forms.TextInput(attrs={'class': 'form-control'}),
+            'profile_pic' : forms.FileInput(attrs={'class': 'form-control'}),
             'bio' : forms.TextInput(attrs={'class': 'form-control'})
         }
+class CreateUserForm(UserCreationForm):
+    username = forms.CharField(max_length=125, widget= forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(max_length=125, widget= forms.TextInput(attrs={'class': 'form-control'}))
+    password1 = forms.CharField(label='Password',max_length=100, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get('password1')
+        password2 = cleaned_data.get('password2')
+
+        if password1 and password2 and password1 != password2:
+            self.add_error('password2', 'The passwords do not match.')
+        return cleaned_data
 
 from django.contrib.auth.forms import PasswordChangeForm
 from django import forms

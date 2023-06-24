@@ -6,6 +6,7 @@ urlpatterns = [
      path('change-password',change_password, name="change_password"),
      path('cv-form/', generate_cv_pdf, name='form_pdf'),
      path('moderator-request/', moderator_request_view, name='moderator_request'),
+
 ]
 
 

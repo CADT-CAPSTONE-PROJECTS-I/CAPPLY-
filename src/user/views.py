@@ -139,6 +139,17 @@ def generate_cv_pdf(request):
 
     return render(request, 'cv/cv_form.html', {'form': form})
 
+from django.shortcuts import render, redirect
+from .forms import CreateUserForm
+from django.contrib.auth.models import User
+
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from .forms import CreateUserForm
+from django.contrib.auth.models import User, auth
+
+
+
 
 # MODERATOR REQUEST
 def moderator_request_view(request):
