@@ -1,3 +1,4 @@
+import uuid
 from django.conf import settings
 from django.db import models
 from category.models import Scholarship
@@ -18,6 +19,8 @@ class Profile(models.Model):
     profile_pic = models.ImageField(default='images\profile_pics\Default.png', upload_to='images\profile_pics')
     bio = models.TextField(default="This user is lazy and has nothing to say.", max_length=124, null = True, blank = True)
     is_email_verified = models.BooleanField(default=False)
+    verification_token = models.UUIDField(default=uuid.uuid4, editable=False)
+
     def __str__(self):
         return str(self.user)
     def save(self, *args, **kwargs):
@@ -30,10 +33,11 @@ class Profile(models.Model):
 
 def create_profile(sender, instance, created, **kwargs):
     if created:
-        user_profile = Profile(user=instance)
-        user_profile.save()
+        ser_profile, _ = Profile.objects.get_or_create(user=instance)
+        ser_profile.save()
         
 post_save.connect(create_profile, sender=User)
+
 
 from django.contrib.auth.models import Group, Permission
 STATUS_CHOICES = [

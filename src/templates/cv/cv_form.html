@@ -8,7 +8,7 @@
             <div class=" row align-items-center justify-content-center">
                 <div class="card bg-white col-lg-8 m-5 px-5 pb-3 " style="border-radius: 15px;">
                     <br>
-                    
+
                     <h3 class="text-center">CV Form</h3>
                     {% if form.errors %}
                     <div class="alert alert-danger alert-dismissible" role="alert">
@@ -19,10 +19,21 @@
                         </div>
                     </div>
                     {% endif %}
+                    {% if form.errors %}
+                    <div class="text-danger error-message">
+                        <p>Form has errors:</p>
+                        <ul>
+                            {% for field in form %}
+                            {% if field.errors %}
+                            <li>{{ field.label }}: {{ field.errors }}</li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
                     <form method="post" action="{% url 'form_pdf' %}" class="cv-form text-primary"
                         enctype="multipart/form-data">
                         {% csrf_token %}
-
                         {% for field in form.visible_fields %}
                         <div class="form-field mt-3">
                             {% if field.field.required %}

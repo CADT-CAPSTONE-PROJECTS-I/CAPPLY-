@@ -47,12 +47,15 @@ def change_password(request):
     return render(request, 'user/change_password.html', context)
 
 
-
+from django.template.loader import get_template
+import weasyprint
 # CREATE CV TO PDF
 def generate_cv_pdf(request):
+
     if request.method == 'POST':
         form = CVForm(request.POST, request.FILES)
         if form.is_valid():
+                        
             full_name = form.cleaned_data['full_name']
             email = form.cleaned_data['email']
             phone_number = form.cleaned_data['phone_number']
@@ -67,13 +70,15 @@ def generate_cv_pdf(request):
             employment_dates = form.cleaned_data['employment_dates']
             responsibilities = form.cleaned_data['responsibilities']
             achievements = form.cleaned_data['achievements']
+            
             skills = form.cleaned_data['skills']
             certifications = form.cleaned_data['certifications']
+            
             project_name = form.cleaned_data['project_name']
             purpose = form.cleaned_data['purpose']
             role = form.cleaned_data['role']
             technologies_used = form.cleaned_data['technologies_used']
-            outcomes = form.cleaned_data['outcomes']
+            
             awards = form.cleaned_data['awards']
             languages = form.cleaned_data['languages']
             interests = form.cleaned_data['interests']
@@ -85,7 +90,6 @@ def generate_cv_pdf(request):
             image_url = fss.url(file)
 
             image_url_with_scheme = f"{request.scheme}://{request.get_host()}{image_url}"
-
             context = {
                 'full_name': full_name,
                 'email': email,
@@ -107,20 +111,26 @@ def generate_cv_pdf(request):
                 'purpose': purpose,
                 'role': role,
                 'technologies_used': technologies_used,
-                'outcomes': outcomes,
                 'awards': awards,
                 'languages': languages,
                 'interests': interests,
                 'references': references,
                 'image_url': image_url_with_scheme
             }
+            template = get_template('cv/cv_template.html')
+            html = template.render(context)
+            pdf = weasyprint.HTML(string=html).write_pdf()
 
-            html_string = render_to_string('cv/cv_template.html', context)
-
+            # Create an HTTP response with the PDF
             response = HttpResponse(content_type='application/pdf')
             response['Content-Disposition'] = 'attachment; filename="form_submission.pdf"'
+            response.write(pdf)
+            # html_string = render_to_string('cv/cv_template.html', context)
 
-            pisa.CreatePDF(html_string, dest=response)
+            # response = HttpResponse(content_type='application/pdf')
+            # response['Content-Disposition'] = 'attachment; filename="form_submission.pdf"'
+
+            # pisa.CreatePDF(html_string, dest=response)
             return response
         else:
             form = CVForm()

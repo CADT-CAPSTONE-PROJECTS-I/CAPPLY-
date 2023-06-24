@@ -40,21 +40,15 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         return cleaned_data
     
     
-    
 
-class MyForm(forms.Form):
-    name = forms.CharField(label='Name', max_length=100)
-    email = forms.EmailField(label='Email')
-    message = forms.CharField(label='Message', widget=forms.Textarea)
-    image = forms.ImageField(label='image')
     
 class CVForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(CVForm, self).__init__(*args, **kwargs)
-
-        # Apply 'form-control' class to all fields
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
+            
+            
     # Personal Information
     full_name = forms.CharField(label='Full Name', max_length=100)
     email = forms.EmailField(label='Email')
@@ -68,7 +62,8 @@ class CVForm(forms.Form):
     institution_name = forms.CharField(label='Institution Name', max_length=100)
     degree_earned = forms.CharField(label='Degree Earned', max_length=100)
     field_of_study = forms.CharField(label='Field of Study', max_length=100)
-    dates_of_attendance = forms.CharField(label='Dates of Attendance', max_length=100)
+    dates_of_attendance = forms.DateField(label='Dates of Attendance',widget=forms.DateInput(attrs={'type': 'date'}))
+
 
     # Experience
     company_name = forms.CharField(label='Company Name', max_length=100)
@@ -88,7 +83,6 @@ class CVForm(forms.Form):
     purpose = forms.CharField(label='Purpose', widget=forms.Textarea, required=False)
     role = forms.CharField(label='Role', max_length=100)
     technologies_used = forms.CharField(label='Technologies Used', max_length=200, required=False)
-    outcomes = forms.CharField(label='Outcomes', widget=forms.Textarea, required=False)
 
     # Awards and Achievements
     awards = forms.CharField(label='Awards', widget=forms.Textarea, required=False)
