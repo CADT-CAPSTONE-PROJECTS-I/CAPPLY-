@@ -128,8 +128,8 @@ class UserDeleteView(LoginRequiredMixin, View):
         user = request.user
         if user.check_password(password):
             profile = get_object_or_404(Profile, user = user)
-            if profile.profile_image:
-                image_path = os.path.join(settings.MEDIA_ROOT, 'images/profile_pics',str(profile.profile_image))
+            if profile.profile_pic:
+                image_path = os.path.join(settings.MEDIA_ROOT, 'images/profile_pics',str(profile.profile_pic))
                 if os.path.exists(image_path):
                     os.remove(image_path)
             profile.delete()

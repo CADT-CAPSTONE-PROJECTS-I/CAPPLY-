@@ -251,7 +251,7 @@ def add_to_favorite(request, slug):
 
 # SHOW ALL FAVORITE
 def favorite_list(request):
-    scholarship_favorite = FavoriteScholarship.objects.all()
+    scholarship_favorite = FavoriteScholarship.objects.filter(user=request.user)
     return render(request,'user/favorite.html',{'scholarship_favorite':scholarship_favorite})
 
 # DELETE FAVORITE
