@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import  Country, Scholarship, Reply, Comment, Favorited
+from .models import  Country, Scholarship, Reply, Comment, Favorited, Level
 class CountryAdmin(admin.ModelAdmin):
     list_display = ('id','name')
     search_fields =['id','name'] 
@@ -50,6 +50,7 @@ class ReplyAdmin(admin.ModelAdmin):
 from .models import FavoriteScholarship
 admin.site.register(FavoriteScholarship)
 admin.site.register(Favorited)
+admin.site.register(Level)
 
 # end of favorite   
 admin.site.register(Country, CountryAdmin)

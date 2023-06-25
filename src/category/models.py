@@ -49,7 +49,13 @@ class Scholarship(models.Model):
             self.slug = slugify(random_slug())
         return super().save(*args, **kwargs)
 
-# COMMENT 
+# Level 
+class Level(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=120)
+    def __str__(self):
+        return self.name
+    
 class Comment(models.Model):
     scholarship = models.ForeignKey(Scholarship, on_delete=models.CASCADE, null = False, related_name ='comments')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null = False, on_delete=models.CASCADE)

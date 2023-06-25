@@ -1,13 +1,11 @@
 <div class="category-sidebar">
     <div class="widget category-list">
-        <h4 class="widget-header">Countries</h4>
+        <h4 class="widget-header">Level</h4>
         <ul class="category-list ">
 
-            {% for country_tag in country_lists %}
-            <li><a href=" /scholarship/tag/{{country_tag}}">{{ country_tag }}<span>{{x }}</span></a></li>
+            {% for level_tag in level_lists %}
+            <li><a href=" /scholarship/tag/level/{{level_tag}}">{{ level_tag }}<span>{{x }}</span></a></li>
             {% endfor %}
-            <li><a href=" ">Alaska <span>81</span></a></li>
-
 
         </ul>
     </div>

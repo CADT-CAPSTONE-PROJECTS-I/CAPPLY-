@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Response</title>
+    <style>
+        .message-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .message-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .message-text {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+    </style>
+
+</head>
+<body>
+    <div class="message-container">
+        <h1 class="message-title">{{message}}</h1>
+        <a href="{% url 'home' %}" class="message-text">Back home</a>
+    </div>
+</body>
+</html>

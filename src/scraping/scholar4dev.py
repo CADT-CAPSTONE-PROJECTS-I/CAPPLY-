@@ -34,6 +34,8 @@ for i in range (1, 3):
             level = info.find(string=lambda text: 'degree' in text.lower())
             if level:
                 level = level.text.strip()
+            else:
+                level = more_info
                 
             deadline = info.find(string=lambda text: '2023' in text.lower())
             if deadline:

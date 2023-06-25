@@ -4,6 +4,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-9 shadow pb-5 px-5 bg-white">
+        <div>{{message}}</div>
         <!-- SCHOLARSHIP DETAIL -->
         <div class="mt-5 mb-5 tag-detail">
           <span class="text-primary"> {{object.deadline}} <span class="mx-2">/</span> </span>
@@ -103,7 +104,7 @@
               {% csrf_token %}
               <div class="d-flex align-items-end align-self-end">
                 <textarea name="content" autocomplete="off" placeholder="Post a comment..." class="form-control "
-                  id="id_content" style="min-height: 30px; height: 53.6px;"></textarea>
+                  id="id_content" style="min-height: 32px; height: 53.6px;"></textarea>
                 <button type="submit" class="btn btn-primary mb-0">Post</button>
               </div>
             </form>
@@ -132,9 +133,11 @@
               </div>
               <!-- REPLY -->
               <div class="m-5 ">
-
-                {% for reply in comment.replies %}
+                {% if comment.replies %}
                 <p class="text-primary h4 mb-3">Reply</p>
+                {% endif %}
+                {% for reply in comment.replies %}
+
                 <div class="d-flex">
                   <div>
                     <img src="{{reply.comment.user.profile.profile_pic.url}}"
@@ -145,26 +148,8 @@
                       class="text-secondary ms-2 font-weight-200">{{ reply.created_on|timesince }} ago</small>
                     <p class="text-primary ms-3">{{ reply.content }}</p>
                     {% if request.user == reply.user %}
-                    <a href="" data-delete-url="{% url 'delete_reply' reply.comment.id %}" class="delete-link"><i
-                        class="fa fa-trash ms-3" aria-hidden="true"></i>&nbsp;Delete</a>
-
-                    <div class="modal" id="confirmModal" tabindex="-1">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title">Confirmation</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            <p class="text-primary">Are you sure you want to delete?</p>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <a href="{% url 'delete_reply' reply.comment.id %}" class="delete-link"><i class="fa fa-trash ms-3"
+                        aria-hidden="true"></i>&nbsp;Delete</a>
                     {% endif %}
                   </div>
                 </div>
@@ -209,23 +194,7 @@
         hiddenDiv.style.display = "none";
       }
     });
-    var deleteLinks = document.querySelectorAll(".delete-link");
-    var confirmModal = new bootstrap.Modal(document.getElementById("confirmModal"));
-    var confirmDeleteButton = document.getElementById("confirmDelete");
 
-    deleteLinks.forEach(function (link) {
-      link.addEventListener("click", function (e) {
-        e.preventDefault();
-        var deleteUrl = this.getAttribute("data-delete-url");
-        confirmDeleteButton.setAttribute("data-delete-url", deleteUrl);
-        confirmModal.show();
-      });
-    });
-
-    confirmDeleteButton.addEventListener("click", function () {
-      var deleteUrl = this.getAttribute("data-delete-url");
-      window.location.href = deleteUrl;
-    });
   });
 
 

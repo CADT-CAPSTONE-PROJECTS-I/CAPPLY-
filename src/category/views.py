@@ -11,7 +11,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, get_object_or_404
 from .models import Scholarship
-from .models import FavoriteScholarship, Favorited, Comment, Reply
+from .models import FavoriteScholarship, Favorited, Comment, Reply, Level
 from django.contrib.auth.decorators import login_required
 from .forms import CommentForm, ReplyForm
 from django.contrib import messages
@@ -81,18 +81,20 @@ def scrape_data(request):
     if add_to_model:
         return JsonResponse({'message': 'Scrapping complete'})
     else:
-        return JsonResponse(results, safe=False)
+        return JsonResponse({'message': 'Failed'})
 
 # LIST SCHOLARSHIP
 def list_scholarship(request):
     scholarships_lists = Scholarship.objects.all().order_by('?')
     country_lists = Country.objects.all()
+    level_lists = Level.objects.all()
+    
     # set up pagination
     p = Paginator(scholarships_lists.all(), 5)
     page = request.GET.get('page')
     scholarships = p.get_page(page)
     return render(request,'category/category.html',{'scholarships_lists': scholarships_lists,
-    'scholarships': scholarships, 'country_lists': country_lists})
+    'scholarships': scholarships, 'country_lists': country_lists,'level_lists':level_lists})
 
 # CREATE COMMENT
 @login_required(login_url='login')
@@ -210,7 +212,7 @@ def comment_reply_list(request):
     reply_list = Reply.objects.filter(user = request.user)
     context = {'reply_list':reply_list,
                'comment_list':comment_list}
-    return render(request,'user/favorite.html',)
+    return render(request,'user/favorite.html',context)
 
 from django.http import HttpResponseRedirect
 
@@ -219,9 +221,10 @@ def delete_comment(request, slug):
         scholarship = get_object_or_404(Scholarship, slug = slug)
         comment = get_object_or_404(Comment, scholarship = scholarship)
         comment.delete()
+        message ='Comment Deleted'
     except:
-        messages.info(request, 'Failed')
-    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+        message ='Failed'
+    return redirect('scholarship_detail', slug=comment.scholarship.slug)
 
 def delete_reply(request, comment_id):
     try:
@@ -229,16 +232,10 @@ def delete_reply(request, comment_id):
         reply = get_object_or_404(Reply, comment = comment)
         reply.delete()
     except:
-        messages.info(request, 'Failed')
-    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+        message='Failed'
+    return redirect('scholarship_detail', slug=comment.scholarship.slug)
 
 # FAVORITE view
-# def get_context_data(self, **kwargs):
-#     context = super().get_context_data(**kwargs)
-#     favorited = Favorited.objects.filter(scholarship=self.object, user=self.request.user).first()
-#     context['favorited'] = favorited
-#     return context
-
 # ADD TO FAVORITE
 @login_required(login_url='login')
 def add_to_favorite(request, slug):
@@ -272,13 +269,38 @@ def favorite_delete(request, slug):
 def search_tag(request, country):
     scholarships_lists = Scholarship.objects.filter(country=country)
     country_lists = Country.objects.all()
+    level_lists = Level.objects.all()
     p = Paginator(scholarships_lists, 5)
     page = request.GET.get('page')
     scholarships = p.get_page(page)
     context = {'scholarships':scholarships, 
                'country':country, 
                'country_lists':country_lists,
-               'scholarships_lists':scholarships_lists }
+               'scholarships_lists':scholarships_lists,
+               'level_lists':level_lists}
+    return render(request,'category/scholarship_tag_result.html', context)
+
+def search_tag_custom(request, type,category):
+    if type == 'country':
+        scholarships_lists = Scholarship.objects.filter(country__contains=category)
+        lists = Country.objects.all()
+    else:
+        scholarships_lists = Scholarship.objects.filter(level__contains= category)
+        lists = Level.objects.all()
+    
+    p = Paginator(scholarships_lists, 5)
+    page = request.GET.get('page')
+    scholarships = p.get_page(page)
+    if type == 'country':
+        context = {'scholarships':scholarships, 
+                'country':category, 
+                'country_lists':lists,
+                'scholarships_lists':scholarships_lists }
+    else:
+        context = {'scholarships':scholarships, 
+                'country':category, 
+                'level_lists':lists,
+                'scholarships_lists':scholarships_lists }
     return render(request,'category/scholarship_tag_result.html', context)
 
 

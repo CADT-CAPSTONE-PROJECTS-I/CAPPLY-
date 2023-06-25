@@ -49,6 +49,10 @@ def change_password(request):
 
 from django.template.loader import get_template
 import weasyprint
+from PIL import Image
+import os
+from django.conf import settings
+
 # CREATE CV TO PDF
 def generate_cv_pdf(request):
 
@@ -90,6 +94,19 @@ def generate_cv_pdf(request):
             image_url = fss.url(file)
 
             image_url_with_scheme = f"{request.scheme}://{request.get_host()}{image_url}"
+            
+            
+            # img = Image.open('media/'+image_file.name)
+            # left = 100
+            # top = 100
+            # right = 400
+            # bottom = 400
+            # cropped_image = img.crop((left, top, right, bottom))
+            # cropped_file_path = os.path.join(settings.MEDIA_ROOT, 'cropped_image.jpg')
+
+            # cropped_image.save(cropped_file_path)
+
+            
             context = {
                 'full_name': full_name,
                 'email': email,
@@ -117,11 +134,21 @@ def generate_cv_pdf(request):
                 'references': references,
                 'image_url': image_url_with_scheme
             }
+            # img = Image.open(image_url_with_scheme)
+            # left = 100
+            # top = 100
+            # right = 400
+            # bottom = 400
+            # cropped_image = img.crop((left, top, right, bottom))
+            # cropped_image.save(cropped_file_path)
+
+
             template = get_template('cv/cv_template.html')
             html = template.render(context)
-            pdf = weasyprint.HTML(string=html).write_pdf()
+            
+            pdf = weasyprint.HTML(string=html).write_pdf(stylesheets=[weasyprint.CSS(string='@page { margin: 0;page-break-after: always; margin-top:10mm;  }')])
 
-            # Create an HTTP response with the PDF
+            
             response = HttpResponse(content_type='application/pdf')
             response['Content-Disposition'] = 'attachment; filename="form_submission.pdf"'
             response.write(pdf)

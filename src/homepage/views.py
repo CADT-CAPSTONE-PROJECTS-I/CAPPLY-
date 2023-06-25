@@ -19,6 +19,7 @@ from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_str
+from category.models import Level
 # Create your views here.
 
 def homepage(request):
@@ -33,10 +34,10 @@ def register(request):
             user = form.save(commit=False)  
             user.is_active = False  
             user.save()  
-            # to get the domain of the current site  
+             
             current_site = get_current_site(request)  
             mail_subject = 'Activation link has been sent to your email id'  
-            message = render_to_string('acc_active_email.html', {  
+            message = render_to_string('user/email/acc_active_email.html', {  
                 'user': user,  
                 'domain': current_site.domain,  
                 'uid':urlsafe_base64_encode(force_bytes(user.pk)),  
@@ -47,8 +48,9 @@ def register(request):
                         mail_subject, message, to=[to_email]  
             )  
             email.send()  
-            return HttpResponse('Please confirm your email address to complete the registration') 
-            # return redirect('home')
+            # return HttpResponse('Please confirm your email address to complete the registration')
+            message = 'Please confirm your email address to complete the registration'
+            return render(request, 'user/response/response.html',{'message':message}) 
     else:                         
         form = CreateUserForm()
     return render(request, 'user/register.html', {'form': form})
@@ -63,9 +65,12 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):  
         user.is_active = True  
         user.save()  
-        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')  
+        message = 'Thank you for your email confirmation. Now you can login your account'
+        # return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+        return render(request, 'user/response/response.html',{'message':message})  
     else:  
-        return HttpResponse('Activation link is invalid!') 
+        message = 'Activation link is invalid!'
+        return render(request, 'user/response/response.html',{'message':message})   
 
 
 
@@ -109,7 +114,8 @@ def profile(request):
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-
+import os
+from django.conf import settings
 class UserDeleteView(LoginRequiredMixin, View):
     template_name = 'user/delete_confirmation.html'
 
@@ -117,17 +123,22 @@ class UserDeleteView(LoginRequiredMixin, View):
         return render(request, self.template_name)
 
     def post(self, request, *args, **kwargs):
+        message = ''
         password = request.POST.get('confirm_password', '')
         user = request.user
         if user.check_password(password):
             profile = get_object_or_404(Profile, user = user)
+            if profile.profile_image:
+                image_path = os.path.join(settings.MEDIA_ROOT, 'images/profile_pics',str(profile.profile_image))
+                if os.path.exists(image_path):
+                    os.remove(image_path)
             profile.delete()
             user.delete()
-            messages.success(request, 'Your account has been deleted.')
-            return redirect('login') 
+            message = 'Your account has been deleted.'
+            return render(request, 'user/login.html', {'message':message})
         else:
-            messages.error(request, 'Invalid password.')
-            return redirect('user_delete_confirm')
+            message = 'Invalid password.'
+            return render(request, 'user/delete_confirmation.html', {'message':message})
 
 # For Category
 def show_category(request):
@@ -147,9 +158,11 @@ def search(request):
             Q(country__icontains=searched)
         ).all()
         country_lists = Country.objects.all()
+        level_lists = Level.objects.all()
         context = {'searched':searched, 
                    'scholarships_lists':scholarships_lists,
-                   'country_lists': country_lists}
+                   'country_lists': country_lists,
+                   'level_lists':level_lists}
         return render(request,'homepage/search.html', context)
                   
     else:
@@ -165,4 +178,6 @@ def contact(request):
 def contact_us(request):
     return render(request,"contact/contact_us.html")
 
+def custom_404_view(request):
+    return render(request, '404.html')
 

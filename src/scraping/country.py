@@ -18,7 +18,11 @@ conn = sqlite3.connect('src/db.sqlite3')
 cursor = conn.cursor()
 
 # Execute the SQL query
-cursor.execute("INSERT INTO category_country (name) SELECT country FROM category_scholarship GROUP BY country;")
+# cursor.execute("INSERT INTO category_country (name)  SELECT country FROM category_scholarship GROUP BY country ;")
+
+cursor.execute("INSERT INTO category_level (name)  SELECT level FROM category_scholarship GROUP BY level ;")
+
+
 # cursor.execute("ALTER TABLE category_scholarship ADD COLUMN country_id int;")
 
 # Commit the changes to the database

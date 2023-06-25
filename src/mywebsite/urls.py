@@ -21,7 +21,6 @@ from django.contrib.admin import AdminSite
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views #new
-
 urlpatterns = [
     path('admin/login/', auth_views.LoginView.as_view(template_name='user/login.html'), name='capply_login'), #new
     path('admin/', admin.site.urls, name = "capply_admin"),
@@ -29,6 +28,7 @@ urlpatterns = [
     path('', include('homepage.urls')),
     path('', include('category.urls')),
     path('', include('user.urls')),
+    
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
