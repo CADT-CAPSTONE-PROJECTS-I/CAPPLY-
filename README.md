@@ -7,9 +7,9 @@ Create `.gitignore` inside src folder
 
 —----In the .env file put code below
 
-># Secret Key
+> #Secret Key
 >SECRET_KEY = 'django-insecure-sztl#wi8mxd++-__gc!trsw@44cennz*4463f8-!!p_*1uv*g9'
-># Email Settings
+> #Email Settings
 
 >`EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend`
 >`EMAIL_HOST=sandbox.smtp.mailtrap.io`
@@ -19,11 +19,8 @@ Create `.gitignore` inside src folder
 >`EMAIL_USE_TLS=True`
 
 
-####Change email info according to your Mailtrap account
+###Change email info according to your Mailtrap account
 "NOTE": Since in settings.py, the info has already been updated. You can just run the code to test if the email verification is working or not 
 
-<picture>
-  <img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="[https://github.com/CADT-CAPSTONE-PROJECTS-I/CAPPLY-/assets/112000019/f984ad3a-c553-46c0-bbe5-ef8058601d7f]" width="100">
-</picture>
 
 ** no need to type in settings.py
