@@ -3,7 +3,7 @@
 Pip Install -r requirements.txt` (install package first)
 Create `.env`  file inside src folder
 Create `.gitignore` inside src folder
-![image](https://github.com/CADT-CAPSTONE-PROJECTS-I/CAPPLY-/assets/112000019/b34b750a-b3bf-40a8-bc4f-6e11d6853ad9)
+![image](https://github.com/CADT-CAPSTONE-PROJECTS-I/CAPPLY-/assets/112000019/b34b750a-b3bf-40a8-bc4f-6e11d6853ad9 | width=100)
 
 
 —----In the .env file put code below
@@ -21,6 +21,6 @@ EMAIL_USE_TLS=True`
 —-------Change email info according to your Mailtrap account
 
 NOTE: Since in settings.py, the info has already been updated. You can just run the code to test if the email verification is working or not 
-![image](https://github.com/CADT-CAPSTONE-PROJECTS-I/CAPPLY-/assets/112000019/f984ad3a-c553-46c0-bbe5-ef8058601d7f)
+![image](https://github.com/CADT-CAPSTONE-PROJECTS-I/CAPPLY-/assets/112000019/f984ad3a-c553-46c0-bbe5-ef8058601d7f | width = 100)
 
 ** no need to type in settings.py
