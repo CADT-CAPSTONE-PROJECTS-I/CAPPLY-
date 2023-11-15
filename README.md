@@ -21,7 +21,7 @@ EMAIL_USE_TLS=True
 —-------Change email info according to your Mailtrap account
 
 NOTE: Since in settings.py, the info has already been updated. You can just run the code to test if the email verification is working or not 
-![image](https://github.com/CADT-CAPSTONE-PROJECTS-I/CAPPLY-/assets/112000019/f984ad3a-c553-46c0-bbe5-ef8058601d7f)
+
 <picture>
   <img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="[https://github.com/CADT-CAPSTONE-PROJECTS-I/CAPPLY-/assets/112000019/f984ad3a-c553-46c0-bbe5-ef8058601d7f]" width="100">
 </picture>
