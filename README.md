@@ -8,11 +8,11 @@ Create `.gitignore` inside src folder
 —----In the .env file put code below
 
 > #Secret Key
->SECRET_KEY = 'django-insecure-sztl#wi8mxd++-__gc!trsw@44cennz*4463f8-!!p_*1uv*g9'
+>SECRET_KEY = 'django-insecure-sztl#wi8mxd++-__gc!trsw@44cennz*4463f8-!!p_*1uv*g9' -
 > #Email Settings
-
->`EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend`
->`EMAIL_HOST=sandbox.smtp.mailtrap.io`
+-
+>`EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend` -
+>`EMAIL_HOST=sandbox.smtp.mailtrap.io` -
 >`EMAIL_PORT=587`
 >`EMAIL_HOST_USER=a7d4deb84d835f`
 >`EMAIL_HOST_PASSWORD=7be2218ced679e`
